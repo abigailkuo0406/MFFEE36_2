@@ -1,5 +1,5 @@
 <!-- 組長公告：公用版型，勿動 -->
-<nav id="Main_nav" class="navbar flex-column bg-cus2 offcanvas offcanvas-start show" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel" aria-modal="true" role="dialog">
+<nav class="navbar flex-column bg-cus2 offcanvas offcanvas-start show" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel" aria-modal="true" role="dialog">
     <div class="navbar_content w-100">
         <div id="Logo" class="text-cus1 text-center pm-3">
             <div class="w-100 d-flex justify-content-end pe-3 pt-2">
