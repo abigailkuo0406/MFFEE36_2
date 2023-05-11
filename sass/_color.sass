@@ -1,0 +1,4 @@
+$cusColor: #333EBC, #f4f6fa
+@for $i from 1 through 2
+    @include bgc(bg-cus#{$i}, nth($cusColor, $i))
+    @include color(text-cus#{$i}, nth($cusColor, $i))
