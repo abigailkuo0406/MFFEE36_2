@@ -14,7 +14,6 @@
         <?php include './parts/niu_parts/niu_list.php' ?><!-- 路徑可自行修改-->
     </div>
 
-    <?php include './parts/scripts.php' ?>
     <script>
         //可自行修改JS
     </script>
