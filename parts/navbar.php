@@ -21,7 +21,11 @@
                     <span class="material-symbols-outlined nav-icon">account_circle</span>
                     會員中心<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="false"></a>
                 </a>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuClickable">
+
+                <!-- <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown
+            </a> -->
+                <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="#">興趣資料庫</a></li>
                     <li><a class="dropdown-item" href="#">性格資料庫</a></li>
                     <li><a class="dropdown-item" href="#">社群資料庫</a></li>
