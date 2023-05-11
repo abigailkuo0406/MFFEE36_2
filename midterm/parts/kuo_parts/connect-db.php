@@ -1,7 +1,8 @@
-<!-- 組長公告：公用連遠端資料庫，勿動 -->
+<!-- 組長公告：自己的資料夾要自己這支連線資料庫的php，記得資料庫名稱用自己的 -->
+
 <?php
 $db_host = 'localhost';
-$db_name = 'proj57';
+$db_name = 'kuo';
 $db_user = 'root';
 $db_pass = 'root';
 $dsn = "mysql:host={$db_host};dbname={$db_name};charset=utf8"; // data source name
