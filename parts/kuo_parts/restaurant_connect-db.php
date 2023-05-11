@@ -1,5 +1,3 @@
-<!-- 組長公告：自己的資料夾要自己這支連線資料庫的php，記得資料庫名稱用自己的 -->
-
 <?php
 
 // 設定連線參數
@@ -19,9 +17,9 @@ $db_password = 'root'; //進資料庫的密碼
 // 參數4：PDO連線的屬性設定(預先把設定結果指定給一個變數$pdo_option)
 
 
-$dsn = "mysql:host{$db_severname};dbname{$db_name};charset=utf8";
+$dsn = "mysql:host={$db_severname};dbname={$db_name};charset=utf8";
 
-$pdo_option = [
+$pdo_options = [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
     //讓資料庫顯示錯誤訊息
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
@@ -29,7 +27,7 @@ $pdo_option = [
 ];
 
 try {
-    $pdo = new PDO($dsn, $db_username, $db_password, $pdo_option);
+    $pdo = new PDO($dsn, $db_username, $db_password, $pdo_options);
     // 把PDO物件帶入 try-catch 語句，以捕捉可能發生的 PDOException 異常
 } catch (PDOException $ex) {
     echo $ex->getMessage();
