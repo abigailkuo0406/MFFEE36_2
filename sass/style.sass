@@ -1,0 +1,78 @@
+@import _mixin
+@import _custom
+@import _color
+
+:root
+    --cus1: #333EBC
+    --cus2: #f4f6fa
+    --cus3: #7ac3f1
+
+/* General */
+html
+  margin: 0
+  padding: 0
+
+li a, li span
+    text-decoration: none
+
+nav
+    overflow: scroll
+
+
+#Logo
+    .btn-close
+        height: 10px
+        width: 10px
+
+#offcanvasScrolling .nav-item
+    display: flex
+    flex-direction: column
+    align-items: center
+    width: 140px
+    margin: 5px 0
+    border-radius: 15px
+    background-color: transparent
+    .link_btn
+        padding: 20px 0 0px 0
+        &:not(.dropdown .link_btn)
+            padding: 20px 0 25px 0
+    &:hover
+        background-color: var(--cus1)
+        span, a, i
+            color: var(--cus2)
+#offcanvasScrolling .nav-item span, #offcanvasScrolling .nav-item a, #offcanvasScrolling .nav-item i
+    display: block
+    text-align: center
+    color: var(--cus1)
+#offcanvasScrolling .nav-link
+    margin-top: 2px
+    &:focus
+        color: var(--cus1)
+#offcanvasScrolling  .nav-icon
+    font-size: 28px
+
+#offcanvasScrolling .navbar_content
+  width: 100%
+
+#offcanvasScrolling .dropdown-menu
+  background-color: rgba(0, 0, 0, 0)
+  border: none
+  padding: 0
+  width: 100px
+  .dropdown-item
+    &:hover
+        background-color: transparent
+        color: var(--cus3)
+    &:focus
+        background-color: transparent
+        color: var(--cus3)
+#OffcanvasNav
+    height: 100vh
+    color: var(--cus1)
+    background-color: var(--cus2)
+    border-radius: 0
+    &:hover
+        color: var(--cus2)
+        background-color: var(--cus1)
+.main_screen
+    width: 100%
