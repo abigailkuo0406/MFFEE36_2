@@ -1,5 +1,5 @@
 <?php include './parts/head.php' ?>
-<title>Test for Layout</title><!-- 網頁標題可自行修改-->
+<title>餐廳管理</title><!-- 網頁標題可自行修改-->
 <style>
     /* CSS可以自行修改 */
 </style>
@@ -11,7 +11,7 @@
     <div class="main_screen d-flex justify-content-between">
         <button id="OffcanvasNav" class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i class="fa-solid fa-caret-right"></i></button>
 
-        <?php include './parts/kuo_parts/restaurant_list.php' ?> <!-- 路徑可自行修改-->
+        <?php include './parts/kuo_parts/restaurant_add.php' ?> <!-- 路徑可自行修改-->
     </div>
 
     <script>

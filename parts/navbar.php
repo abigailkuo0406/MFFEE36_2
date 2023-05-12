@@ -49,12 +49,32 @@
             </li>
 
             <!-- 餐廳 & 票券 -->
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a href="ticket.php" class="link_btn">
                     <span class="material-symbols-outlined nav-icon">local_activity</span>
-                    <span class="nav-link">餐廳 & 票券</span>
+                    <span class="nav-link">餐廳</span>
                 </a>
+            </li> -->
+            <li class="nav-item dropdown">
+                <a class="link_btn" href="kuo_restaurant_list.php" role="button">
+                    <span class="material-symbols-outlined nav-icon">local_activity</span>
+                    餐廳與訂位管理<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="false"></a>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="kuo_restaurant_list.php">餐廳管理
+                            <!-- <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">
+                                        新增餐廳
+                                    </a></li>
+                            </ul> -->
+                        </a>
+                    </li>
+                    <li><a class="dropdown-item" href="kuo_restaurant_add.php">新增餐廳</a></li>
+                    <!-- <li><a class="dropdown-item" href="#">訂位管理</a></li> -->
+
+                </ul>
             </li>
+
 
             <!-- 官方行程 -->
             <li class="nav-item">
