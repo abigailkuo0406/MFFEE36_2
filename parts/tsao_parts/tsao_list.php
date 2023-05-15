@@ -1,7 +1,7 @@
 <?php
 $pageName = 'list';
 $title = '列表';
-include './parts/connect-db.php';
+include './connect-db.php';
 
 
 $perPage = 20; #每頁最多幾筆
@@ -12,20 +12,20 @@ if($page < 1) {
     exit; // 結束所有code，因為已經要轉跳了，瀏覽器執行下面所有的程式碼是沒有意義的
 }
 
-$t_sql = "SELECT COUNT(1) FROM address_book"; // COUNT(1) 得到一筆資料
-$totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0]; # 總筆數 #fetch(PDO::FETCH_NUM)[0] 第一欄
+$t_sql = "SELECT * FROM `itinerary database`"; // COUNT(1) 得到一筆資料
+$totalRows = $pdo->query($t_sql)->fetch(); # 總筆數 #fetch(PDO::FETCH_NUM)[0] 第一欄
 $totalPages = ceil($totalRows / $perPage); # 總頁數
+print_f($totalRows);
+// if($totalRows){ // 如果有資料沒空白
+//   //$totalPages = ceil($totalRows / $perPage); # 
+//   if ($page > $totalPages) { //如果頁碼大於總頁碼，則跳到最大頁碼
+//     header("Location: ?page=$totalPages");
+//     exit;
+//   }
 
-if($totalRows){ // 如果有資料沒空白
-  //$totalPages = ceil($totalRows / $perPage); # 
-  if ($page > $totalPages) { //如果頁碼大於總頁碼，則跳到最大頁碼
-    header("Location: ?page=$totalPages");
-    exit;
-  }
-
-  $sql = sprintf("SELECT * FROM address_book ORDER BY sid DESC LIMIT %s, %s", ($page-1)*$perPage, $perPage );
-  $rows = $pdo->query($sql)->fetchAll();
-}
+//   $sql = sprintf("SELECT * FROM address_book ORDER BY sid DESC LIMIT %s, %s", ($page-1)*$perPage, $perPage );
+//   $rows = $pdo->query($sql)->fetchAll();
+// }
 
 $row = []; # 如果資料庫空白沒有資料，$row會沒有資料之後的PHP無法取用，故設一個空資料給$row
 
@@ -78,16 +78,23 @@ $row = []; # 如果資料庫空白沒有資料，$row會沒有資料之後的PHP
     <tr>
     <th scope="col"><i class="fa-solid fa-trash-can"></i></th>
       <th scope="col">#</th>
-      <th scope="col">姓名</th>
-      <th scope="col">手機</th>
-      <th scope="col">email</th>
-      <th scope="col">生日</th>
-      <th scope="col">地址</th>
+      <th scope="col">行程名稱</th>
+      <th scope="col">路線</th>
+      <th scope="col">景點介紹</th>
+      <th scope="col">旅遊地點</th>
+      <th scope="col">價格</th>
+      <th scope="col">行程日期</th>
+      <th scope="col">行程照片</th>
+      <th scope="col">行程分類ID</th>
+      <th scope="col">行程評價</th>
+      <th scope="col">分類編號</th>
+      <th scope="col">分類名稱</th>
+      <th scope="col">關鍵字</th>
       <th scope="col"><i class="fa-solid fa-pen-to-square"></i></th>
     </tr>
   </thead>
   <tbody>
-  <?php foreach($rows as $r): ?>
+  <?php foreach($totalRows as $r): ?>
                 <tr>
                     <td>
                       <!--點選快速連到delete.php頁面執行刪除後快速返回此list.php頁面-->
@@ -96,13 +103,18 @@ $row = []; # 如果資料庫空白沒有資料，$row會沒有資料之後的PHP
                       </a>
                     </td>
                     <td><?= $r['sid'] ?></td>
-                    <td><?= $r['name'] ?></td>
-                    <td><?= $r['mobile'] ?></td>
-                    <td><?= $r['email'] ?></td>
-                    <td><?= $r['birthday'] ?></td>
-                    <td><?= htmlentities($r['address']) ?></td>
-                    <td>
-                    <a href="edit.php?sid=<?= $r['sid'] ?>">
+                    <td><?= $r['itinerary name'] ?></td>
+                    <td><?= $r['route'] ?></td>
+                    <td><?= $r['Attractions'] ?></td>
+                    <td><?= $r['Tourist destination'] ?></td>
+                    <td><?= $r['price'] ?></td>
+                    <td><?= $r['date'] ?></td>
+                    <td><?= $r['trip photos'] ?></td>
+                    <td><?= $r['Trip Category ID'] ?></td>
+                    <td><?= $r['trip evaluation'] ?></td>
+                    <td><?= $r['classification number'] ?></td>
+                    <td><?= htmlentities($r['route']) ?></td>
+                    <td><a href="edit.php?sid=<?= $r['sid'] ?>">
                         <i class="fa-solid fa-pen-to-square"></i>
                       </a>
                     </td>
