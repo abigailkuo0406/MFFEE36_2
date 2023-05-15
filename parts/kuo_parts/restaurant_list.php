@@ -118,7 +118,7 @@ if ($totalRows) {
 </div>
 <script>
     // 滑鼠移到當前頁的頁碼無法有超連結效果
-    document.querySelector('li.page-item.active a').removeAttribute('href');
+    document.querySelector('li.page-item.active a').removeAttribute('href'); //有問題
 
 
     function deleteData(sid) {
@@ -126,5 +126,5 @@ if ($totalRows) {
             location.href = 'restaurant_delete.php?sid=' + sid;
         }
 
-    }
+    } //有問題
 </script>
