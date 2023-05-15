@@ -77,7 +77,7 @@ if ($totalRows) {
                         <td><?= $r['rest_class_id'] ?></td>
                         <td><?= $r['created_time'] ?></td>
                         <td>
-                            <a href="../../kuo_restaurant_add.php">
+                            <a href="kuo_restaurant_add.php?id=<?= $r['rest_id'] ?>">
                                 <i class="fa-solid fa-pen"></i>
                             </a>
                         </td>
