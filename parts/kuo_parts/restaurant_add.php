@@ -2,6 +2,13 @@
 
 require './parts/kuo_parts/restaurant_connect-db.php';
 
+// 取地區資料
+$sql_area = "SELECT * FROM area_list WHERE 1";
+$areaArray = $pdo->query($sql_area)->fetchAll();
+
+// 取料理類型資料
+$sql_class = "SELECT * FROM restaurant_class WHERE 1";
+$classArray = $pdo->query($sql_class)->fetchAll();
 ?>
 
 
@@ -11,17 +18,22 @@ require './parts/kuo_parts/restaurant_connect-db.php';
         <div class="col-6">
             <div class="card" style="width: 40rem;">
                 <div class="card-body">
-                    <h5 class="card-title">新增餐廳資料</h5>
+                    <h5 class="card-title fs-3">新增餐廳資料</h5>
                     <form name="restaurant_addform" onsubmit="restForm(event)">
                         <div class="mb-3">
                             <label for="name" class="form-label">餐廳名稱</label>
                             <input type="text" class="form-control" id="name" name="name" value="<?= isset($_POST['name']) ? htmlentities($_POST['name']) : '' ?>">
                         </div>
+
                         <div class="mb-3">
-                            <label for="area" class="form-label">所在縣市</label>
-                            <select name="area" id="area">
-                                <option value=""></option>
+                            <label for="area" class="form-label" class="form-control">所在縣市</label>
+                            <select name="area" id="area" class="form-select" aria-label="Default select example">
+                                <option selected>--請選擇--</option>
+                                <?php foreach ($areaArray as $i) : ?>
+                                    <option value="<?= $i['area_id'] ?>"><?= $i['area_name'] ?></option>
+                                <?php endforeach ?>
                             </select>
+
                         </div>
 
                         <div class="mb-3">
@@ -30,32 +42,29 @@ require './parts/kuo_parts/restaurant_connect-db.php';
                         </div>
 
                         <div class="mb-3">
-                            <label for="">經度</label>
-                            <input type="text">
+                            <label for="lon" class="form-label">經度</label>
+                            <input type="text" class="form-control" id="lon" name="lon">
                         </div>
 
                         <div class="mb-3">
-                            <label for="">緯度</label>
-                            <input type="text">
+                            <label for="lat" class="form-label">緯度</label>
+                            <input type="text" class="form-control" id="lat" name="lat">
                         </div>
 
                         <div class="mb-3">
-                            <label for="">介紹文字</label>
-                            <textarea name="" id="" cols="30" rows="10"></textarea>
+                            <label for="intro" class="form-label">介紹文字</label>
+                            <textarea name="intro" id="intro" class="form-control" aria-label="With textarea"></textarea>
                         </div>
 
                         <div class="mb-3">
-                            <label>餐廳類型</ㄠ>
-                                <label for="option1">
-                                    <input type="radio" id="option1" name="options" value="1" checked> Option 1
-                                </label>
-                                <label for="option2">
-                                    <input type="radio" id="option2" name="options" value="2"> Option 2
-                                </label>
-                                <label for="option3">
-                                    <input type="radio" id="option3" name="options" value="3"> Option 3
-                                </label>
+                            <label for="class" class="form-label">料理類型</label>
+                            <select name="class" id="class" class="form-select" aria-label="Default select example">
+                                <option selected>--請選擇--</option>
 
+                                <?php foreach ($classArray as $c) : ?>
+                                    <option value="<?= $c['rest_class_id'] ?>"><?= $c['rest_class'] ?></option>
+                                <?php endforeach ?>
+                            </select>
                         </div>
 
                         <div class="mb-3">
@@ -76,43 +85,48 @@ require './parts/kuo_parts/restaurant_connect-db.php';
 
 </div>
 <script>
+    const namefield = document.querySelector('#name');
+
+    const infoBar = document.querySelector('#infoBar');
+    // const fields = document.querySelectorAll('form');
+
     function restForm(event) {
         event.preventDefault();
-        for (let f of fields) {
+        // for (let f of fields) {
 
-            f.style.border = '1px solid #ccc';
-            f.nextElementSibling.innerHTML = ''
-        }
+        //     f.style.border = '1px solid #ccc';
+        //     f.nextElementSibling.innerHTML = ''
+        // }
 
-        namefield.style.border = '1px solid #CCC';
-        namefield.nextElementSibling.innerHTML = ''
+        // namefield.style.border = '1px solid #CCC';
+        // namefield.nextElementSibling.innerHTML = ''
 
         let ispass = true; // 預設值是通過的
 
         // TODO: 檢查欄位資料
-        for (let f of fields) {
-            if (!f.value) {
-                ispass = false;
-                f.style.border = '1px solid red';
-                f.nextElementSibling.innerHTML = '請輸入資料'
-            }
+        // for (let f of fields) {
+        //     if (!f.value) {
+        //         ispass = false;
+        //         f.style.border = '1px solid red';
+        //         f.nextElementSibling.innerHTML = '請輸入資料'
+        //     }
 
-        }
+        // }
 
 
 
-        if (namefield.value.length < 2) {
-            ispass = false;
-            namefield.style.border = '1px solid red';
-            namefield.nextElementSibling.innerHTML = '請輸入至少兩個字'
-        }
+        // if (namefield.value.length < 2) {
+        //     ispass = false;
+        //     namefield.style.border = '1px solid red';
+        //     namefield.nextElementSibling.innerHTML = '請輸入至少兩個字'
+        // }
 
         if (ispass) {
             const fd = new FormData(document.form1);
             /*測試code
             // const usp = new URLSearchParams(fd); //轉換為 urlencoded 格式
             // console.log(usp.toString())*/
-            fetch('add-api.php', {
+            fetch('kuo_restaurant_add_api.php', {
                     method: 'POST',
                     body: fd,
                 })
@@ -137,16 +151,16 @@ require './parts/kuo_parts/restaurant_connect-db.php';
                     }, 2000);
 
                 })
-                .catch(ex => {
-                    console.log(ex);
-                    infoBar.classList.remove('alert-success')
-                    infoBar.classList.add('alert-danger')
-                    infoBar.innerHTML = '新增發生錯誤'
-                    infoBar.style.display = 'block';
-                    setTimeout(() => {
-                        infoBar.style.display = 'none';
-                    }, 2000);
-                })
+            // .catch(ex => {
+            //     console.log(ex);
+            //     infoBar.classList.remove('alert-success')
+            //     infoBar.classList.add('alert-danger')
+            //     infoBar.innerHTML = '新增發生錯誤'
+            //     infoBar.style.display = 'block';
+            //     setTimeout(() => {
+            //         infoBar.style.display = 'none';
+            //     }, 2000);
+            // })
         } else {
             // 沒通過檢查
         }

@@ -12,11 +12,13 @@ if (!empty($_POST['rest_name'])) {
     $ispass = true;
 
     $sql = "INSERT INTO `restaurant_list` (
-        `rest_name`, `rest_area_id`, `rest_adress`, `rest_lon`, `rest_lat`, `rest_intro`, `rest_class_id`, `created_time`
+        `rest_name`, `rest_area_id`, `rest_adress`, 
+        `rest_lon`, `rest_lat`, `rest_intro`, 
+        `rest_class_id`, `created_time`
         ) VALUES (
-            ?, ?, ?, 
-            ?, ?, ?,
-            ?, NOW() 
+            ?,?,?, 
+            ?,?,?,
+            ?,NOW() 
             )";
     $stmt = $pdo->prepare($sql);
     if ($ispass) {
@@ -33,8 +35,8 @@ if (!empty($_POST['rest_name'])) {
     }
     $output['success'] = !!$stmt->rowCount();
 }
-header('Content-Type:application/json');
-echo json_encode(
-    $output,
-    JSON_UNESCAPED_UNICODE
-);
+// header('Content-Type:application/json');
+// echo json_encode(
+//     $output,
+//     JSON_UNESCAPED_UNICODE
+// );

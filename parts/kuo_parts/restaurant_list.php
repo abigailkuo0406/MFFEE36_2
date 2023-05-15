@@ -123,7 +123,7 @@ if ($totalRows) {
 
     function deleteData(sid) {
         if (confirm(`確認刪除編號${sid}的資料`)) {
-            location.href = 'restaurant_delete.php?sid=' + sid;
+            location.href = 'kuo_restaurant_delete_api.php?sid=' + sid;
         }
 
     } //有問題

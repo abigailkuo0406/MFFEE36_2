@@ -1,6 +1,6 @@
 <?php
 
-require "./parts/kuo_parts/restaurant_connect-db.php";
+require './parts/kuo_parts/restaurant_connect-db.php';
 
 $sid = isset($_GET['sid']) ? intval($_GET['sid']) : 0;
 
