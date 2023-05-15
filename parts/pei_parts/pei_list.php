@@ -1,7 +1,7 @@
 <?php
 $pageName = 'list';
 $title = '列表';
-require './parts/pei_parts/connect-db.php';
+
 
 
 $perPage = 20; #每頁最多幾筆
@@ -23,7 +23,7 @@ if ($totalRows) { // 如果有資料沒空白
     exit;
   }
 
-  $sql = sprintf("SELECT * FROM address_book ORDER BY sid DESC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
+  $sql = sprintf("SELECT * FROM attractions ORDER BY sid DESC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
   $rows = $pdo->query($sql)->fetchAll();
 }
 

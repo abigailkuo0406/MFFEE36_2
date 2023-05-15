@@ -41,11 +41,21 @@
 
 
             <!-- 自訂行程 -->
-            <li class="nav-item">
+            <!-- <li class="nav-item" 待確認是否須保留>   
                 <a href="custom_itinerary.php" class="link_btn">
                     <span class="material-symbols-outlined nav-icon">map</span>
                     <span class="nav-link">自訂行程</span>
                 </a>
+            </li> -->
+            <li class="nav-item dropdown">
+                <a class="link_btn" href="custom_itinerary.php" role="button">
+                    <span class="material-symbols-outlined nav-icon">map</span>
+                    自訂行程<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="false"></a>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="./parts/pei_parts/pei_add.php">景點資料庫</a></li>
+                    <li><a class="dropdown-item" href="#">自訂行程資料庫</a></li>
+                </ul>
             </li>
 
             <!-- 餐廳 & 票券 -->

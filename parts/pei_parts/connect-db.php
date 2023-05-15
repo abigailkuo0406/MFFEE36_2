@@ -5,6 +5,19 @@ $db_name = 'FriendTrip';
 $db_user = 'root';
 $db_pass = 'root';
 
+
+$conn = new mysqli(
+    $db_host,
+    $db_user,
+    $db_pass,
+    $db_name,
+);
+
+if ($conn->connect_error) {
+    die("連接失敗: " . $conn->connect_error);
+}
+
+
 $dsn = "mysql:host={$db_host};dbname={$db_name};charset=utf8mb4";
 
 $pdo_options = [
@@ -18,6 +31,6 @@ try {
     echo $ex->getMessage();
 }
 
-if (!isset($_SESSION)) {
-    session_start();
-}
+// if (!isset($_SESSION)) {
+//     session_start();
+// }

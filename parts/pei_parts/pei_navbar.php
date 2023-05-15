@@ -3,12 +3,12 @@
 # 有設定 $pageName 的頁面會取得 $pageName 後才會 include './parts/navbar.php'
 # 如果在其他頁面(index_.php等)進入，要給他們$pageName不然會有錯誤
 
-if(! isset($pageName)){
+if (!isset($pageName)) {
     $pageName = '';
 }
 ?>
 <style>
-    nav.navbar .nav-link.active{
+    nav.navbar .nav-link.active {
         background-color: blue;
         border-radius: 10px;
         color: white;
@@ -25,10 +25,10 @@ if(! isset($pageName)){
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link <?= $pageName=='list' ? 'active' : '' ?>" href="list.php">列表</a>
+                        <a class="nav-link <?= $pageName == 'list' ? 'active' : '' ?>" href="./list.php">列表</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?= $pageName=='add' ? 'active' : '' ?>" href="/parts/pei_parts/pei_add.php">新增</a>
+                        <a class="nav-link <?= $pageName == 'add' ? 'active' : '' ?>" href="./pei_add1.php">新增</a>
                     </li>
 
 
