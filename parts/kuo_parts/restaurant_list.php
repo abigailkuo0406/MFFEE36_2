@@ -76,28 +76,55 @@ if ($totalRows) {
                         <td><?= $r['rest_intro'] ?></td>
                         <td><?= $r['rest_class_id'] ?></td>
                         <td><?= $r['created_time'] ?></td>
-                        <td><a href="../../kuo_restaurant_add.php"><i class="fa-solid fa-pen"></i></a></td>
-                        <td><i class="fa-solid fa-trash"></i></td>
+                        <td>
+                            <a href="../../kuo_restaurant_add.php">
+                                <i class="fa-solid fa-pen"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="javascript: deleteData(<?= $r['sid'] ?>)">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
         <nav aria-label="Page navigation example">
             <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="?page=1">最前頁</a></li>
-                <li class="page-item"><a class="page-link" href="?page=<?= $page - 1 ?>">上一頁</a></li>
+                <!-- 最前頁 -->
+                <li class="page-item <?= 1 == $page ? 'disable' : '' ?>"><a class="page-link" href="?page=1">最前頁</a></li>
+                <!-- 回上頁 -->
+                <li class="page-item <?= 1 == $page ? 'disable' : '' ?>">
+                    <a class="page-link" href="?page=<?= $page - 1 ?>">上一頁</a>
+                </li>
 
                 <?php for ($i = $page - 5; $i <= $page + 5; $i++) : ?>
                     <?php if ($i >= 1 and $i <= $totalPage) : ?>
+                        <!-- 當前頁 -->
                         <li class="page-item"><a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a></li>
                     <?php endif ?>
-
                 <?php endfor ?>
 
-                <li class="page-item"><a class="page-link" href="?page=<?= $page + 1 ?>">下一頁</a></li>
-                <li class="page-item"><a class="page-link" href="?page=<?= $totalPage ?>">最後頁</a></li>
+                <!-- 下一頁 -->
+                <li class="page-item <?= $totalPage == $page ? 'disable' : '' ?>"><a class="page-link" href="?page=<?= $page + 1 ?>">下一頁</a></li>
+
+                <!-- 最後頁 -->
+                <li class="page-item <?= $totalPage == $page ? 'disable' : '' ?>"><a class="page-link" href="?page=<?= $totalPage ?>">最後頁</a></li>
             </ul>
         </nav>
     </div>
 
 </div>
+<script>
+    // 滑鼠移到當前頁的頁碼無法有超連結效果
+    document.querySelector('li.page-item.active a').removeAttribute('href');
+
+
+    function deleteData(sid) {
+        if (confirm(`確認刪除編號${sid}的資料`)) {
+            location.href = 'restaurant_delete.php?sid=' + sid;
+        }
+
+    }
+</script>

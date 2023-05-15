@@ -16,6 +16,11 @@
     </div>
 
     <script>
-        //可自行修改JS
+        // function deleteData(sid) {
+        //     if (confirm(`確認刪除編號${sid}的資料`)) {
+        //         location.href = 'restaurant_delete.php?sid=' + sid;
+        //     }
+
+        // }
     </script>
     <?php include './parts/foot.php' ?>
