@@ -1,4 +1,4 @@
-<!-- 組長公告：公用版型，勿動 -->
+<!-- 組長公告：公用版型，勿動 --><!---->
 <nav class="navbar flex-column bg-cus2 offcanvas offcanvas-start show" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel" aria-modal="true" role="dialog">
     <div class="navbar_content w-100">
         <div id="Logo" class="text-cus1 text-center pm-3">
@@ -41,11 +41,24 @@
 
 
             <!-- 自訂行程 -->
-            <li class="nav-item">
-                <a href="custom_itinerary.php" class="link_btn">
-                    <span class="material-symbols-outlined nav-icon">map</span>
-                    <span class="nav-link">自訂行程</span>
+
+            <li class="nav-item dropdown">
+
+                <a class="link_btn" href="custom_itinerary.php" role="button">
+                <span class="material-symbols-outlined nav-icon">map</span>
+                自訂行程<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="false"></a>
                 </a>
+
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">興趣資料庫</a></li>
+                    <li><a class="dropdown-item" href="#">性格資料庫</a></li>
+                    <li><a class="dropdown-item" href="#">社群資料庫</a></li>
+                    <li><a class="dropdown-item" href="#">社群資料庫</a></li>
+                    <li><a class="dropdown-item" href="#">社群資料庫</a></li>
+                    <li><a class="dropdown-item" href="#">社群資料庫</a></li>
+                    <li><a class="dropdown-item" href="#">社群資料庫</a></li>
+                    
+                </ul>
             </li>
 
             <!-- 餐廳 & 票券 -->
@@ -63,6 +76,7 @@
                     <span class="nav-link">官方行程</span>
                 </a>
             </li>
+
             <!-- 留言板 -->
             <li class="nav-item">
                 <a href="board.php" class="link_btn">
