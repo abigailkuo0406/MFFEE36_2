@@ -82,7 +82,7 @@ if ($totalRows) {
                             </a>
                         </td>
                         <td>
-                            <a href="javascript: deleteData(<?= $r['sid'] ?>)">
+                            <a href="javascript: deleteData(<?= $r['rest_id'] ?>)">
                                 <i class="fa-solid fa-trash"></i>
                             </a>
                         </td>
