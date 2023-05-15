@@ -60,6 +60,8 @@ if ($totalRows) {
                     <th scope="col">介紹文字</th>
                     <th scope="col">餐廳類型</th>
                     <th scope="col">創建日期</th>
+                    <th scope="col">修改</th>
+                    <th scope="col">刪除</th>
                 </tr>
             </thead>
             <tbody>
@@ -74,6 +76,8 @@ if ($totalRows) {
                         <td><?= $r['rest_intro'] ?></td>
                         <td><?= $r['rest_class_id'] ?></td>
                         <td><?= $r['created_time'] ?></td>
+                        <td><a href="../../kuo_restaurant_add.php"><i class="fa-solid fa-pen"></i></a></td>
+                        <td><i class="fa-solid fa-trash"></i></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
