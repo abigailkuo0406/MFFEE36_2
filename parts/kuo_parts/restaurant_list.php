@@ -76,11 +76,14 @@ if ($totalRows) {
                         <td><?= $r['rest_intro'] ?></td>
                         <td><?= $r['rest_class'] ?></td>
                         <td><?= $r['created_time'] ?></td>
+
+                        <!-- 編輯資料(icon) -->
                         <td>
-                            <a href="kuo_restaurant_add.php?id=<?= $r['rest_id'] ?>">
+                            <a href="kuo_restaurant_edit.php?rest_id=<?= $r['rest_id'] ?>">
                                 <i class="fa-solid fa-pen"></i>
                             </a>
                         </td>
+                        <!-- 刪除資料(icon)-->
                         <td>
                             <a href="javascript: deleteData(<?= $r['rest_id'] ?>)">
                                 <i class="fa-solid fa-trash"></i>
@@ -126,5 +129,5 @@ if ($totalRows) {
             location.href = 'kuo_restaurant_delete_api.php?sid=' + sid;
         }
 
-    } //有問題
+    }
 </script>
