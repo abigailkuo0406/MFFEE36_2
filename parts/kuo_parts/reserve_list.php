@@ -3,7 +3,7 @@
 require './parts/kuo_parts/restaurant_connect-db.php';
 
 // 每頁要顯示的資料數量
-$perPage = 5;
+$perPage = 10;
 
 // 使用者當前查看的頁面是第幾頁
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
@@ -26,10 +26,13 @@ $rows = [];
 // 如果資料庫有資料再做資料撈取跟顯示
 if ($totalRows) {
 
-    $sql = sprintf("SELECT * FROM restaurant_list LIMIT %s,%s", ($page - 1) * $perPage, $perPage);
+    $sql = sprintf("SELECT R.`reserve_id`,M.`member_name`,L.`rest_name`,L.`rest_area`,L.`rest_adress`,L.`rest_class`,R.`reserve_date`,R.`reserve_people`FROM reserve AS R JOIN member AS M ON R.`member_id` = M.`member_id` JOIN restaurant_list AS L ON R.`rest_id` = L.`rest_id` LIMIT %s,%s", ($page - 1) * $perPage, $perPage);
     #依照在第幾頁，撈取對應資料，例如第一頁顯示1-10筆資料，第二頁顯示第11-20筆資料
 
     $rows = $pdo->query($sql)->fetchAll();
+
+    // echo print_r($rows);
+
 
     // 如果當前頁碼大於總頁數
     if ($page > $totalPage) {
@@ -76,15 +79,14 @@ $areaArray = $pdo->query($sql_area)->fetchAll();
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col">餐廳編號</th>
-                    <th scope="col">餐廳名稱</th>
-                    <th scope="col">所在縣市</th>
-                    <th scope="col">地址</th>
-                    <th scope="col">經度</th>
-                    <th scope="col">緯度</th>
-                    <th scope="col">介紹文字</th>
+                    <th scope="col">訂位編號</th>
+                    <th scope="col">會員名稱</th>
+                    <th scope="col">訂位餐廳</th>
+                    <th scope="col">地區</th>
+                    <th scope="col">餐廳地址</th>
                     <th scope="col">餐廳類型</th>
-                    <th scope="col">創建日期</th>
+                    <th scope="col">訂位日期</th>
+                    <th scope="col">訂位人數</th>
                     <th scope="col">修改</th>
                     <th scope="col">刪除</th>
                 </tr>
@@ -92,15 +94,14 @@ $areaArray = $pdo->query($sql_area)->fetchAll();
             <tbody>
                 <?php foreach ($rows as $r) : ?>
                     <tr>
-                        <td><?= $r['rest_id'] ?></td>
+                        <td><?= $r['reserve_id'] ?></td>
+                        <td><?= $r['member_name'] ?></td>
                         <td><?= $r['rest_name'] ?></td>
                         <td><?= $r['rest_area'] ?></td>
                         <td><?= $r['rest_adress'] ?></td>
-                        <td><?= $r['rest_lon'] ?></td>
-                        <td><?= $r['rest_lat'] ?></td>
-                        <td><?= $r['rest_intro'] ?></td>
                         <td><?= $r['rest_class'] ?></td>
-                        <td><?= $r['created_time'] ?></td>
+                        <td><?= $r['reserve_date'] ?></td>
+                        <td><?= $r['reserve_people'] ?></td>
 
                         <!-- 編輯資料(icon) -->
                         <td>
@@ -156,6 +157,7 @@ $areaArray = $pdo->query($sql_area)->fetchAll();
 
     }
 
+    // 搜尋欄(未完成)
     function search() {
         // console.log('123')
         let search_area = document.getElementById('rest_area')
