@@ -111,7 +111,7 @@ $areaArray = $pdo->query($sql_area)->fetchAll();
                         </td>
                         <!-- 刪除資料(icon)-->
                         <td>
-                            <a href="javascript: deleteData(<?= $r['rest_id'] ?>)">
+                            <a href="javascript: deleteData(<?= $r['reserve_id'] ?>)">
                                 <i class="fa-solid fa-trash"></i>
                             </a>
                         </td>
@@ -152,7 +152,7 @@ $areaArray = $pdo->query($sql_area)->fetchAll();
 
     function deleteData(sid) {
         if (confirm(`確認刪除編號${sid}的資料`)) {
-            location.href = 'kuo_restaurant_delete_api.php?sid=' + sid;
+            location.href = 'kuo_reserve_delete_api.php?sid=' + sid;
         }
 
     }
