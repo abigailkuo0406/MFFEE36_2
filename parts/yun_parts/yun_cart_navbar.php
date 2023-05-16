@@ -1,5 +1,5 @@
 <?php
-
+#
 # 有設定 $pageName 的頁面會取得 $pageName 後才會 include './parts/navbar.php'
 # 如果在其他頁面(index_.php等)進入，要給他們$pageName不然會有錯誤
 
@@ -28,7 +28,7 @@ if(! isset($pageName)){
                         <a class="nav-link <?= $pageName=='list' ? 'active' : '' ?>" href="list.php">列表</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?= $pageName=='add' ? 'active' : '' ?>" href="/parts/yun_parts/yun_add.php">新增</a>
+                        <a class="nav-link <?= $pageName=='add' ? 'active' : '' ?>" href="yun_cart_add.php">新增</a>
                     </li>
 
 
