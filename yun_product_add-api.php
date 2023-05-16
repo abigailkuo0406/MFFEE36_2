@@ -32,7 +32,7 @@ if(!empty($_POST['product_name'])){
             ?, ?, ?,
             ?, ?, ?, ?, ?, ?, NOW(), NOW()
         )";
-
+//
     $stmt = $pdo->prepare($sql);
 
     if($isPass){

@@ -16,6 +16,6 @@
     </div>
 
     <script>
-
+//
     </script>
     <?php include './parts/foot.php' ?>

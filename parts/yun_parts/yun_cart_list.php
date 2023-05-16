@@ -13,7 +13,7 @@ $perPage = 20; #每頁最多幾筆
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 // 用戶要看第幾頁，強制轉int為了不讓人拿字串亂試網址
 // 如果頁面沒有 page (直接進入 list.php，則給予 $page = 1 顯示第一頁)
-
+#
 if($page < 1) {
     // 如果手動亂輸入 page=負數或0，直接轉跳為顯示第一頁
     header('location: ? page = 1'); //在瀏覽器檢視網頁狀態302是指轉向

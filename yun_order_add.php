@@ -74,7 +74,7 @@ form .mb-3 .form-text {
 </div>
 
 
-<script>
+<script>//
     const nameField = document.querySelector('#member_id');
     const infoBar = document.querySelector('#infoBar');
     // 取得必填欄位

@@ -6,7 +6,7 @@ $output = [
     'filename' => '',
     'files' => $_FILES, // 除錯用的
 ];
-
+//
 # echo json_encode($_FILES);
 
 if(! empty($_FILES['avatar'])){

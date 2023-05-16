@@ -1,5 +1,5 @@
 <?php
-
+#
 # 有設定 $pageName 的頁面會取得 $pageName 後才會 include './parts/navbar.php'
 # 如果在其他頁面(index_.php等)進入，要給他們$pageName不然會有錯誤
 

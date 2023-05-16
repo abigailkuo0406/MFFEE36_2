@@ -42,6 +42,6 @@ if(! empty($_POST['product_name']) and ! empty($_POST['product_id'])){
     }
 }
 
-
+//
 header('Content-Type: application/json');
 echo json_encode($output, JSON_UNESCAPED_UNICODE);

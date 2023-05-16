@@ -101,7 +101,7 @@ form .mb-3 .form-text {
                     }, 2000);
                 })
                 .catch(ex => {
-                    // console.log(ex);
+                    // console.log(ex);//
                     infoBar.classList.remove('alert-success')
                     infoBar.classList.add('alert-danger')
                     infoBar.innerHTML = '新增發生錯誤'

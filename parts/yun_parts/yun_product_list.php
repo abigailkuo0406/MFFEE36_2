@@ -61,7 +61,7 @@ if($search){
 
 
 ?>
-<?php # include './parts/html-head.php' ?>
+<?php ## include './parts/html-head.php' ?>
 <?php # include './parts/navbar.php' ?>
 
 

@@ -221,7 +221,7 @@ const inp_avatar = document.querySelector('#avatar');
         } else {
         window.location.href = './yun_product.php';
     }
-
+//
 
     }
 </script>

@@ -16,6 +16,6 @@
     </div>
 
     <script>
-        //可自行修改JS
+        //可自行修改JS//
     </script>
     <?php include './parts/foot.php' ?>

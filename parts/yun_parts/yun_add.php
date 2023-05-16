@@ -4,7 +4,7 @@ $title = '新增';
 include './parts/connect-db.php';
 
 ?>
-<?php #include './parts/html-head.php' ?>
+<?php #include #'./parts/html-head.php' ?>
 <?php #include './parts/navbar.php' ?>
 <style>
 form .mb-3 .form-text {

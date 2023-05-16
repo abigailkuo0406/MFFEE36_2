@@ -6,7 +6,7 @@
 -- 產生時間： 2023 年 05 月 16 日 07:26
 -- 伺服器版本： 5.7.39
 -- PHP 版本： 8.2.0
-
+-- 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";

@@ -18,7 +18,7 @@ if(!empty($_POST['member_id'])){
     //     $isPass = false;
     //     $output['error']['email'] = 'Email 格式不正確';
     // }
-
+//
 
     // $product_id = empty($_POST['product_id']) ? null : $_POST['product_id'];
     // $product_num = empty($_POST['product_num']) ? null : $_POST['product_num'];
