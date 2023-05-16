@@ -137,7 +137,8 @@ if (empty($r)) {
 </div>
 
 
-<?php include './parts/scripts.php' ?>
+<?php #include './parts/scripts.php' 
+?>
 <script>
     const nameField = document.querySelector('#member_name');
     const infoBar = document.querySelector('#infoBar');
@@ -181,7 +182,7 @@ if (empty($r)) {
             // const usp = new URLSearchParams(fd); // 可以轉換為 urlencoded 格式
             // console.log(usp.toString());
 
-            fetch('edit-api.php', {
+            fetch('edit-api-JM.php', {
                     method: 'POST',
                     body: fd, // Content-Type 省略, multipart/form-data
                 }).then(r => r.json())
@@ -222,4 +223,5 @@ if (empty($r)) {
 
     }
 </script>
-<?php include './parts/html-foot.php' ?>
+<?php #include './parts/html-foot.php' 
+?>

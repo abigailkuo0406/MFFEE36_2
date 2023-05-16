@@ -5,9 +5,6 @@ $title = '新增';
 require './parts/john_parts/back/part/connect-db.php';
 
 ?>
-<?php include './parts/john_parts/back/part/html-head.php' ?>
-<?php include './parts/john_parts/back/part/navbar.php';
-?>
 <style>
     form .mb-3 .form-text {
         color: red;
@@ -16,6 +13,10 @@ require './parts/john_parts/back/part/connect-db.php';
 
 
 <div class="container">
+    <?php include './parts/john_parts/back/part/html-head.php'
+    ?>
+    <?php include './parts/john_parts/back/part/navbar.php';
+    ?>
     <div class="row">
         <div class="col-6">
             <div class="card">
@@ -125,7 +126,8 @@ require './parts/john_parts/back/part/connect-db.php';
 </div>
 
 
-<?php include './parts/scripts.php' ?>
+<?php # include './parts/scripts.php' 
+?>
 <script>
     const nameField = document.querySelector('#name');
     const infoBar = document.querySelector('#infoBar');
@@ -169,7 +171,7 @@ require './parts/john_parts/back/part/connect-db.php';
             // const usp = new URLSearchParams(fd); // 可以轉換為 urlencoded 格式
             // console.log(usp.toString());
 
-            fetch('add-api.php', {
+            fetch('add-api-JM.php', {
                     method: 'POST',
                     body: fd, // Content-Type 省略, multipart/form-data
                 }).then(r => r.json())
@@ -210,4 +212,5 @@ require './parts/john_parts/back/part/connect-db.php';
 
     }
 </script>
-<?php include './parts/html-foot.php' ?>
+<?php #include './parts/html-foot.php' 
+?>

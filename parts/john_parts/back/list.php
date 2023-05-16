@@ -2,6 +2,7 @@
 # MVC
 $pageName = 'list';
 $title = '列表';
+
 require './parts/john_parts/back/part/connect-db.php';
 
 $perPage = 10; #每頁最多幾筆
@@ -31,13 +32,11 @@ if ($totalRows) {
     $rows = $pdo->query($sql)->fetchAll();
 }
 ?>
-<?php #include './part/html-head.php'; 
-?>
+
 
 <div class="container">
-    <?php include './parts/john_parts/back/part/navbar.php';
-    ?>
     <div class="row">
+        <?php include './parts/john_parts/back/part/navbar.php'; ?>
         <nav aria-label="Page navigation example">
             <ul class="pagination">
                 <li class="page-item <?= 1 == $page ? 'disabled' : '' ?>">
@@ -82,14 +81,27 @@ if ($totalRows) {
             <tbody>
                 <?php foreach ($rows as $r) : ?>
                     <tr>
-                        <td><a href="#"><i class="fa-solid fa-trash"></i></a></td>
-                        <td><?= $r['member_name'] ?></td>
+                        <td><a href="javascript: delete_it(<?= $r['member_id'] ?>)"><i class="fa-solid fa-trash"></i></a></td>
                         <td><?= $r['email'] ?></td>
                         <td><?= $r['password'] ?></td>
                         <td><?= $r['images'] ?></td>
+                        <td><?= $r['member_name'] ?></td>
                         <td><?= $r['member_birth'] ?></td>
+                        <td><?= $r['id_number'] ?></td>
+                        <td><?= $r['gender'] ?></td>
                         <td><?= $r['location'] ?></td>
-                        <td><a href="#"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                        <td><?= $r['height'] ?></td>
+                        <td><?= $r['weight'] ?></td>
+                        <td><?= $r['zodiac'] ?></td>
+                        <td><?= $r['bloodtype'] ?></td>
+                        <td><?= $r['smoke'] ?></td>
+                        <td><?= $r['alchohol'] ?></td>
+                        <td><?= $r['education_level'] ?></td>
+                        <td><?= $r['job'] ?></td>
+                        <td><?= $r['profile'] ?></td>
+                        <td><?= $r['mobile'] ?></td>
+                        <td><a href="edit.php?member_id=<?= $r['member_id'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -97,12 +109,19 @@ if ($totalRows) {
     </div>
 </div>
 
-<?php #include './part/scripts.php'; 
+<?php #include './parts/scripts.php'; 
 ?>
 
 <script>
     document.querySelector('li.page-item.active a').removeAttribute('href');
+
+    function delete_it(member_id) {
+        if (confirm(`是否要刪除編號為 ${member_id} 的資料?`)) {
+            location.href = 'account_delete.php?member_id=' + member_id;
+        }
+
+    }
 </script>
 
-<?php # include './part/html-foot.php'; 
+<?php #include './parts/html-foot.php'; 
 ?>
