@@ -1,0 +1,61 @@
+<select name="area" id="area" class="form-select" aria-label="Default select example">
+                                <option selected>--請選擇--</option>
+                                <?php foreach ($areaArray as $i) : ?>
+                                    <option value="<?= $i['area_id'] ?>"><?= $i['area_name'] ?></option>
+                                <?php endforeach ?>
+                            </select>
+
+<input type="text" class="form-control" id="rest_area_id" name="rest_area_id" value="<?= isset($_POST['rest_area_id']) ? htmlentities($_POST['rest_area_id']) : '' ?>">
+
+
+
+<select name="class" id="class" class="form-select" aria-label="Default select example">
+                                <option selected>--請選擇--</option>
+
+                                <?php foreach ($classArray as $c) : ?>
+                                    <option value="<?= $c['rest_class_id'] ?>"><?= $c['rest_class'] ?></option>
+                                <?php endforeach ?>
+                            </select>
+
+
+<input type="text" class="form-control" id="rest_class_id" name="rest_class_id">
+
+
+INSERT INTO `restaurant_list` (`rest_id`, `rest_name`, `rest_area_id`, `rest_adress`, `rest_lon`, `rest_lat`, `rest_intro`, `rest_class_id`, `created_time`) VALUES (NULL, '', '', '', '', '', '', '', CURRENT_TIMESTAMP)
+
+
+
+SELECT
+    R.`reserve_id`,
+    M.`member_name`,
+    L.`rest_name`,
+L.`rest_area`,
+L.`rest_adress`,
+L.`rest_class`,
+    R.`reserve_date`,
+    R.`reserve_people`
+FROM
+    reserve AS R
+JOIN member AS M
+ON
+    R.`member_id` = M.`member_id`
+JOIN restaurant_list AS L
+ON
+    R.`rest_id` = L.`rest_id`;
+
+
+SELECT
+    R.`reserve_id`,
+    M.`member_name`,
+    L.`rest_name`,
+    R.`reserve_date`,
+    R.`reserve_people`
+FROM
+    reserve AS R
+JOIN member AS M
+ON
+    R.`member_id` = M.`member_id`
+JOIN restaurant_list AS L
+ON
+    R.`rest_id` = L.`rest_id`
+    WHERE M.`member_name`='練庭瑋'
