@@ -7,8 +7,21 @@
 </head>
 
 <body>
-
-
+    <div style="margin:0 auto; border:2px solid blacker;">
+        <form action="">
+            <h3 style="text-align:center;">官方行程</h3>
+            <label for=""></label>
+            <input type="text" placeholder="人數">
+            <label for=""></label>
+            <input type="text" placeholder="價格">
+            <label for=""></label>
+            <input type="text" placeholder="旅遊地點">
+            <label for=""></label>
+            <input type="text" placeholder="旅遊類型">
+            <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+    </div>
+   
     <?php include './parts/navbar.php' ?>
     <div class="main_screen d-flex justify-content-between">
         <button id="OffcanvasNav" class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i class="fa-solid fa-caret-right"></i></button>
