@@ -1,6 +1,6 @@
 <?php
 #MVC
-$pageName = 'list';
+// $pageName = 'list';
 // $title = '列表';
 require './parts/pei_parts/connect-db.php';
 
@@ -9,7 +9,7 @@ $page = isset($_GET['page']) ? intval($_GET['page']) : 1; # 用戶要看第幾�
 
 
 //計算總筆數
-$t_sql = "SELECT COUNT(1) FROM `attractions`";
+$t_sql = "SELECT COUNT(1) FROM `Itinerary`";
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0]; //總筆數
 $totalPages = ceil($totalRows / $perPage); //總頁數
 $rows = [];
@@ -19,24 +19,12 @@ if ($totalRows) {
         header("Location:?page=$totalpages");
         exit;
     }
-    $sql = sprintf("SELECT * FROM attractions ORDER BY id DESC LIMIT %s,%s", ($page - 1) * $perPage, $perPage);
+    $sql = sprintf("SELECT * FROM `Itinerary` ORDER BY itin_id DESC LIMIT %s,%s", ($page - 1) * $perPage, $perPage);
     $rows = $pdo->query($sql)->fetchAll();
 }
 ?>
 
-<div class="container mt-4">
-    <!-- 篩選bar -->
-    <form action="" method="$_POST" accept-charset="utf-8">
-        <div class="col-sm-3">
-            <label class="visually-hidden">城市</label>
-            <select class="form-select" id="city" name="city">
-                <option selected>-------------選擇-------------</option>
-                <option value="1">台北市</option>
-                <option value="2">新北市</option>
-                <option value="3">基隆市</option>
-            </select>
-        </div>
-    </form>
+<div class="container mt-4 ">
     <div class="row">
         <nav aria-label="Page navigation example">
             <!-- 分頁(pagination)，顯示的頁碼 -->
@@ -54,7 +42,7 @@ if ($totalRows) {
                     </a>
                 </li>
                 <!-- 計算當前頁數前後5頁 -->
-                <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
+                <?php for ($i = $page - 2; $i <= $page + 2; $i++) :
                     if ($i >= 1 and $i <= $totalPages) :
                 ?>
                         <li class="page-item <?= $i == $page ? 'active' : '' ?>">
@@ -79,14 +67,13 @@ if ($totalRows) {
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">景點</th>
-                    <th scope="col">類型</th>
-                    <th scope="col">城市</th>
-                    <th scope="col">介紹</th>
-                    <th scope="col">開放時間</th>
-                    <th scope="col">地址</th>
-                    <th scope="col">電話</th>
+                    <th scope="col">行程編號</th>
+                    <th scope="col">日期</th>
+                    <th scope="col">名稱</th>
+                    <th scope="col">公開</th>
+                    <th scope="col">人數</th>
+                    <th scope="col">會員編號</th>
+                    <th scope="col">建立時間</th>
                     <th scope="col"><i class="fa-regular fa-trash-can"></i></th>
                     <th scope="col"><i class="fa-regular fa-pen-to-square"></i></th>
                 </tr>
@@ -94,18 +81,21 @@ if ($totalRows) {
             <tbody>
                 <?php foreach ($rows as $r) : ?>
                     <tr>
-                        <td><?= $r['id'] ?></td>
+                        <td><?= $r['itin_id'] ?></td>
+                        <td><?= $r['date'] ?></td>
                         <td><?= $r['name'] ?></td>
-                        <td><?= $r['typ_id'] ?></td>
-                        <td><?= $r['city'] ?></td>
-                        <td><?= $r['description'] ?></td>
-                        <td><?= $r['open_time'] ?></td>
-                        <td><?= $r['address'] ?></td>
-                        <td><?= $r['tel'] ?></td>
-                        <td><a href="javascript:delete_it(<?= $r['id'] ?>)">
-                                <i class="fa-regular fa-trash-can"></i></a></td>
-                        <td><a href="pei_edit-view.php?id=<?= $r['id'] ?>">
-                                <i class="fa-regular fa-pen-to-square"></i></a></td>
+                        <td><?= $r['public'] ?></td>
+                        <td><?= $r['ppl'] ?></td>
+                        <td><?= $r['member_id'] ?></td>
+                        <td><?= $r['create_at'] ?></td>
+                        <td>
+                            <a href="javascript:delete_it('<?= $r['itin_id'] ?>')">
+                                <i class="fa-regular fa-trash-can"></i></a>
+                        </td>
+                        <td>
+                            <a href="pei_edit_itin_list.php?itin_id=<?= $r['itin_id'] ?>">
+                                <i class="fa-regular fa-pen-to-square"></i></a>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -115,9 +105,11 @@ if ($totalRows) {
 <script>
     document.querySelector('li.page-item.active a').removeAttribute('href');
 
-    function delete_it(id) {
-        if (confirm(`是否要刪除編號為${id}的資料？`)) {
-            location.href = 'pei_delete.php?id=' + id;
+    function delete_it(itin_id) {
+        console.log('test');
+        if (confirm(`是否要刪除編號為${itin_id}的資料？`)) {
+            location.href = 'pei_itin_delete.php?itin_id=' +
+                itin_id;
         }
     }
 </script>

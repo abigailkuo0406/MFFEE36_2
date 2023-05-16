@@ -2,7 +2,7 @@
 $title = '編輯';
 include './parts/pei_parts/connect-db.php';
 ?>
-<?php #include './parts/html-head.php' 
+<?php include './parts/head.php'
 ?>
 
 <?php #include './parts/navbar.php' 
@@ -30,7 +30,8 @@ if (empty($row)) {
 </style>
 
 <div class="container">
-    <?php include './parts/pei_parts/pei_navbar.php' ?>
+    <?php #include './parts/pei_parts/pei_navbar.php' 
+    ?>
     <div class="row mt-4">
         <div class="col-6 ">
             <div class="card">
@@ -74,9 +75,7 @@ if (empty($row)) {
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
-                            <label for="description" class="form-label">介紹</label>
-                            <textarea class="form-control" id="description" name="description" value="<?= $row['description'] ?>">
-                            </textarea>
+                            <label for="description" class="form-label">介紹</label><textarea class="form-control" id="description" name="description" value="<?= $row['description'] ?>"></textarea>
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
@@ -91,7 +90,7 @@ if (empty($row)) {
                         </div>
                         <div class="mb-3">
                             <label for="tel" class="form-label">電話</label>
-                            <input type="text" class="form-control" id="tel" name="tel" data-required="1" value="<?= $row['te'] ?>">
+                            <input type="text" class="form-control" id="tel" name="tel" data-required="1" value="<?= $row['tel'] ?>">
                             <div class="form-text"></div>
                         </div>
                         <div class="input-group mb-3">
@@ -107,7 +106,8 @@ if (empty($row)) {
 </div>
 
 
-<?php include './parts/scripts.php' ?>
+<?php include './parts/scripts.php'
+?>
 <script>
     const nameField = document.querySelector('#name');
     const infoBar = document.querySelector('#infoBar');
@@ -151,7 +151,7 @@ if (empty($row)) {
             // const usp = new URLSearchParams(fd); //可以轉換為urlencoded格式
             // console.log(usp.toString());
 
-            fetch('pei_edit-api-view.php', {
+            fetch('./pei_edit-api-view.php', {
                     method: 'POST',
                     body: fd, //Content-Type 省略,multipart/form-data
                 }).then(r => r.json())
@@ -162,6 +162,10 @@ if (empty($row)) {
                         infoBar.classList.add('alert-success')
                         infoBar.innerHTML = '編輯成功'
                         infoBar.style.display = 'block';
+                        setTimeout(() => {
+                            location.href = '/parts/pei_parts/list.php';
+                        }, 2000)
+
 
                     } else {
                         infoBar.classList.remove('alert-success')
@@ -186,5 +190,5 @@ if (empty($row)) {
         }
     }
 </script>
-<?php # include './parts/html-foot.php' 
+<?php include './parts/foot.php'
 ?>
