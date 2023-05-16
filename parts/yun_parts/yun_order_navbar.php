@@ -28,7 +28,7 @@ if(! isset($pageName)){
                         <a class="nav-link <?= $pageName=='list' ? 'active' : '' ?>" href="list.php">列表</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?= $pageName=='add' ? 'active' : '' ?>" href="/parts/yun_parts/yun_add.php">新增</a>
+                        <a class="nav-link <?= $pageName=='add' ? 'active' : '' ?>" href="yun_order_add.php">新增</a>
                     </li>
 
 
