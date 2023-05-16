@@ -18,7 +18,7 @@
             <input type="text" placeholder="旅遊地點">
             <label for=""></label>
             <input type="text" placeholder="旅遊類型">
-            <button class="search-btn"></button>
+            <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
     </div>
    
