@@ -6,7 +6,7 @@ class DB
     private $dbHost='localhost';
     private $dbUser='root';
     private $dbPassword='root';
-    private $dbName='rout';
+    private $dbName='tsao_itinerary';
     private $conn;
 
 
@@ -22,7 +22,7 @@ class DB
 
     public function insertData($name, $email)
     {
-        $sql = 'INSERT INTO itinerary (name, email) VALUE (:name, :email)';
+        $sql = 'INSERT INTO official_itinerary (name, email) VALUE (:name, :email)';
         $stmt = $this->conn->prepare($sql);
         $stmt->execute(['name' => $name, 'email' => $email]);
         echo 'data inserted';
