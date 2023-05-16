@@ -3,12 +3,12 @@
 require './parts/kuo_parts/restaurant_connect-db.php';
 
 // 取地區資料
-$sql_area = "SELECT * FROM area_list WHERE 1";
-$areaArray = $pdo->query($sql_area)->fetchAll();
+// $sql_area = "SELECT * FROM area_list WHERE 1";
+// $areaArray = $pdo->query($sql_area)->fetchAll();
 
-// 取料理類型資料
-$sql_class = "SELECT * FROM restaurant_class WHERE 1";
-$classArray = $pdo->query($sql_class)->fetchAll();
+// 取餐廳名稱資料
+$sql_restaurant = "SELECT rest_name FROM `restaurant_list` WHERE 1";
+$restaurantArray = $pdo->query($sql_restaurant)->fetchAll();
 ?>
 
 <style>
@@ -30,45 +30,31 @@ $classArray = $pdo->query($sql_class)->fetchAll();
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
-                            <label for="rest_name" class="form-label">餐廳名稱</label>
-                            <input type="text" class="form-control" id="rest_name" name="rest_name" value="<?= isset($_POST['rest_name']) ? htmlentities($_POST['rest_name']) : '' ?>" data-required="1">
-                            <div class="form-text"></div>
-                        </div>
+                            <label for="rest_name" class="form-label">訂位餐廳</label>
 
-                        <div class="mb-3">
-                            <label for="rest_area" class="form-label" class="form-control">所在縣市</label>
-                            <select name="rest_area" id="rest_area" class="form-select" aria-label="Default select example" data-required="2">
+                            <select name="rest_name" id="rest_name" class="form-select" aria-label="Default select example" data-required="2">
                                 <option selected>--請選擇--</option>
-                                <?php foreach ($areaArray as $i) : ?>
-                                    <option value="<?= $i['area_name'] ?>"><?= $i['area_name'] ?></option>
-                                <?php endforeach ?>
-
-                            </select>
-                            <div class="form-text"></div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="rest_adress" class="form-label">地址</label>
-                            <input type="text" class="form-control" id="rest_adress" name="rest_adress" value="<?= isset($_POST['rest_adress']) ? htmlentities($_POST['rest_adress']) : '' ?>" data-required="1">
-                            <div class="form-text"></div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="rest_class" class="form-label">料理類型</label>
-
-                            <select name="rest_class" id="rest_class" class="form-select" aria-label="Default select example" data-required="2">
-                                <option selected>--請選擇--</option>
-
-                                <?php foreach ($classArray as $c) : ?>
-                                    <option value="<?= $c['rest_class'] ?>"><?= $c['rest_class'] ?></option>
+                                <?php foreach ($restaurantArray as $rt) : ?>
+                                    <option value="<?= $rt['rest_name'] ?>"><?= $rt['rest_name'] ?></option>
                                 <?php endforeach ?>
                             </select>
                             <div class="form-text"></div>
-
-
+                        <div class="mb-3">
+                            <label for="reserve_date" class="form-label">訂位日期</label>
+                            <input type="date" class="form-control" id="reserve_date" name="reserve_date" value="<?= isset($_POST['reserve_date']) ? htmlentities($_POST['reserve_date']) : '' ?>" data-required="1">
+                            <div class="form-text"></div>
                         </div>
+                        <div class="mb-3">
+                            <label for="reserve_people" class="form-label">訂位人數</label>
+                            <input type="text" class="form-control" id="reserve_people" name="reserve_people" value="<?= isset($_POST['reserve_people']) ? htmlentities($_POST['reserve_people']) : '' ?>" data-required="1">
+                            <div class="form-text"></div>
+                        </div>
+                        
 
-                </div>
+
+                        
+
+                
                 <!-- 上傳檔案 -->
                 <!-- <div class="input-group mb-3">
                             <input type="file" class="form-control" id="inputGroupFile02">
