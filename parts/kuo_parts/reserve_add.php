@@ -9,6 +9,8 @@ require './parts/kuo_parts/restaurant_connect-db.php';
 // 取餐廳名稱資料
 $sql_restaurant = "SELECT rest_name FROM `restaurant_list` WHERE 1";
 $restaurantArray = $pdo->query($sql_restaurant)->fetchAll();
+
+
 ?>
 
 <style>
@@ -24,21 +26,22 @@ $restaurantArray = $pdo->query($sql_restaurant)->fetchAll();
                 <div class="card-body">
                     <h5 class="card-title fs-3">新增訂位資料</h5>
                     <form name="restaurant_addform" onsubmit="restForm(event)">
-                        <div class="mb-3">
-                            <label for="member_name" class="form-label">會員姓名</label>
-                            <input type="text" class="form-control" id="member_name" name="member_name" value="<?= isset($_POST['member_name']) ? htmlentities($_POST['member_name']) : '' ?>" data-required="1">
+                    <div class="mb-3">
+                            <label for="member_id" class="form-label">會員姓名</label>
+                            <input type="text" class="form-control" id="member_id" name="member_id" value="<?= isset($_POST['member_id']) ? htmlentities($_POST['member_id']) : '' ?>" data-required="1">
                             <div class="form-text"></div>
                         </div>
-                        <div class="mb-3">
-                            <label for="rest_name" class="form-label">訂位餐廳</label>
 
-                            <select name="rest_name" id="rest_name" class="form-select" aria-label="Default select example" data-required="2">
-                                <option selected>--請選擇--</option>
-                                <?php foreach ($restaurantArray as $rt) : ?>
-                                    <option value="<?= $rt['rest_name'] ?>"><?= $rt['rest_name'] ?></option>
-                                <?php endforeach ?>
-                            </select>
+
+                        
+                        <div class="mb-3">
+                            <label for="rest_id" class="form-label">餐廳</label>
+                            <input type="text" class="form-control" id="rest_id" name="rest_id" value="<?= isset($_POST['rest_id']) ? htmlentities($_POST['rest_id']) : '' ?>" data-required="1">
                             <div class="form-text"></div>
+                        </div>
+
+
+                        
                         <div class="mb-3">
                             <label for="reserve_date" class="form-label">訂位日期</label>
                             <input type="date" class="form-control" id="reserve_date" name="reserve_date" value="<?= isset($_POST['reserve_date']) ? htmlentities($_POST['reserve_date']) : '' ?>" data-required="1">
@@ -125,7 +128,7 @@ $restaurantArray = $pdo->query($sql_restaurant)->fetchAll();
         if (ispass) {
             const fd = new FormData(document.restaurant_addform);
 
-            fetch('kuo_restaurant_add_api.php', {
+            fetch('kuo_reserve_add_api.php', {
                     method: 'POST',
                     body: fd,
                 })
