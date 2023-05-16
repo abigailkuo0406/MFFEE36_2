@@ -2,7 +2,7 @@
 # MVC
 $pageName = 'list';
 $title = '列表';
-require './parts/connect-db.php';
+require './parts/john_parts/back/part/connect-db.php';
 
 $perPage = 10; #每頁最多幾筆
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1; #用戶要看第幾頁
@@ -31,10 +31,12 @@ if ($totalRows) {
     $rows = $pdo->query($sql)->fetchAll();
 }
 ?>
-<?php include './parts/html-head.php'; ?>
-<?php include './parts/navbar.php'; ?>
+<?php #include './part/html-head.php'; 
+?>
 
 <div class="container">
+    <?php include './parts/john_parts/back/part/navbar.php';
+    ?>
     <div class="row">
         <nav aria-label="Page navigation example">
             <ul class="pagination">
@@ -95,10 +97,12 @@ if ($totalRows) {
     </div>
 </div>
 
-<?php include './parts/scripts.php'; ?>
+<?php #include './part/scripts.php'; 
+?>
 
 <script>
     document.querySelector('li.page-item.active a').removeAttribute('href');
 </script>
 
-<?php include './parts/html-foot.php'; ?>
+<?php # include './part/html-foot.php'; 
+?>
