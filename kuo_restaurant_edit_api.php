@@ -25,18 +25,18 @@ if (!empty($_POST['rest_name'])) {
 
     $stmt = $pdo->prepare($sql);
 
-    if ($ispass) {
-        $stmt->execute([
-            $_POST['rest_name'],
-            $_POST['rest_area'],
-            $_POST['rest_adress'],
-            $_POST['rest_lon'],
-            $_POST['rest_lat'],
-            $_POST['rest_intro'],
-            $_POST['rest_class'],
-            $_POST['rest_id']
-        ]);
-    }
+    // if ($ispass) {
+    $stmt->execute([
+        $_POST['rest_name'],
+        $_POST['rest_area'],
+        $_POST['rest_adress'],
+        $_POST['rest_lon'],
+        $_POST['rest_lat'],
+        $_POST['rest_intro'],
+        $_POST['rest_class'],
+        $_POST['rest_id']
+    ]);
+    // }
     $output['success'] = !!$stmt->rowCount();
 }
 

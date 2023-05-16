@@ -35,6 +35,8 @@ $classArray = $pdo->query($sql_class)->fetchAll();
                 <div class="card-body">
                     <h5 class="card-title fs-3">編輯餐廳資料</h5>
                     <form name="restaurant_addform" onsubmit="restForm(event)">
+                        <!-- 此為隱藏欄位，用戶看不到 -->
+                        <input type="hidden" name="rest_id" id="rest_id" value="<?= $r['rest_id'] ?>">
                         <div class="mb-3">
                             <label for="rest_name" class="form-label">餐廳名稱</label>
                             <input type="text" class="form-control" id="rest_name" name="rest_name" value="<?= htmlentities($r['rest_name']) ?>" data-required="1">
