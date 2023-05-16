@@ -1,5 +1,5 @@
 <?php
-require_once('./official_itinerary.php');
+require_once('../../official_itinerary.php');
 require_once('db.php');
 
 $db = new DB();
