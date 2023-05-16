@@ -2,6 +2,17 @@
 
 require './parts/kuo_parts/restaurant_connect-db.php';
 
+$sid = isset($_GET['rest_id']) ? intval($_GET['rest_id']) : 0;
+$sql_solo = "SELECT * FROM restaurant_list WHERE rest_id={$sid}";
+
+$r = $pdo->query($sql_solo)->fetch();
+if (empty($r)) {
+    header('Locatione: kuo_restaurant_list.php');
+    exit;
+};
+
+
+
 // 取地區資料
 $sql_area = "SELECT * FROM area_list WHERE 1";
 $areaArray = $pdo->query($sql_area)->fetchAll();
@@ -22,18 +33,20 @@ $classArray = $pdo->query($sql_class)->fetchAll();
         <div class="col-6">
             <div class="card" style="width: 40rem;">
                 <div class="card-body">
-                    <h5 class="card-title fs-3">新增餐廳資料</h5>
+                    <h5 class="card-title fs-3">編輯餐廳資料</h5>
                     <form name="restaurant_addform" onsubmit="restForm(event)">
+                        <!-- 此為隱藏欄位，用戶看不到 -->
+                        <input type="hidden" name="rest_id" id="rest_id" value="<?= $r['rest_id'] ?>">
                         <div class="mb-3">
                             <label for="rest_name" class="form-label">餐廳名稱</label>
-                            <input type="text" class="form-control" id="rest_name" name="rest_name" value="<?= isset($_POST['rest_name']) ? htmlentities($_POST['rest_name']) : '' ?>" data-required="1">
+                            <input type="text" class="form-control" id="rest_name" name="rest_name" value="<?= htmlentities($r['rest_name']) ?>" data-required="1">
                             <div class="form-text"></div>
                         </div>
 
                         <div class="mb-3">
                             <label for="rest_area" class="form-label" class="form-control">所在縣市</label>
                             <select name="rest_area" id="rest_area" class="form-select" aria-label="Default select example" data-required="2">
-                                <option selected>--請選擇--</option>
+                                <option selected><?= htmlentities($r['rest_area']) ?></option>
                                 <?php foreach ($areaArray as $i) : ?>
                                     <option value="<?= $i['area_name'] ?>"><?= $i['area_name'] ?></option>
                                 <?php endforeach ?>
@@ -44,25 +57,25 @@ $classArray = $pdo->query($sql_class)->fetchAll();
 
                         <div class="mb-3">
                             <label for="rest_adress" class="form-label">地址</label>
-                            <input type="text" class="form-control" id="rest_adress" name="rest_adress" value="<?= isset($_POST['rest_adress']) ? htmlentities($_POST['rest_adress']) : '' ?>" data-required="1">
+                            <input type="text" class="form-control" id="rest_adress" name="rest_adress" value="<?= htmlentities($r['rest_adress']) ?>" data-required="1">
                             <div class="form-text"></div>
                         </div>
 
                         <div class="mb-3">
                             <label for="rest_lon" class="form-label">經度</label>
-                            <input type="text" class="form-control" id="rest_lon" name="rest_lon" data-required="1" data-required="3">
+                            <input type="text" class="form-control" id="rest_lon" name="rest_lon" data-required="1" data-required="3" value="<?= htmlentities($r['rest_lon']) ?>">
                             <div class="form-text"></div>
                         </div>
 
                         <div class="mb-3">
                             <label for="rest_lat" class="form-label">緯度</label>
-                            <input type="text" class="form-control" id="rest_lat" name="rest_lat" data-required="1" data-required="3">
+                            <input type="text" class="form-control" id="rest_lat" name="rest_lat" data-required="1" data-required="3" value="<?= htmlentities($r['rest_lat']) ?>">
                             <div class="form-text"></div>
                         </div>
 
                         <div class="mb-3">
                             <label for="rest_intro" class="form-label">介紹文字</label>
-                            <textarea name="rest_intro" id="rest_intro" class="form-control" aria-label="With textarea" data-required="1"></textarea>
+                            <textarea name="rest_intro" id="rest_intro" class="form-control" aria-label="With textarea" data-required="1"><?= htmlentities($r['rest_intro']) ?></textarea>
                             <div class="form-text"></div>
                         </div>
 
@@ -70,7 +83,7 @@ $classArray = $pdo->query($sql_class)->fetchAll();
                             <label for="rest_class" class="form-label">料理類型</label>
 
                             <select name="rest_class" id="rest_class" class="form-select" aria-label="Default select example" data-required="2">
-                                <option selected>--請選擇--</option>
+                                <option selected><?= htmlentities($r['rest_class']) ?></option>
 
                                 <?php foreach ($classArray as $c) : ?>
                                     <option value="<?= $c['rest_class'] ?>"><?= $c['rest_class'] ?></option>
@@ -91,7 +104,7 @@ $classArray = $pdo->query($sql_class)->fetchAll();
 
                         <div class="alert alert-danger" role="alert" id="infoBar" style="display:none"></div>
 
-                        <button type="submit" class="btn btn-primary">新增</button>
+                        <button type="submit" class="btn btn-primary">編輯完成</button>
 
                     </form>
                 </div>
@@ -148,7 +161,7 @@ $classArray = $pdo->query($sql_class)->fetchAll();
         if (ispass) {
             const fd = new FormData(document.restaurant_addform);
 
-            fetch('kuo_restaurant_add_api.php', {
+            fetch('kuo_restaurant_edit_api.php', {
                     method: 'POST',
                     body: fd,
                 })
@@ -159,13 +172,13 @@ $classArray = $pdo->query($sql_class)->fetchAll();
 
                         infoBar.classList.remove('alert-danger')
                         infoBar.classList.add('alert-success')
-                        infoBar.innerHTML = '新增成功'
+                        infoBar.innerHTML = '編輯成功'
                         infoBar.style.display = 'block';
 
                     } else {
                         infoBar.classList.remove('alert-success')
                         infoBar.classList.add('alert-danger')
-                        infoBar.innerHTML = '新增失敗'
+                        infoBar.innerHTML = '資料未更改'
                         infoBar.style.display = 'block';
                     }
                     setTimeout(() => {

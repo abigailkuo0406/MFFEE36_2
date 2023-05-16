@@ -69,20 +69,23 @@ if ($totalRows) {
                     <tr>
                         <td><?= $r['rest_id'] ?></td>
                         <td><?= $r['rest_name'] ?></td>
-                        <td><?= $r['rest_area_id'] ?></td>
+                        <td><?= $r['rest_area'] ?></td>
                         <td><?= $r['rest_adress'] ?></td>
                         <td><?= $r['rest_lon'] ?></td>
                         <td><?= $r['rest_lat'] ?></td>
                         <td><?= $r['rest_intro'] ?></td>
-                        <td><?= $r['rest_class_id'] ?></td>
+                        <td><?= $r['rest_class'] ?></td>
                         <td><?= $r['created_time'] ?></td>
+
+                        <!-- 編輯資料(icon) -->
                         <td>
-                            <a href="../../kuo_restaurant_add.php">
+                            <a href="kuo_restaurant_edit.php?rest_id=<?= $r['rest_id'] ?>">
                                 <i class="fa-solid fa-pen"></i>
                             </a>
                         </td>
+                        <!-- 刪除資料(icon)-->
                         <td>
-                            <a href="javascript: deleteData(<?= $r['sid'] ?>)">
+                            <a href="javascript: deleteData(<?= $r['rest_id'] ?>)">
                                 <i class="fa-solid fa-trash"></i>
                             </a>
                         </td>
@@ -123,8 +126,8 @@ if ($totalRows) {
 
     function deleteData(sid) {
         if (confirm(`確認刪除編號${sid}的資料`)) {
-            location.href = 'restaurant_delete.php?sid=' + sid;
+            location.href = 'kuo_restaurant_delete_api.php?sid=' + sid;
         }
 
-    } //有問題
+    }
 </script>
