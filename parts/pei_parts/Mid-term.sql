@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： localhost:8889
--- 產生時間： 2023 年 05 月 15 日 10:34
+-- 產生時間： 2023 年 05 月 16 日 15:15
 -- 伺服器版本： 5.7.39
 -- PHP 版本： 7.4.33
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- 資料庫： `FriendTrip`
+-- 資料庫： `Mid-term`
 --
 
 -- --------------------------------------------------------
@@ -202,12 +202,7 @@ INSERT INTO `attractions` (`id`, `city`, `area`, `address`, `name`, `typ_id`, `d
 (160, NULL, NULL, 'ss', 'dkjljflkdf', 2, 'ss                            ', 'sssss', '787', NULL, NULL),
 (161, NULL, NULL, 'aa', 'qqq', 3, '                            qqq', 'qq', 'aa', NULL, NULL),
 (162, 'ddd', NULL, 'aaa', 'aaa', 2, '                aaa            ', 'qq', 'aaa', NULL, NULL),
-(163, 'ddd', NULL, 'aaa', 'aaa', 2, '                aaa            ', 'qq', 'aaa', NULL, NULL),
-(164, '台北市', NULL, 'sss', 'dkjljflkdf', 2, '                         sss   ', '10:00', 'ssss', NULL, NULL),
-(165, '台北市', NULL, 'ooo', 'dkjljflkdf', 2, '                            oooo', '10:00', '787', NULL, NULL),
-(173, '台北市', NULL, 'sss', 'dkjljflkdf', 2, '                            sss', 'ccc', 'sss', NULL, NULL),
-(174, '台北市', NULL, 'sss', 'dkjljflkdf', 2, '                            sss', 'ccc', 'sss', NULL, NULL),
-(176, '台北市', NULL, 'aaa', 'dkjljflkdf', 2, '                        aaa    ', '10:00', '787', NULL, NULL);
+(163, 'ddd', NULL, 'sss', 'aaa', 2, 'ssss', 'qq', 'aaa', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -219,6 +214,14 @@ CREATE TABLE `attractions＿img` (
   `sid` int(11) NOT NULL,
   `img` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- 傾印資料表的資料 `attractions＿img`
+--
+
+INSERT INTO `attractions＿img` (`sid`, `img`) VALUES
+(1, 'BishanCampsites.jpg'),
+(2, 'ErzipingTrail.jpg');
 
 -- --------------------------------------------------------
 
@@ -254,11 +257,26 @@ CREATE TABLE `Itinerary` (
   `date` date NOT NULL,
   `name` varchar(50) NOT NULL,
   `description` text NOT NULL,
-  `public` tinyint(1) NOT NULL,
+  `public` varchar(20) NOT NULL,
   `ppl` int(11) NOT NULL,
   `member_id` int(11) NOT NULL,
   `create_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- 傾印資料表的資料 `Itinerary`
+--
+
+INSERT INTO `Itinerary` (`itin_id`, `date`, `name`, `description`, `public`, `ppl`, `member_id`, `create_at`) VALUES
+('S111', '2023-05-16', 'dsd', '美食吃到飽', '1', 2, 11, '2023-05-15 23:38:57'),
+('S118', '2023-05-26', 'dkjljflkdf', '美食吃到飽', '不公開', 6, 22, '2023-05-15 23:20:55'),
+('S120', '2023-05-27', 'dkjljflkdf', 'aaa', '1', 6, 22, '2023-05-15 23:52:14'),
+('S123', '2023-05-19', 'dkjljflkdf', 'aaa', '公開', 2, 88, '2023-05-15 21:09:31'),
+('S124', '2023-05-17', 'dkjljflkdf', 'ssss', '公開', 2, 88, '2023-05-15 21:02:30'),
+('S126', '2023-05-18', 'dkjljflkdf', 'ssss', '公開', 2, 88, '2023-05-15 21:43:01'),
+('S128', '2023-05-19', 'dkjljflkdf', 'ssss', '不公開', 3, 88, '2023-05-15 22:37:46'),
+('S129', '2023-05-25', 'dkjljflkdf', 'aaa', '公開', 2, 99, '2023-05-15 21:46:47'),
+('s334', '2023-05-27', 'dkjljflkdf', 'ssss', '1', 2, 22, '2023-05-16 09:47:13');
 
 -- --------------------------------------------------------
 
@@ -325,13 +343,13 @@ ALTER TABLE `Itinerary_details`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `attractions`
 --
 ALTER TABLE `attractions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=177;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=175;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `attractions＿img`
 --
 ALTER TABLE `attractions＿img`
-  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `attractions＿type`

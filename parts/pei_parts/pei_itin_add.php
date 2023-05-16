@@ -4,7 +4,7 @@ $pageName = 'add';
 include './parts/pei_parts/connect-db.php';
 
 ?>
-<?php #include './parts/html-head.php' 
+<?php #include './parts/html-head.php'
 ?>
 <?php #include './parts/navbar.php' 
 ?>
@@ -15,69 +15,58 @@ include './parts/pei_parts/connect-db.php';
     }
 </style>
 
+<!-- aria-label="Disabled input example" disabled -->
 <div class="container">
-
+    <?php include './parts/pei_parts/pei_navbar.php' ?>
     <div class="row mt-4">
         <div class="col-6 ">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">新增景點</h5>
+                    <h5 class="card-title">行程</h5>
                     <form name=form1 onsubmit="checkForm(event)">
                         <div class="mb-3">
-                            <label for="name " class="form-label">*景點名稱</label>
-                            <input type="text" class="form-control" id="name" name="name" data-require="1">
+                            <label for="itin_id " class="form-label">行程編號</label>
+                            <input type="text" class="form-control" id="itin_id" name="itin_id" data-required="1">
                             <div class="form-text" style="color:red"></div>
                         </div>
                         <div class="mb-3">
-                            <label for="typ_id" class="form-label">景點類別</label>
-                            <input type="text" class="form-control" id="typ_id" name="typ_id">
-                            <div class="form-text"></div>
+                            <label for="date " class="form-label">日期</label>
+                            <input type="date" class="form-control" id="date" name="date" data-required="1">
+                            <div class="form-text" style="color:red"></div>
                         </div>
-                        <!-- <label for="typ_id" class="form-label">景點類別</label>
-                        <div class="input-group mb-3">
-                            <select class="form-select" id="typ_id">
-                                <option selected>----選擇-----</option>
-                                <option value="1">1:單車漫遊</option>
-                                <option value="2">2:戶外踏青</option>
-                                <option value="3">3:夜市商圈</option>
-                                <option value="4">4:藍色水岸</option>
-                                <option value="5">5:歷史文化</option>
-                                <option value="6">6:步道之旅</option>
-                            </select>
-                        </div> -->
-
                         <div class="mb-3">
-                            <label for="city" class="form-label">城市</label>
-                            <!-- <select class="form-select" id="typ_id" name="typ_id" data-required="1">
-                                <option selected>----選擇-----</option>
-                                <option value="1">台北市</option>
-                                <option value="2">新北市</option>
-                                <option value="3">基隆市</option>
-                            </select> -->
-                            <input type="text" class="form-control" id="city" name="city">
+                            <label for="name" class="form-label">*名稱</label>
+                            <input type="text" class="form-control" id="name" name="name" data-required="1">
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
-                            <label for="description" class="form-label">介紹</label><textarea class="form-control" id="description" name="description"></textarea>
+                            <label for="description" class="description">介紹</label>
+                            <input type="text" class="form-control" id="description" name="description">
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
-                            <label for="open_time" class="form-label">開放時間</label>
-                            <input type="text" class="form-control" id="open_time" name="open_time" data-required="1">
+                            <label for="public" class="form-label">是否需要公開</label>
+                            <input class="form-check-input" type="radio" name="public[]" id="public" value="公開">
+                            <label class="form-check-label" for="public">公開</label>
+                            <input class="form-check-input" type="radio" name="public[]" id="public" value="不公開">
+                            <label class="form-check-label" for="public">不公開</label>
+                            <!-- <input type="text" class="form-control" id="public" name="public" data-required="1"> -->
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
-                            <label for="address" class="form-label">地址</label>
-                            <textarea class="form-control" id="address" name="address"></textarea>
+                            <label for="ppl" class="form-label">人數</label>
+                            <input type="text" class="form-control" id="ppl" name="ppl" data-required="1">
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
-                            <label for="tel" class="form-label">電話</label>
-                            <input type="text" class="form-control" id="tel" name="tel" data-required="1">
-                            <div class="form-text"></div>
+                            <label for="member_id" class="form-label">會員編號</label>
+                            <input type="text" class="form-control" id="member_id" name="member_id" data-required="1">
+                            <div class="form-text" style="color:red"></div>
                         </div>
-                        <div class="input-group mb-3">
-                            <input type="file" class="form-control" id="inputGroupFile03" aria-describedby="inputGroupFileAddon03" aria-label="Upload">
+                        <div class="mb-3">
+                            <label for="create_at" class="form-label">建立時間</label>
+                            <input type="text" class="form-control" id="create_at" name="create_at">
+                            <div class="form-text"></div>
                         </div>
                         <div class="alert alert-danger" role="alert" id="infoBar" style="display: none;"></div>
                         <button type="submit" class="btn btn-primary">新增</button>
@@ -132,7 +121,7 @@ include './parts/pei_parts/connect-db.php';
             // const usp = new URLSearchParams(fd); //可以轉換為urlencoded格式
             // console.log(usp.toString());
 
-            fetch('pei_add-api.php', {
+            fetch('pei_itin_add-api.php', {
                     method: 'POST',
                     body: fd, //Content-Type 省略,multipart/form-data
                 }).then(r => r.json())
@@ -168,7 +157,17 @@ include './parts/pei_parts/connect-db.php';
         } else {
             //沒有通過
         }
-    }
+    };
+    // 時間顯示
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+    const hour = now.getHours();
+    const minute = now.getMinutes();
+    const second = now.getSeconds();
+    const formattedTime = year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
+    document.getElementById("create_at").value = formattedTime;
 </script>
 <?php # include './parts/html-foot.php' 
 ?>

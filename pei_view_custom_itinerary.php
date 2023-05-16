@@ -14,7 +14,7 @@
     <div class="main_screen d-flex justify-content-between">
         <button id="OffcanvasNav" class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i class="fa-solid fa-caret-right"></i></button>
 
-        <?php include './parts/pei_parts/pei_add.php' ?> <!-- 路徑可自行修改-->
+        <?php include './parts/pei_parts/list.php' ?> <!-- 路徑可自行修改-->
     </div>
 
     <script>
