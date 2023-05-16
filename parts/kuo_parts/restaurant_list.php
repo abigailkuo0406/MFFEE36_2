@@ -69,12 +69,12 @@ if ($totalRows) {
                     <tr>
                         <td><?= $r['rest_id'] ?></td>
                         <td><?= $r['rest_name'] ?></td>
-                        <td><?= $r['rest_area_id'] ?></td>
+                        <td><?= $r['rest_area'] ?></td>
                         <td><?= $r['rest_adress'] ?></td>
                         <td><?= $r['rest_lon'] ?></td>
                         <td><?= $r['rest_lat'] ?></td>
                         <td><?= $r['rest_intro'] ?></td>
-                        <td><?= $r['rest_class_id'] ?></td>
+                        <td><?= $r['rest_class'] ?></td>
                         <td><?= $r['created_time'] ?></td>
                         <td>
                             <a href="kuo_restaurant_add.php?id=<?= $r['rest_id'] ?>">

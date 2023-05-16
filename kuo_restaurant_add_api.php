@@ -6,37 +6,39 @@ $output = [
     'success' => false,
     'postData' => $_POST,
     'code' => 0,
-    'error' => [],
+    'error' => '',
 ];
 if (!empty($_POST['rest_name'])) {
     $ispass = true;
 
     $sql = "INSERT INTO `restaurant_list` (
-        `rest_name`, `rest_area_id`, `rest_adress`, 
+        `rest_name`, `rest_area`, `rest_adress`, 
         `rest_lon`, `rest_lat`, `rest_intro`, 
-        `rest_class_id`, `created_time`
+        `rest_class`
         ) VALUES (
             ?,?,?, 
             ?,?,?,
-            ?,NOW() 
+            ?
             )";
+
+
     $stmt = $pdo->prepare($sql);
     if ($ispass) {
         $stmt->execute([
             $_POST['rest_name'],
-            $_POST['rest_area_id'],
+            $_POST['rest_area'],
             $_POST['rest_adress'],
             $_POST['rest_lon'],
             $_POST['rest_lat'],
-            $_POST['rest_lon'],
             $_POST['rest_intro'],
-            $_POST['rest_class_id'],
+            $_POST['rest_class'],
         ]);
     }
     $output['success'] = !!$stmt->rowCount();
 }
-// header('Content-Type:application/json');
-// echo json_encode(
-//     $output,
-//     JSON_UNESCAPED_UNICODE
-// );
+
+header('Content-Type:application/json');
+echo json_encode(
+    $output,
+    JSON_UNESCAPED_UNICODE
+);

@@ -11,7 +11,11 @@ $sql_class = "SELECT * FROM restaurant_class WHERE 1";
 $classArray = $pdo->query($sql_class)->fetchAll();
 ?>
 
-
+<style>
+    form .mb-3 .form-text {
+        color: red;
+    }
+</style>
 
 <div class="container">
     <div class="row">
@@ -21,56 +25,72 @@ $classArray = $pdo->query($sql_class)->fetchAll();
                     <h5 class="card-title fs-3">新增餐廳資料</h5>
                     <form name="restaurant_addform" onsubmit="restForm(event)">
                         <div class="mb-3">
-                            <label for="name" class="form-label">餐廳名稱</label>
-                            <input type="text" class="form-control" id="name" name="name" value="<?= isset($_POST['name']) ? htmlentities($_POST['name']) : '' ?>">
+                            <label for="rest_name" class="form-label">餐廳名稱</label>
+                            <input type="text" class="form-control" id="rest_name" name="rest_name" value="<?= isset($_POST['rest_name']) ? htmlentities($_POST['rest_name']) : '' ?>" data-required="1">
+                            <div class="form-text"></div>
                         </div>
 
                         <div class="mb-3">
-                            <label for="area" class="form-label" class="form-control">所在縣市</label>
-                            <select name="area" id="area" class="form-select" aria-label="Default select example">
+                            <label for="rest_area" class="form-label" class="form-control">所在縣市</label>
+                            <select name="rest_area" id="rest_area" class="form-select" aria-label="Default select example" data-required="2">
                                 <option selected>--請選擇--</option>
                                 <?php foreach ($areaArray as $i) : ?>
-                                    <option value="<?= $i['area_id'] ?>"><?= $i['area_name'] ?></option>
+                                    <option value="<?= $i['area_name'] ?>"><?= $i['area_name'] ?></option>
                                 <?php endforeach ?>
+
                             </select>
-
+                            <div class="form-text"></div>
                         </div>
 
                         <div class="mb-3">
-                            <label for="adress" class="form-label">地址</label>
-                            <input type="text" class="form-control" id="adress" name="adress" value="<?= isset($_POST['adress']) ? htmlentities($_POST['adress']) : '' ?>">
+                            <label for="rest_adress" class="form-label">地址</label>
+                            <input type="text" class="form-control" id="rest_adress" name="rest_adress" value="<?= isset($_POST['rest_adress']) ? htmlentities($_POST['rest_adress']) : '' ?>" data-required="1">
+                            <div class="form-text"></div>
                         </div>
 
                         <div class="mb-3">
-                            <label for="lon" class="form-label">經度</label>
-                            <input type="text" class="form-control" id="lon" name="lon">
+                            <label for="rest_lon" class="form-label">經度</label>
+                            <input type="text" class="form-control" id="rest_lon" name="rest_lon" data-required="1" data-required="3">
+                            <div class="form-text"></div>
                         </div>
 
                         <div class="mb-3">
-                            <label for="lat" class="form-label">緯度</label>
-                            <input type="text" class="form-control" id="lat" name="lat">
+                            <label for="rest_lat" class="form-label">緯度</label>
+                            <input type="text" class="form-control" id="rest_lat" name="rest_lat" data-required="1" data-required="3">
+                            <div class="form-text"></div>
                         </div>
 
                         <div class="mb-3">
-                            <label for="intro" class="form-label">介紹文字</label>
-                            <textarea name="intro" id="intro" class="form-control" aria-label="With textarea"></textarea>
+                            <label for="rest_intro" class="form-label">介紹文字</label>
+                            <textarea name="rest_intro" id="rest_intro" class="form-control" aria-label="With textarea" data-required="1"></textarea>
+                            <div class="form-text"></div>
                         </div>
 
                         <div class="mb-3">
-                            <label for="class" class="form-label">料理類型</label>
-                            <select name="class" id="class" class="form-select" aria-label="Default select example">
+                            <label for="rest_class" class="form-label">料理類型</label>
+
+                            <select name="rest_class" id="rest_class" class="form-select" aria-label="Default select example" data-required="2">
                                 <option selected>--請選擇--</option>
 
                                 <?php foreach ($classArray as $c) : ?>
-                                    <option value="<?= $c['rest_class_id'] ?>"><?= $c['rest_class'] ?></option>
+                                    <option value="<?= $c['rest_class'] ?>"><?= $c['rest_class'] ?></option>
                                 <?php endforeach ?>
                             </select>
+                            <div class="form-text"></div>
                         </div>
+                        <!-- 上傳檔案 -->
+                        <!-- <div class="input-group mb-3">
+                            <input type="file" class="form-control" id="inputGroupFile02">
+                            <label class="input-group-text" for="inputGroupFile02"><i class="fa-solid fa-ellipsis"></i></label>
+                        </div> -->
 
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label for="">資料建立時間</label>
 
-                        </div>
+                        </div> -->
+
+                        <div class="alert alert-danger" role="alert" id="infoBar" style="display:none"></div>
+
                         <button type="submit" class="btn btn-primary">新增</button>
 
                     </form>
@@ -85,47 +105,49 @@ $classArray = $pdo->query($sql_class)->fetchAll();
 
 </div>
 <script>
-    const namefield = document.querySelector('#name');
-
     const infoBar = document.querySelector('#infoBar');
-    // const fields = document.querySelectorAll('form');
+
+    const fields = document.querySelectorAll('form *[data-required="1"]');
+    const selects = document.querySelectorAll('form *[data-required="2"]');
 
     function restForm(event) {
         event.preventDefault();
-        // for (let f of fields) {
+        for (let f of fields) {
 
-        //     f.style.border = '1px solid #ccc';
-        //     f.nextElementSibling.innerHTML = ''
-        // }
+            f.style.border = '1px solid #ccc';
+            f.nextElementSibling.innerHTML = ''
+        }
+        for (let s of selects) {
 
-        // namefield.style.border = '1px solid #CCC';
-        // namefield.nextElementSibling.innerHTML = ''
+            s.style.border = '1px solid #ccc';
+            s.nextElementSibling.innerHTML = ''
+        }
 
         let ispass = true; // 預設值是通過的
 
         // TODO: 檢查欄位資料
-        // for (let f of fields) {
-        //     if (!f.value) {
-        //         ispass = false;
-        //         f.style.border = '1px solid red';
-        //         f.nextElementSibling.innerHTML = '請輸入資料'
-        //     }
+        for (let f of fields) {
+            if (!f.value) {
+                ispass = false;
+                f.style.border = '1px solid red';
+                f.nextElementSibling.innerHTML = '請輸入資料'
+            }
 
-        // }
+        }
 
+        for (let s of selects) {
+            if (s.value == '--請選擇--') {
+                ispass = false;
+                s.style.border = '1px solid red';
+                s.nextElementSibling.innerHTML = '請選擇欄位'
+            }
 
+        }
 
-        // if (namefield.value.length < 2) {
-        //     ispass = false;
-        //     namefield.style.border = '1px solid red';
-        //     namefield.nextElementSibling.innerHTML = '請輸入至少兩個字'
-        // }
 
         if (ispass) {
-            const fd = new FormData(document.form1);
-            /*測試code
-            // const usp = new URLSearchParams(fd); //轉換為 urlencoded 格式
-            // console.log(usp.toString())*/
+            const fd = new FormData(document.restaurant_addform);
+
             fetch('kuo_restaurant_add_api.php', {
                     method: 'POST',
                     body: fd,
@@ -151,16 +173,16 @@ $classArray = $pdo->query($sql_class)->fetchAll();
                     }, 2000);
 
                 })
-            // .catch(ex => {
-            //     console.log(ex);
-            //     infoBar.classList.remove('alert-success')
-            //     infoBar.classList.add('alert-danger')
-            //     infoBar.innerHTML = '新增發生錯誤'
-            //     infoBar.style.display = 'block';
-            //     setTimeout(() => {
-            //         infoBar.style.display = 'none';
-            //     }, 2000);
-            // })
+                .catch(ex => {
+                    console.log(ex);
+                    infoBar.classList.remove('alert-success')
+                    infoBar.classList.add('alert-danger')
+                    infoBar.innerHTML = '資料格式有誤'
+                    infoBar.style.display = 'block';
+                    setTimeout(() => {
+                        infoBar.style.display = 'none';
+                    }, 2000);
+                })
         } else {
             // 沒通過檢查
         }
