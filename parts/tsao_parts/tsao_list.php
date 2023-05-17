@@ -12,7 +12,7 @@ if($page < 1) {
     exit; // 結束所有code，因為已經要轉跳了，瀏覽器執行下面所有的程式碼是沒有意義的
 }
 
-$t_sql = "SELECT * FROM `itinerary database`"; // COUNT(1) 得到一筆資料
+$t_sql = "SELECT * FROM `itinerary_database`"; // COUNT(1) 得到一筆資料
 $totalRows = $pdo->query($t_sql)->fetch(); # 總筆數 #fetch(PDO::FETCH_NUM)[0] 第一欄
 // $totalPages = ceil($totalRows / $perPage); # 總頁數
 // print_f($totalRows);
