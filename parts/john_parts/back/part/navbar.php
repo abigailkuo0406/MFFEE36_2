@@ -17,9 +17,17 @@
         color: white;
         font-weight: 800;
     }
+
+    #intro {
+        background-image: url("./parts/john_parts/back/imgs/ship.jpg");
+        background-position: center;
+        /* object-fit: contain; */
+        /* width: 100px; */
+        height: 85vh;
+    }
 </style>
 <div class="container">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary mb-5">
         <div class="container-fluid">
             <a class="navbar-brand" href="index_.php">Navbar</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

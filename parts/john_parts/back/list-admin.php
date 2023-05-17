@@ -4,6 +4,7 @@ $pageName = 'list';
 $title = '列表';
 
 require './parts/john_parts/back/part/connect-db.php';
+require './parts/john_parts/back/part/html-head.php';
 
 $perPage = 10; #每頁最多幾筆
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1; #用戶要看第幾頁
@@ -37,6 +38,7 @@ if ($totalRows) {
 <div class="container">
     <div class="row">
         <?php include './parts/john_parts/back/part/navbar.php'; ?>
+
         <nav aria-label="Page navigation example">
             <ul class="pagination">
                 <li class="page-item <?= 1 == $page ? 'disabled' : '' ?>">
@@ -63,6 +65,29 @@ if ($totalRows) {
                 </li>
             </ul>
         </nav>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Launch demo modal
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="row">
         <table class="table table-bordered table-striped">
@@ -121,10 +146,17 @@ if ($totalRows) {
     </div>
 </div>
 
-<?php #include './parts/scripts.php'; 
+<?php include './parts/john_parts/back/part/scripts.php';
 ?>
 
 <script>
+    const myModal = document.getElementById('myModal')
+    const myInput = document.getElementById('myInput')
+
+    myModal.addEventListener('shown.bs.modal', () => {
+        myInput.focus();
+    })
+
     document.querySelector('li.page-item.active a').removeAttribute('href');
 
     function delete_it(member_id) {
@@ -135,5 +167,5 @@ if ($totalRows) {
     }
 </script>
 
-<?php #include './parts/html-foot.php'; 
+<?php include './parts/john_parts/back/part//html-foot.php';
 ?>

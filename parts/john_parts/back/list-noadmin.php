@@ -70,12 +70,24 @@ if ($totalRows) {
             <thead>
                 <tr>
                     <th scope="col"><i class="fa-solid fa-trash"></i></th>
-                    <th scope="col">#</th>
+                    <th scope="col">帳號</th>
+                    <th scope="col">密碼</th>
+                    <th scope="col">大頭貼</th>
                     <th scope="col">姓名</th>
-                    <th scope="col">email</th>
-                    <th scope="col">手機</th>
                     <th scope="col">生日</th>
-                    <th scope="col">地址</th>
+                    <th scope="col">身分證密碼</th>
+                    <th scope="col">性別</th>
+                    <th scope="col">居住地</th>
+                    <th scope="col">身高</th>
+                    <th scope="col">體重</th>
+                    <th scope="col">星座</th>
+                    <th scope="col">血型</th>
+                    <th scope="col">抽菸</th>
+                    <th scope="col">酒量</th>
+                    <th scope="col">教育程度</th>
+                    <th scope="col">職業</th>
+                    <th scope="col">自介</th>
+                    <th scope="col">手機</th>
                     <th scope="col"><i class="fa-solid fa-pen-to-square"></i></th>
                 </tr>
             </thead>

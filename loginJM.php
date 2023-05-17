@@ -17,11 +17,10 @@ if (isset($_SESSION['admin'])) {
 </style>
 
 
-<div class="container">
-    <div class="row">
-        <div class="col-6">
-            <div class="card">
-
+<div class="container" style="height: 85vh">
+    <div class="row" id="intro">
+        <div class="col-12">
+            <div class="card w-50 m-auto mt-2">
                 <div class="card-body">
                     <h5 class="card-title">登入管理員</h5>
                     <form name="form1" onsubmit="checkForm(event)">
@@ -35,17 +34,15 @@ if (isset($_SESSION['admin'])) {
                             <input type="password" class="form-control" id="password" name="password" data-required="1">
                             <div class="form-text"></div>
                         </div>
-
-
-
                         <div class="alert alert-danger" role="alert" id="infoBar" style="display:none"></div>
 
-                        <button type="submit" class="btn btn-primary">登入</button>
+                        <button type="submit" class="btn btn-primary ">登入</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 
