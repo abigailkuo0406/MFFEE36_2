@@ -80,7 +80,8 @@
                         </a>
                     </li>
                     <li><a class="dropdown-item" href="kuo_restaurant_add.php">新增餐廳</a></li>
-                    <!-- <li><a class="dropdown-item" href="#">訂位管理</a></li> -->
+                    <li><a class="dropdown-item" href="kuo_reserve_list.php">訂位管理</a></li>
+                    <li><a class="dropdown-item" href="kuo_reserve_add.php">新增訂位</a></li>
 
                 </ul>
             </li>
