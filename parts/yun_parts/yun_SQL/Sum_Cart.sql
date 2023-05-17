@@ -24,51 +24,47 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `Cart`
+-- 資料表結構 `Sum_Cart`
 --
 
-CREATE TABLE `Cart` (
-  `cart_id` int(11) NOT NULL,
+CREATE TABLE `Sum_Cart` (
   `member_id` int(11) NOT NULL,
-  `product_id` int(11) DEFAULT NULL,
-  `product_num` int(11) DEFAULT NULL
+  `sum_price` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- 傾印資料表的資料 `Cart`
+-- 傾印資料表的資料 `Sum_Cart`
 --
 
-INSERT INTO `Cart` (`cart_id`, `member_id`, `product_id`, `product_num`) VALUES
-(35, 1, 55581, 2),
-(37, 1, 55582, 2),
-(38, 1, 55581, 3),
-(39, 1, 55564, 5),
-(40, 2, 55587, 2),
-(41, 4, 55555, 13),
-(42, 4, 55563, 1);
+INSERT INTO `Sum_Cart` (`member_id`, `sum_price`) VALUES
+(1, '963.00'),
+(2, '22444.00'),
+(4, '806.00'),
+(10, '0.00'),
+(14, '0.00'),
+(16, '0.00'),
+(27, '0.00'),
+(900, '0.00');
 
 --
 -- 已傾印資料表的索引
 --
 
 --
--- 資料表索引 `Cart`
+-- 資料表索引 `Sum_Cart`
 --
-ALTER TABLE `Cart`
-  ADD PRIMARY KEY (`cart_id`) USING BTREE,
-  ADD UNIQUE KEY `cart_id` (`cart_id`),
-  ADD UNIQUE KEY `cart_id_2` (`cart_id`),
-  ADD UNIQUE KEY `cart_id_3` (`cart_id`);
+ALTER TABLE `Sum_Cart`
+  ADD PRIMARY KEY (`member_id`);
 
 --
--- 在傾印的資料表使用自動遞增(AUTO_INCREMENT)
+-- 已傾印資料表的限制式
 --
 
 --
--- 使用資料表自動遞增(AUTO_INCREMENT) `Cart`
+-- 資料表的限制式 `Sum_Cart`
 --
-ALTER TABLE `Cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+ALTER TABLE `Sum_Cart`
+  ADD CONSTRAINT `sum_cart_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `member` (`member_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

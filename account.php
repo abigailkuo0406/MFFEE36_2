@@ -1,7 +1,7 @@
 <?php include './parts/head.php' ?>
 <title>Test for Layout</title> <!-- 網頁標題可自行修改-->
 <style>
-    /* CSS可以自行修改 */
+    /* CSS可以自行修改 d*/
 </style>
 </head>
 
