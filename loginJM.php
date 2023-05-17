@@ -26,12 +26,12 @@ if (isset($_SESSION['admin'])) {
                     <h5 class="card-title">登入管理員</h5>
                     <form name="form1" onsubmit="checkForm(event)">
                         <div class="mb-3">
-                            <label for="email" class="form-label">email</label>
+                            <label for="email" class="form-label">帳號</label>
                             <input type="text" class="form-control" id="email" name="email" data-required="1">
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
-                            <label for="password" class="form-label">password</label>
+                            <label for="password" class="form-label">密碼</label>
                             <input type="password" class="form-control" id="password" name="password" data-required="1">
                             <div class="form-text"></div>
                         </div>

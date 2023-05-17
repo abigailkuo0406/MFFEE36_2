@@ -37,7 +37,7 @@
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <?php if (isset($_SESSION['admin'])) : ?>
                         <li class="nav-item">
-                            <a class="nav-link"><?= $_SESSION['admin']['nickname'] ?></a>
+                            <a class="nav-link"><?= $_SESSION['admin']['name'] ?></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="logoutJM.php">登出</a>

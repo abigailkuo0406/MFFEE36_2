@@ -24,7 +24,7 @@
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuClickable">
                     <li><a class="dropdown-item" href="#">興趣資料庫</a></li>
                     <li><a class="dropdown-item" href="#">性格資料庫</a></li>
-                    <li><a class="dropdown-item" href="#">社群資料庫</a></li>
+
                 </ul>
             </li>
             <!-- 交友配對 -->
