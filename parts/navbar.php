@@ -21,6 +21,7 @@
                     <span class="material-symbols-outlined nav-icon">account_circle</span>
                     會員中心<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="false"></a>
                 </a>
+<<<<<<< HEAD
 
                 <!-- <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Dropdown
@@ -29,6 +30,13 @@
                     <li><a class="dropdown-item" href="#">興趣資料庫</a></li>
                     <li><a class="dropdown-item" href="#">性格資料庫</a></li>
                     <li><a class="dropdown-item" href="#">社群資料庫</a></li>
+=======
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuClickable">
+                    <li><a class="dropdown-item" href="account.php">列表</a></li>
+                    <li><a class="dropdown-item" href="account_add.php">新增</a></li>
+                    <li><a class="dropdown-item" href="account_delete.php">刪除</a></li>
+                    <li><a class="dropdown-item" href="account_edit.php">修改</a></li>
+>>>>>>> origin/John
                 </ul>
             </li>
             <!-- 交友配對 -->
