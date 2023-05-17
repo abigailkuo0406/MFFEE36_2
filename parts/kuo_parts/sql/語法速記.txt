@@ -59,3 +59,37 @@ JOIN restaurant_list AS L
 ON
     R.`rest_id` = L.`rest_id`
     WHERE M.`member_name`='練庭瑋'
+
+
+<div class="mb-3">
+                            <label for="rest_name" class="form-label">訂位餐廳</label>
+
+                            <select name="rest_name" id="rest_name" class="form-select" aria-label="Default select example" data-required="2">
+                                <option selected>--請選擇--</option>
+                                <?php foreach ($restaurantArray as $rt) : ?>
+                                    <option value="<?= $rt['rest_name'] ?>"><?= $rt['rest_name'] ?></option>
+                                <?php endforeach ?>
+                            </select>
+                            <div class="form-text"></div>
+
+
+<div class="mb-3">
+                            <label for="member_name" class="form-label">會員姓名</label>
+                            <input type="text" class="form-control" id="member_name" name="member_name" value="<?= isset($_POST['member_name']) ? htmlentities($_POST['member_name']) : '' ?>" data-required="1">
+                            <div class="form-text"></div>
+                        </div>
+
+
+<div class="mb-3">
+                            <label for="member_id" class="form-label">會員姓名</label>
+                            <input type="text" class="form-control" id="member_id" name="member_id" value="<?= isset($_POST['member_id']) ? htmlentities($_POST['member_id']) : '' ?>" data-required="1">
+                            <div class="form-text"></div>
+                        </div>
+
+
+
+// $memberName = $_POST['member_name'];
+$sql_memberId = "SELECT `member_id` FROM `member` WHERE `member_name`='車家銘'";
+$memberId = $pdo->query($sql_memberId)->fetch();
+echo print_r($memberId);
+exit;
