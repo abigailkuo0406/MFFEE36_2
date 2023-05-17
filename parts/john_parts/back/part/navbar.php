@@ -34,6 +34,24 @@
                         <a class="nav-link <?= $pageName == 'add' ? 'active' : ' ' ?>" href="account_add.php">新增</a>
                     </li>
                 </ul>
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    <?php if (isset($_SESSION['admin'])) : ?>
+                        <li class="nav-item">
+                            <a class="nav-link"><?= $_SESSION['admin']['nickname'] ?></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="logoutJM.php">登出</a>
+                        </li>
+                    <?php else : ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="loginJM.php">登入</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="register.php">註冊</a>
+                        </li>
+                    <?php endif; ?>
+
+                </ul>
             </div>
         </div>
     </nav>

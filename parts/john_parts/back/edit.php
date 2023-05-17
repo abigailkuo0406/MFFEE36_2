@@ -17,8 +17,6 @@ if (empty($r)) {
 
 ?>
 <?php include './parts/john_parts/back/part/html-head.php' ?>
-<?php include './parts/john_parts/back/part/navbar.php';
-?>
 <style>
     form .mb-3 .form-text {
         color: red;
@@ -27,6 +25,8 @@ if (empty($r)) {
 
 
 <div class="container">
+    <?php include './parts/john_parts/back/part/navbar.php';
+    ?>
     <div class="row">
         <div class="col-6">
             <div class="card">
