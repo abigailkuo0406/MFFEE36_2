@@ -9,6 +9,12 @@ include './parts/pei_parts/connect-db.php';
 <?php #include './parts/navbar.php' 
 ?>
 
+<?php
+//將景點類型資料表名稱讀出來
+$sql_type = "SELECT `type_name` FROM `attractions＿type` WHERE 1";
+$typeArray = $pdo->query($sql_type)->fetchAll();
+?>
+
 <style>
     .form-text {
         color: red;
@@ -16,7 +22,6 @@ include './parts/pei_parts/connect-db.php';
 </style>
 
 <div class="container">
-
     <div class="row mt-4">
         <div class="col-6 ">
             <div class="card">
@@ -29,31 +34,16 @@ include './parts/pei_parts/connect-db.php';
                             <div class="form-text" style="color:red"></div>
                         </div>
                         <div class="mb-3">
-                            <label for="typ_id" class="form-label">景點類別</label>
-                            <input type="text" class="form-control" id="typ_id" name="typ_id">
-                            <div class="form-text"></div>
-                        </div>
-                        <!-- <label for="typ_id" class="form-label">景點類別</label>
-                        <div class="input-group mb-3">
-                            <select class="form-select" id="typ_id">
-                                <option selected>----選擇-----</option>
-                                <option value="1">1:單車漫遊</option>
-                                <option value="2">2:戶外踏青</option>
-                                <option value="3">3:夜市商圈</option>
-                                <option value="4">4:藍色水岸</option>
-                                <option value="5">5:歷史文化</option>
-                                <option value="6">6:步道之旅</option>
+                            <label for="type_name" class="form-label">景點類別</label>
+                            <select name="type_name" id="type_name">
+                                <option selected>--請選擇---</option>
+                                <?php foreach ($typeArray as $i) : ?>
+                                    <option value="<?= $i['type_name'] ?>"><?= $i['type_name'] ?></option>
+                                <?php endforeach ?>
                             </select>
-                        </div> -->
-
+                        </div>
                         <div class="mb-3">
                             <label for="city" class="form-label">城市</label>
-                            <!-- <select class="form-select" id="typ_id" name="typ_id" data-required="1">
-                                <option selected>----選擇-----</option>
-                                <option value="1">台北市</option>
-                                <option value="2">新北市</option>
-                                <option value="3">基隆市</option>
-                            </select> -->
                             <input type="text" class="form-control" id="city" name="city">
                             <div class="form-text"></div>
                         </div>
@@ -75,9 +65,6 @@ include './parts/pei_parts/connect-db.php';
                             <label for="tel" class="form-label">電話</label>
                             <input type="text" class="form-control" id="tel" name="tel" data-required="1">
                             <div class="form-text"></div>
-                        </div>
-                        <div class="input-group mb-3">
-                            <input type="file" class="form-control" id="inputGroupFile03" aria-describedby="inputGroupFileAddon03" aria-label="Upload">
                         </div>
                         <div class="alert alert-danger" role="alert" id="infoBar" style="display: none;"></div>
                         <button type="submit" class="btn btn-primary">新增</button>

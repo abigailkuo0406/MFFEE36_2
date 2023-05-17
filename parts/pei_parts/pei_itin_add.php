@@ -15,7 +15,6 @@ include './parts/pei_parts/connect-db.php';
     }
 </style>
 
-<!-- aria-label="Disabled input example" disabled -->
 <div class="container">
     <?php include './parts/pei_parts/pei_navbar.php' ?>
     <div class="row mt-4">
@@ -50,7 +49,6 @@ include './parts/pei_parts/connect-db.php';
                             <label class="form-check-label" for="public">公開</label>
                             <input class="form-check-input" type="radio" name="public[]" id="public" value="不公開">
                             <label class="form-check-label" for="public">不公開</label>
-                            <!-- <input type="text" class="form-control" id="public" name="public" data-required="1"> -->
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
@@ -89,15 +87,6 @@ include './parts/pei_parts/connect-db.php';
 
     function checkForm(event) {
         event.preventDefault(); //不要用傳統方式送出去
-
-        // for (let f of fields) {
-        //     // 出錯時標示出外觀的樣式
-        //     f.style.border = '1px solid #CCC';
-        //     f.nextElementSibling.innerHTML = '';
-        // }
-        // nameField.style.border = '1px solid #CCC';
-        // nameField.nextElementSibling.innerHTML = '';
-
         let isPass = true; // 預設值是通過的
 
         // TODO:檢查欄位資料
