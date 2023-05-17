@@ -137,3 +137,87 @@ exit;
                             <input type="text" class="form-control" id="rest_id" name="rest_id" value="<?= htmlentities($r['rest_id']) ?>" data-required="1">
                             <div class="form-text"></div>
                         </div>
+
+
+
+
+<form class="input-group mb-3" method="GET">
+        <div class="mb-3">
+            <label for="search" class="form-label" class="form-control">以縣市搜尋</label>
+
+            <select name="search" id="search" class="form-select" aria-label="Default select example" data-required="2">
+                <option selected>--請選擇--</option>
+                <?php foreach ($areaArray as $i) : ?>
+                    <option value="<?= $i['area_name'] ?>"><?= $i['area_name'] ?></option>
+                <?php endforeach ?>
+
+            </select>
+            <!-- 放大鏡按鈕 -->
+            <button type="button" class="btn btn-primary mt-3 ms-3" onclick="search()"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <div class="form-text"></div>
+        </div>
+    </form>
+
+
+
+<form class="input-group mb-3" method="GET">
+        <input name="search" type="text" class="form-control" placeholder="輸入關鍵字" value="<?= isset($_GET['search']) ? $_GET['search'] : null ?>" aria-label="Recipient's username" aria-describedby="button-addon2">
+        <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </form>
+
+
+
+
+
+$perPage = 20; #每頁最多幾筆
+$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+// 用戶要看第幾頁，強制轉int為了不讓人拿字串亂試網址
+// 如果頁面沒有 page (直接進入 list.php，則給予 $page = 1 顯示第一頁)
+
+if($page < 1) {
+    // 如果手動亂輸入 page=負數或0，直接轉跳為顯示第一頁
+    header('location: ? page = 1'); //在瀏覽器檢視網頁狀態302是指轉向
+    exit; // 結束所有code，因為已經要轉跳了，瀏覽器執行下面所有的程式碼是沒有意義的
+}
+
+$search = isset($_GET['search']) ? $_GET['search'] : null;
+if($search){
+  $search_type = 'id';
+  $t_sql = "SELECT COUNT(1) FROM Products WHERE product_id = '$search'";
+  $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
+  if($totalRows == 0){
+    $t_sql = "SELECT COUNT(1) FROM Products WHERE product_name = '$search'";
+    $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
+    $search_type = 'name';
+  }
+  $totalPages = ceil($totalRows / $perPage);
+  $rows = [];
+  if($totalRows){
+    if ($page > $totalPages) {
+      header("Location: ?page=$totalPages");
+      exit;
+    }
+    if($search_type == 'id') {
+      $sql = sprintf("SELECT * FROM Products WHERE product_id = '$search' ORDER BY product_id DESC  LIMIT %s, %s", ($page-1)*$perPage, $perPage );
+    } else if($search_type == 'name') {
+      $sql = sprintf("SELECT * FROM Products WHERE product_name = '$search' ORDER BY product_id DESC  LIMIT %s, %s", ($page-1)*$perPage, $perPage );
+    }
+    $rows = $pdo->query($sql)->fetchAll();
+  }
+}else {
+  $t_sql = "SELECT COUNT(1) FROM Products";
+  $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
+  $totalPages = ceil($totalRows / $perPage);
+  $rows = [];
+  if($totalRows){
+    if ($page > $totalPages) {
+      header("Location: ?page=$totalPages");
+      exit;
+    }
+    $sql = sprintf("SELECT * FROM Products ORDER BY product_id DESC LIMIT %s, %s", ($page-1)*$perPage, $perPage );
+    $rows = $pdo->query($sql)->fetchAll();
+  }
+}
+
+
+?>
