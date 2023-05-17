@@ -72,6 +72,12 @@ ON
                             </select>
                             <div class="form-text"></div>
 
+<div class="mb-3">
+                            <label for="rest_id" class="form-label">餐廳</label>
+                            <input type="text" class="form-control" id="rest_id" name="rest_id" value="<?= isset($_POST['rest_id']) ? htmlentities($_POST['rest_id']) : '' ?>" data-required="1">
+                            <div class="form-text"></div>
+                        </div>
+
 
 <div class="mb-3">
                             <label for="member_name" class="form-label">會員姓名</label>

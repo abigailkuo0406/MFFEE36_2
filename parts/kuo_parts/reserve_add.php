@@ -26,60 +26,63 @@ $restaurantArray = $pdo->query($sql_restaurant)->fetchAll();
                 <div class="card-body">
                     <h5 class="card-title fs-3">新增訂位資料</h5>
                     <form name="restaurant_addform" onsubmit="restForm(event)">
-                    <div class="mb-3">
-                            <label for="member_id" class="form-label">會員姓名</label>
-                            <input type="text" class="form-control" id="member_id" name="member_id" value="<?= isset($_POST['member_id']) ? htmlentities($_POST['member_id']) : '' ?>" data-required="1">
-                            <div class="form-text"></div>
-                        </div>
-
-
-                        
                         <div class="mb-3">
-                            <label for="rest_id" class="form-label">餐廳</label>
-                            <input type="text" class="form-control" id="rest_id" name="rest_id" value="<?= isset($_POST['rest_id']) ? htmlentities($_POST['rest_id']) : '' ?>" data-required="1">
+                            <label for="member_name" class="form-label">會員姓名</label>
+                            <input type="text" class="form-control" id="member_name" name="member_name" value="<?= isset($_POST['member_name']) ? htmlentities($_POST['member_name']) : '' ?>" data-required="1">
                             <div class="form-text"></div>
                         </div>
 
-
-                        
                         <div class="mb-3">
-                            <label for="reserve_date" class="form-label">訂位日期</label>
-                            <input type="date" class="form-control" id="reserve_date" name="reserve_date" value="<?= isset($_POST['reserve_date']) ? htmlentities($_POST['reserve_date']) : '' ?>" data-required="1">
+                            <label for="rest_name" class="form-label">訂位餐廳</label>
+
+                            <select name="rest_name" id="rest_name" class="form-select" aria-label="Default select example" data-required="2">
+                                <option selected>--請選擇--</option>
+                                <?php foreach ($restaurantArray as $rt) : ?>
+                                    <option value="<?= $rt['rest_name'] ?>"><?= $rt['rest_name'] ?></option>
+                                <?php endforeach ?>
+                            </select>
                             <div class="form-text"></div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="reserve_people" class="form-label">訂位人數</label>
-                            <input type="text" class="form-control" id="reserve_people" name="reserve_people" value="<?= isset($_POST['reserve_people']) ? htmlentities($_POST['reserve_people']) : '' ?>" data-required="1">
-                            <div class="form-text"></div>
-                        </div>
-                        
 
 
-                        
 
-                
-                <!-- 上傳檔案 -->
-                <!-- <div class="input-group mb-3">
+                            <div class="mb-3">
+                                <label for="reserve_date" class="form-label">訂位日期</label>
+                                <input type="date" class="form-control" id="reserve_date" name="reserve_date" value="<?= isset($_POST['reserve_date']) ? htmlentities($_POST['reserve_date']) : '' ?>" data-required="1">
+                                <div class="form-text"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="reserve_people" class="form-label">訂位人數</label>
+                                <input type="text" class="form-control" id="reserve_people" name="reserve_people" value="<?= isset($_POST['reserve_people']) ? htmlentities($_POST['reserve_people']) : '' ?>" data-required="1">
+                                <div class="form-text"></div>
+                            </div>
+
+
+
+
+
+
+                            <!-- 上傳檔案 -->
+                            <!-- <div class="input-group mb-3">
                             <input type="file" class="form-control" id="inputGroupFile02">
                             <label class="input-group-text" for="inputGroupFile02"><i class="fa-solid fa-ellipsis"></i></label>
                         </div> -->
 
-                <!-- <div class="mb-3">
+                            <!-- <div class="mb-3">
                             <label for="">資料建立時間</label>
 
                         </div> -->
 
-                <div class="alert alert-danger" role="alert" id="infoBar" style="display:none"></div>
+                            <div class="alert alert-danger" role="alert" id="infoBar" style="display:none"></div>
 
-                <button type="submit" class="btn btn-primary">新增</button>
+                            <button type="submit" class="btn btn-primary">新增</button>
 
-                </form>
+                    </form>
+                </div>
             </div>
+
+
         </div>
-
-
     </div>
-</div>
 
 
 
