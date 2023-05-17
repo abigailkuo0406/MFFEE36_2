@@ -5,58 +5,131 @@ require './parts/kuo_parts/restaurant_connect-db.php';
 // 取地區資料
 $sql_area = "SELECT * FROM area_list WHERE 1";
 $areaArray = $pdo->query($sql_area)->fetchAll();
+
+// 取料理類型資料
+$sql_class = "SELECT * FROM restaurant_class WHERE 1";
+$classArray = $pdo->query($sql_class)->fetchAll();
+
 ?>
 
-<div class="container mt-5">
-    <form class="input-group mb-3" method="get">
-        <div class="mb-3">
-            <label for="search" class="form-label" class="form-control">以縣市搜尋</label>
 
-            <select name="search" id="search" class="form-select" aria-label="Default select example" data-required="2">
-                <option selected>--請選擇--</option>
+<div class="container mt-5">
+    <form name="searchForm" class="input-group mb-3" method="get">
+        <div class="mb-3">
+            <select name="search-area" id="search-area" class="form-select" aria-label="Default select example" data-required="2">
+                <option selected>依縣市搜尋</option>
                 <?php foreach ($areaArray as $i) : ?>
                     <option value="<?= isset($i['area_name']) ? $i['area_name'] : null ?>"><?= $i['area_name'] ?></option>
                 <?php endforeach ?>
 
             </select>
-            <input type="submit" value="搜尋">
+            <select name="search-class" id="search-class" class="form-select" aria-label="Default select example" data-required="2">
+                <option selected>依料理類型搜尋</option>
+                <?php foreach ($classArray as $c) : ?>
+                    <option value="<?= isset($c['rest_class']) ? $c['rest_class'] : null ?>"><?= $c['rest_class'] ?></option>
+                <?php endforeach ?>
+
+            </select>
+
+            <button id="submit" type="submit" class="btn btn-primary my-2">搜尋</button>
+
+            <div class="mt-3 form-text">搜尋結果:</div>
+            <!-- 縣市搜尋結果 -->
+            <div class="mb-3 form-text"><?=isset($_GET['search-area']) && $_GET['search-area'] != '依縣市搜尋' ? '縣市：'.$_GET['search-area'] : '縣市：請選擇搜尋條件'?></div>
+            <!-- 料理類型結果 -->
+            <div class="mb-3 form-text"><?=isset($_GET['search-class']) && $_GET['search-class'] != '依料理類型搜尋' ? '料理類型：'.$_GET['search-class'] : '料理類型：請選擇搜尋條件'?></div>
+            <!-- 顯示資料數 -->
+            <div class="mt-3 form-text" id="count"></div>
         </div>
+        
     </form>
+    
 
 
     <?php
     // 每頁要顯示的資料數量
-    $perPage = 5;
+    $perPage = 10;
 
     // 使用者當前查看的頁面是第幾頁,強制轉int為了不讓人拿字串亂試網址
     $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 
+    
+
     // 搜尋後顯示資料
-    $search = isset($_GET['search']) ? $_GET['search'] : null;
-    // echo $search;
-    // exit;
-    if ($search) {
-        $search_sql = sprintf("SELECT COUNT(1) FROM restaurant_list WHERE rest_area='%s'", $search);
+    $search_area = isset($_GET['search-area']) ? $_GET['search-area'] : null; //取得縣市搜尋結果
+    
+    $search_class = isset($_GET['search-class']) ? $_GET['search-class'] : null; //取得料理類型搜尋結果
+    
+    $search_result_type = 0;
+
+    
+ 
+    if ($search_area !='依縣市搜尋' && $search_class !='依料理類型搜尋' && $search_area != null && $search_class != null) { //兩個都有查詢
+        $search_sql = sprintf("SELECT COUNT(1) FROM restaurant_list WHERE rest_area='%s' AND`rest_class`='%s'", $search_area,$search_class);
         $total_search_row = $pdo->query($search_sql)->fetch(PDO::FETCH_NUM)[0];
-        // echo $total_search_row;
+        $search_result_type = 1;
+        echo 'A';
+    }elseif($search_area !='依縣市搜尋' && $search_class =='依料理類型搜尋'){ //只查詢縣市
+        $search_sql = sprintf("SELECT COUNT(1) FROM restaurant_list WHERE rest_area='%s'", $search_area);
+        $total_search_row = $pdo->query($search_sql)->fetch(PDO::FETCH_NUM)[0];
+        $search_result_type = 2;
+        echo 'B';
+    }elseif ($search_area =='依縣市搜尋' && $search_class !='依料理類型搜尋') { //只查詢料理類型
+            $search_sql = sprintf("SELECT COUNT(1) FROM restaurant_list WHERE rest_class='%s'", $search_class);
+            $total_search_row = $pdo->query($search_sql)->fetch(PDO::FETCH_NUM)[0];
+            $search_result_type = 3;
+            echo 'C';
+        }
+    
+
+    if($total_search_row == 0 && $search_area != null && $search_class != null){
+        echo "<script language='JavaScript'>alert('未找到資料');</script>";
     }
-
-
     if ($total_search_row) {
-        // 計算總頁數
-        $totalPage = ceil($total_search_row / $perPage);
-        $rows = [];
-        $sql = sprintf("SELECT * FROM restaurant_list WHERE rest_area='%s' LIMIT %s,%s", $search, ($page - 1) * $perPage, $perPage);
-        #依照在第幾頁，撈取對應資料，例如第一頁顯示1-10筆資料，第二頁顯示第11-20筆資料
+        // echo "<script language='JavaScript'>count();</script>"
+        echo'共有'.$total_search_row.'筆資料';
 
-        $rows = $pdo->query($sql)->fetchAll();
+        switch($search_result_type){
+            case 1:
+            // 計算總頁數
+            $totalPage = ceil($total_search_row / $perPage);
+            $rows = [];
+            $sql = sprintf("SELECT * FROM restaurant_list WHERE rest_area='%s' AND`rest_class`='%s' LIMIT %s,%s", $search_area,$search_class, ($page - 1) * $perPage, $perPage);
+            #依照在第幾頁，撈取對應資料，例如第一頁顯示1-10筆資料，第二頁顯示第11-20筆資料
 
+            $rows = $pdo->query($sql)->fetchAll();
+            echo 'Aa';
 
+            break;
+            case 2:
+                // 計算總頁數
+                $totalPage = ceil($total_search_row / $perPage);
+                $rows = [];
+                $sql = sprintf("SELECT * FROM restaurant_list WHERE rest_area='%s' LIMIT %s,%s", $search_area, ($page - 1) * $perPage, $perPage);
+                #依照在第幾頁，撈取對應資料，例如第一頁顯示1-10筆資料，第二頁顯示第11-20筆資料
+
+                $rows = $pdo->query($sql)->fetchAll();
+                echo 'Bb';
+                break;
+            case 3:
+                // 計算總頁數
+                $totalPage = ceil($total_search_row / $perPage);
+                $rows = [];
+                $sql = sprintf("SELECT * FROM restaurant_list WHERE rest_class='%s' LIMIT %s,%s", $search_class, ($page - 1) * $perPage, $perPage);
+                #依照在第幾頁，撈取對應資料，例如第一頁顯示1-10筆資料，第二頁顯示第11-20筆資料
+
+                $rows = $pdo->query($sql)->fetchAll();
+                echo 'Cc';
+                break;
+
+        }
+        
         // 如果當前頁碼大於總頁數
         if ($page > $totalPage) {
             header("Location:?page=$totalPage");
         }
     } else {
+        echo 'DDD';
         #計算總筆數
         $t_sql = "SELECT COUNT(1) FROM restaurant_list";
         $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
@@ -188,17 +261,21 @@ $areaArray = $pdo->query($sql_area)->fetchAll();
         }
 
     }
-
-    function search() {
-        // console.log('123')
-        let search_area = document.getElementById('rest_area')
-        let search_area_value = search_area.value
-        console.log(search_area_value)
-        <?php
-
-
-
-        ?>
-
+    function conunt(){
+        let count_result =document.getElementById('count')
+        count_result.innerHTML =<?php $total_search_row ?>
     }
+
+    
+        // console.log('123')
+        // let submit_btn = document.getElementById('submit')
+        // let search_area =document.getElementByID('search-area')
+        // let search_class =document.getElementByID('search-class')
+        // if(search_area.value == '依縣市搜尋' OR search_class.value == '依料理類型搜尋' ){
+        //     console.log(search_area.value)
+        //     console.log(search_class.value)
+        //     submit_btn.addAttribute(disabled);
+    
+
+    
 </script>

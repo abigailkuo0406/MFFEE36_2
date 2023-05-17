@@ -51,32 +51,6 @@ $areaArray = $pdo->query($sql_area)->fetchAll();
 
 <div class="container">
 
-
-    <!-- <div class="input-group me-auto my-5">
-        <span class="input-group-text">搜尋</span>
-        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"> -->
-    <!-- 放大鏡icon -->
-    <!-- <span class="input-group-text">
-            <i class="fa-solid fa-magnifying-glass"></i>
-        </span>
-    </div> -->
-
-    <div class="mb-3">
-        <label for="search" class="form-label" class="form-control">以縣市搜尋</label>
-
-        <select name="search" id="search" class="form-select" aria-label="Default select example" data-required="2">
-            <option selected>--請選擇--</option>
-            <?php foreach ($areaArray as $i) : ?>
-                <option value="<?= $i['area_name'] ?>"><?= $i['area_name'] ?></option>
-            <?php endforeach ?>
-
-        </select>
-        <!-- 放大鏡按鈕 -->
-        <button type="button" class="btn btn-primary mt-3 ms-3" onclick="search()"><i class="fa-solid fa-magnifying-glass"></i></button>
-        <div class="form-text"></div>
-    </div>
-
-
     <div class="row">
         <table class="table table-striped">
             <thead>
@@ -163,17 +137,4 @@ $areaArray = $pdo->query($sql_area)->fetchAll();
 
     }
 
-    // 搜尋欄(未完成)
-    function search() {
-        // console.log('123')
-        let search_area = document.getElementById('rest_area')
-        let search_area_value = search_area.value
-        console.log(search_area_value)
-        <?php
-
-
-
-        ?>
-
-    }
 </script>

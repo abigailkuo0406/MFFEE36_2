@@ -221,3 +221,7 @@ if($search){
 
 
 ?>
+
+
+
+SELECT `rest_area`,`rest_class` FROM `restaurant_list` WHERE `rest_area`='新北市' AND`rest_class`='早午餐';
