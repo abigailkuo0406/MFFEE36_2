@@ -2,6 +2,18 @@
 
 require './parts/kuo_parts/restaurant_connect-db.php';
 
+
+$sid = isset($_GET['reserve_id']) ? intval($_GET['reserve_id']) : 0;
+
+$sql_solo = "SELECT * FROM reserve WHERE reserve_id={$sid}";
+
+$r = $pdo->query($sql_solo)->fetch();
+
+if (empty($r)) {
+    header('Locatione: kuo_reserve_list.php');
+    exit;
+};
+
 // 取地區資料
 // $sql_area = "SELECT * FROM area_list WHERE 1";
 // $areaArray = $pdo->query($sql_area)->fetchAll();
@@ -10,6 +22,18 @@ require './parts/kuo_parts/restaurant_connect-db.php';
 $sql_restaurant = "SELECT rest_name FROM `restaurant_list` WHERE 1";
 $restaurantArray = $pdo->query($sql_restaurant)->fetchAll();
 
+// 把會員ID轉成會員姓名顯示在表單
+$memberId = empty($r['member_id']) ? null : $r['member_id'];
+
+$sql_member_name = sprintf("SELECT `member_name` FROM `member` WHERE `member_id` = %s", $memberId);
+
+$memberName = $pdo->query($sql_member_name)->fetch(PDO::FETCH_NUM)[0];
+
+
+// 把餐廳ID轉成餐廳名稱顯示在表單
+$restId = empty($r['rest_id']) ? null : $r['rest_id'];
+$sql_rest_name = sprintf("SELECT `rest_name` FROM `restaurant_list` WHERE `rest_id`=%s", $restId);
+$restrName = $pdo->query($sql_rest_name)->fetch(PDO::FETCH_NUM)[0];
 
 ?>
 
@@ -24,11 +48,14 @@ $restaurantArray = $pdo->query($sql_restaurant)->fetchAll();
         <div class="col-6">
             <div class="card" style="width: 40rem;">
                 <div class="card-body">
-                    <h5 class="card-title fs-3">新增訂位資料</h5>
+                    <h5 class="card-title fs-3">編輯訂位資料</h5>
                     <form name="restaurant_addform" onsubmit="restForm(event)">
+                        <!-- 此為隱藏欄位，用戶看不到 -->
+                        <input type="hidden" name="reserve_id" id="reserve_id" value="<?= $r['reserve_id'] ?>">
+
                         <div class="mb-3">
                             <label for="member_name" class="form-label">會員姓名</label>
-                            <input type="text" class="form-control" id="member_name" name="member_name" value="<?= isset($_POST['member_name']) ? htmlentities($_POST['member_name']) : '' ?>" data-required="1">
+                            <input type="text" class="form-control" id="member_name" name="member_name" value="<?= $memberName ?>" data-required="1">
                             <div class="form-text"></div>
                         </div>
 
@@ -36,7 +63,7 @@ $restaurantArray = $pdo->query($sql_restaurant)->fetchAll();
                             <label for="rest_name" class="form-label">訂位餐廳</label>
 
                             <select name="rest_name" id="rest_name" class="form-select" aria-label="Default select example" data-required="2">
-                                <option selected>--請選擇--</option>
+                                <option selected><?= $restrName ?></option>
                                 <?php foreach ($restaurantArray as $rt) : ?>
                                     <option value="<?= $rt['rest_name'] ?>"><?= $rt['rest_name'] ?></option>
                                 <?php endforeach ?>
@@ -44,15 +71,14 @@ $restaurantArray = $pdo->query($sql_restaurant)->fetchAll();
                             <div class="form-text"></div>
 
 
-
                             <div class="mb-3">
                                 <label for="reserve_date" class="form-label">訂位日期</label>
-                                <input type="date" class="form-control" id="reserve_date" name="reserve_date" value="<?= isset($_POST['reserve_date']) ? htmlentities($_POST['reserve_date']) : '' ?>" data-required="1">
+                                <input type="date" class="form-control" id="reserve_date" name="reserve_date" value="<?= $r['reserve_date'] ?>" data-required="1">
                                 <div class="form-text"></div>
                             </div>
                             <div class="mb-3">
                                 <label for="reserve_people" class="form-label">訂位人數</label>
-                                <input type="text" class="form-control" id="reserve_people" name="reserve_people" value="<?= isset($_POST['reserve_people']) ? htmlentities($_POST['reserve_people']) : '' ?>" data-required="1">
+                                <input type="text" class="form-control" id="reserve_people" name="reserve_people" value="<?= htmlentities($r['reserve_people']) ?>" data-required="1">
                                 <div class="form-text"></div>
                             </div>
 
@@ -74,7 +100,7 @@ $restaurantArray = $pdo->query($sql_restaurant)->fetchAll();
 
                             <div class="alert alert-danger" role="alert" id="infoBar" style="display:none"></div>
 
-                            <button type="submit" class="btn btn-primary">新增</button>
+                            <button type="submit" class="btn btn-primary">編輯完成</button>
 
                     </form>
                 </div>
@@ -131,7 +157,7 @@ $restaurantArray = $pdo->query($sql_restaurant)->fetchAll();
         if (ispass) {
             const fd = new FormData(document.restaurant_addform);
 
-            fetch('kuo_reserve_add_api.php', {
+            fetch('kuo_reserve_edit_api.php', {
                     method: 'POST',
                     body: fd,
                 })
@@ -142,13 +168,13 @@ $restaurantArray = $pdo->query($sql_restaurant)->fetchAll();
 
                         infoBar.classList.remove('alert-danger')
                         infoBar.classList.add('alert-success')
-                        infoBar.innerHTML = '新增成功'
+                        infoBar.innerHTML = '編輯成功'
                         infoBar.style.display = 'block';
 
                     } else {
                         infoBar.classList.remove('alert-success')
                         infoBar.classList.add('alert-danger')
-                        infoBar.innerHTML = '新增失敗'
+                        infoBar.innerHTML = '資料未更改'
                         infoBar.style.display = 'block';
                     }
                     setTimeout(() => {

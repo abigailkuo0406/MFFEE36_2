@@ -27,22 +27,26 @@ if (!empty($_POST['member_name'])) {
     $restrId = $pdo->query($sql_restId)->fetch(PDO::FETCH_NUM)[0];
 
 
-    $sql = "INSERT INTO `reserve`
-    (`member_id`, `rest_id`, `reserve_date`, `reserve_people`) 
-    VALUES (?,?,?,?)";
+    $sql = "UPDATE `reserve` SET 
+    `member_id`=?,
+    `rest_id`=?,
+    `reserve_date`=?,
+    `reserve_people`=?
+     WHERE `reserve_id`=?";
 
 
     $stmt = $pdo->prepare($sql);
-    if ($ispass) {
-        $stmt->execute([
-            $memberId,
-            $restrId,
-            // $_POST['member_id'],
-            // $_POST['rest_id'],
-            $_POST['reserve_date'],
-            $_POST['reserve_people'],
-        ]);
-    }
+    // if ($ispass) {
+    $stmt->execute([
+        $memberId,
+        $restrId,
+        // $_POST['member_id'],
+        // $_POST['rest_id'],
+        $_POST['reserve_date'],
+        $_POST['reserve_people'],
+        $_POST['reserve_id']
+    ]);
+    // }
     $output['success'] = !!$stmt->rowCount();
 }
 

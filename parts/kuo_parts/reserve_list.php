@@ -105,7 +105,7 @@ $areaArray = $pdo->query($sql_area)->fetchAll();
 
                         <!-- 編輯資料(icon) -->
                         <td>
-                            <a href="kuo_reserve_edit.php?rest_id=<?= $r['reserve_id'] ?>">
+                            <a href="kuo_reserve_edit.php?reserve_id=<?= $r['reserve_id'] ?>">
                                 <i class="fa-solid fa-pen"></i>
                             </a>
                         </td>

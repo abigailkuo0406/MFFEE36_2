@@ -99,3 +99,40 @@ $sql_memberId = "SELECT `member_id` FROM `member` WHERE `member_name`='車家銘
 $memberId = $pdo->query($sql_memberId)->fetch();
 echo print_r($memberId);
 exit;
+
+********************編輯***********************
+
+
+<div class="mb-3">
+                            <label for="member_name" class="form-label">會員姓名</label>
+                            <input type="text" class="form-control" id="member_name" name="member_name" value="<?= htmlentities($r['member_name']) ?>" data-required="1">
+                            <div class="form-text"></div>
+                        </div>
+
+
+
+
+<div class="mb-3">
+                            <label for="member_id" class="form-label">會員ID</label>
+                            <input type="text" class="form-control" id="member_id" name="member_id" value="<?= htmlentities($r['member_id']) ?>" data-required="1">
+                            <div class="form-text"></div>
+                        </div>
+
+
+<div class="mb-3">
+                            <label for="rest_name" class="form-label">訂位餐廳</label>
+
+                            <select name="rest_name" id="rest_name" class="form-select" aria-label="Default select example" data-required="2">
+                                <option selected><?= htmlentities($r['rest_name']) ?></option>
+                                <?php foreach ($restaurantArray as $rt) : ?>
+                                    <option value="<?= $rt['rest_name'] ?>"><?= $rt['rest_name'] ?></option>
+                                <?php endforeach ?>
+                            </select>
+                            <div class="form-text"></div>
+
+
+<div class="mb-3">
+                            <label for="rest_id" class="form-label">餐廳ID</label>
+                            <input type="text" class="form-control" id="rest_id" name="rest_id" value="<?= htmlentities($r['rest_id']) ?>" data-required="1">
+                            <div class="form-text"></div>
+                        </div>
