@@ -161,6 +161,9 @@ $classArray = $pdo->query($sql_class)->fetchAll();
                         infoBar.classList.add('alert-success')
                         infoBar.innerHTML = '新增成功'
                         infoBar.style.display = 'block';
+                        setTimeout(() => {
+                            goback();
+                        }, 2000);
 
                     } else {
                         infoBar.classList.remove('alert-success')
@@ -186,5 +189,9 @@ $classArray = $pdo->query($sql_class)->fetchAll();
         } else {
             // 沒通過檢查
         }
+    }
+
+    function goback() {
+        window.location.href = './kuo_restaurant_list.php'
     }
 </script>
