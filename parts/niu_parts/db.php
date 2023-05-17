@@ -1,11 +1,11 @@
 <?php
-// Hi
+
 class DB
 {
   private $dbHost = 'localhost';
   private $dbUser = 'root';
-  private $dbPassword = '';
-  private $dbName = 'testdb'; // Hi
+  private $dbPassword = 'root';
+  private $dbName = "mid-term";
   private $conn;
 
   public function __construct()
@@ -20,7 +20,7 @@ class DB
 
   public function insertData($name, $email)
   {
-    $sql = "INSERT INTO $this->dbName. `userdetails` (name,email) VALUES (:name,:email)";
+    $sql = "INSERT INTO userdetails (name,email) VALUES (:name,:email)";
     $stmt = $this->conn->prepare($sql);
     $stmt->execute([':name' => $name, ':email' => $email]);
     echo 'data inserted';
@@ -28,7 +28,7 @@ class DB
 
   public function getData()
   {
-    $sql = "SELECT * FROM $this->dbName.`userdetails`";
+    $sql = "SELECT * FROM userdetails";
     $stmt = $this->conn->prepare($sql);
     $stmt->execute();
     $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -37,7 +37,7 @@ class DB
 
   public function deleteData($id)
   {
-    $sql = "DELETE FROM $this->dbName.`userdetails` WHERE id = :id";
+    $sql = "DELETE FROM userdetails WHERE id = :id";
     $stmt = $this->conn->prepare($sql);
     $stmt->execute([':id' => $id]);
     echo $stmt->rowCount() . ' rows were affected.';
@@ -45,7 +45,7 @@ class DB
 
   public function editData($id, $name)
   {
-    $sql = "UPDATE $this->dbName.`userdetails` SET name=:name WHERE id=:id";
+    $sql = "UPDATE userdetails SET name=:name WHERE id=:id";
     $stmt = $this->conn->prepare($sql);
     $stmt->execute([':name' => $name, ':id' => $id]);
   }

@@ -1,6 +1,6 @@
 <?php
 
-// Lolo
+
 if (isset($_POST['insertData'])) {
 
   $name = $_POST['name'];
