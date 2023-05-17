@@ -31,6 +31,7 @@ if (!empty($_POST['member_name'])) {
     `member_id`=?,
     `rest_id`=?,
     `reserve_date`=?,
+    `reserve_time`=?,
     `reserve_people`=?
      WHERE `reserve_id`=?";
 
@@ -43,6 +44,7 @@ if (!empty($_POST['member_name'])) {
         // $_POST['member_id'],
         // $_POST['rest_id'],
         $_POST['reserve_date'],
+        $_POST['reserve_time'],
         $_POST['reserve_people'],
         $_POST['reserve_id']
     ]);

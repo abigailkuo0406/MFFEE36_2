@@ -28,8 +28,8 @@ if (!empty($_POST['member_name'])) {
 
 
     $sql = "INSERT INTO `reserve`
-    (`member_id`, `rest_id`, `reserve_date`, `reserve_people`) 
-    VALUES (?,?,?,?)";
+    (`member_id`, `rest_id`, `reserve_date`, `reserve_time`, `reserve_people`) 
+    VALUES (?,?,?,?,?)";
 
 
     $stmt = $pdo->prepare($sql);
@@ -40,7 +40,8 @@ if (!empty($_POST['member_name'])) {
             // $_POST['member_id'],
             // $_POST['rest_id'],
             $_POST['reserve_date'],
-            $_POST['reserve_people'],
+            $_POST['reserve_time'],
+            $_POST['reserve_people']
         ]);
     }
     $output['success'] = !!$stmt->rowCount();

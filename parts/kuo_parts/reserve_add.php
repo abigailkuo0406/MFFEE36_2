@@ -50,9 +50,16 @@ $restaurantArray = $pdo->query($sql_restaurant)->fetchAll();
                                 <input type="date" class="form-control" id="reserve_date" name="reserve_date" value="<?= isset($_POST['reserve_date']) ? htmlentities($_POST['reserve_date']) : '' ?>" data-required="1">
                                 <div class="form-text"></div>
                             </div>
+
+                            <div class="mb-3">
+                                <label for="reserve_time" class="form-label">訂位時間</label>
+                                <input type="time" class="form-control" id="reserve_time" name="reserve_time" value="<?= isset($_POST['reserve_time']) ? htmlentities($_POST['reserve_time']) : '' ?>" data-required="1">
+                                <div class="form-text"></div>
+                            </div>
+
                             <div class="mb-3">
                                 <label for="reserve_people" class="form-label">訂位人數</label>
-                                <input type="text" class="form-control" id="reserve_people" name="reserve_people" value="<?= isset($_POST['reserve_people']) ? htmlentities($_POST['reserve_people']) : '' ?>" data-required="1">
+                                <input type="number" class="form-control" id="reserve_people" name="reserve_people" value="<?= isset($_POST['reserve_people']) ? htmlentities($_POST['reserve_people']) : '' ?>" data-required="1">
                                 <div class="form-text"></div>
                             </div>
 

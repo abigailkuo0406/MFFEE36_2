@@ -33,6 +33,7 @@ L.`rest_area`,
 L.`rest_adress`,
 L.`rest_class`,
     R.`reserve_date`,
+R.`reserve_time`,
     R.`reserve_people`
 FROM
     reserve AS R

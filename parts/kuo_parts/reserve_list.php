@@ -26,7 +26,7 @@ $rows = [];
 // 如果資料庫有資料再做資料撈取跟顯示
 if ($totalRows) {
 
-    $sql = sprintf("SELECT R.`reserve_id`,M.`member_name`,L.`rest_name`,L.`rest_area`,L.`rest_adress`,L.`rest_class`,R.`reserve_date`,R.`reserve_people`FROM reserve AS R JOIN member AS M ON R.`member_id` = M.`member_id` JOIN restaurant_list AS L ON R.`rest_id` = L.`rest_id` LIMIT %s,%s", ($page - 1) * $perPage, $perPage);
+    $sql = sprintf("SELECT R.`reserve_id`,M.`member_name`,L.`rest_name`,L.`rest_area`,L.`rest_adress`,L.`rest_class`,R.`reserve_time`,R.`reserve_date`,R.`reserve_people`FROM reserve AS R JOIN member AS M ON R.`member_id` = M.`member_id` JOIN restaurant_list AS L ON R.`rest_id` = L.`rest_id` LIMIT %s,%s", ($page - 1) * $perPage, $perPage);
     #依照在第幾頁，撈取對應資料，例如第一頁顯示1-10筆資料，第二頁顯示第11-20筆資料
 
     $rows = $pdo->query($sql)->fetchAll();
@@ -86,6 +86,7 @@ $areaArray = $pdo->query($sql_area)->fetchAll();
                     <th scope="col">餐廳地址</th>
                     <th scope="col">餐廳類型</th>
                     <th scope="col">訂位日期</th>
+                    <th scope="col">訂位時間</th>
                     <th scope="col">訂位人數</th>
                     <th scope="col">修改</th>
                     <th scope="col">刪除</th>
@@ -101,6 +102,7 @@ $areaArray = $pdo->query($sql_area)->fetchAll();
                         <td><?= $r['rest_adress'] ?></td>
                         <td><?= $r['rest_class'] ?></td>
                         <td><?= $r['reserve_date'] ?></td>
+                        <td><?= $r['reserve_time'] ?></td>
                         <td><?= $r['reserve_people'] ?></td>
 
                         <!-- 編輯資料(icon) -->
