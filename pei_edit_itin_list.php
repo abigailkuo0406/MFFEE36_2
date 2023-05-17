@@ -55,10 +55,10 @@ if (empty($row)) {
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
-                            <label for="public" class="form-label">是否需要公開</label>
-                            <input class="form-check-input" type="radio" name="public[]" id="public" value="公開" checked>
+                            <label for="public" class="form-label">是否需要公開?</label>
+                            <input class="form-check-input" type="radio" name="public" id="public1" value="公開" <?= $row['public'] == "公開" ? 'checked' : '' ?>>
                             <label class="form-check-label" for="public">公開</label>
-                            <input class="form-check-input" type="radio" name="public[]" id="public" value="不公開">
+                            <input class="form-check-input" type="radio" name="public" id="public2" value="不公開" <?= $row['public'] == "不公開" ? 'checked' : '' ?>>
                             <label class="form-check-label" for="public">不公開</label>
                             <div class="form-text"></div>
                         </div>
@@ -78,7 +78,7 @@ if (empty($row)) {
                             <div class="form-text"></div>
                         </div>
                         <div class="alert alert-danger" role="alert" id="infoBar" style="display: none;"></div>
-                        <button type="submit" class="btn btn-primary">編輯</button>
+                        <button type="submit" class="btn btn-primary">編輯完成</button>
                     </form>
                 </div>
             </div>
@@ -120,7 +120,7 @@ if (empty($row)) {
             // 有通過就執行
             const fd = new FormData(document.form1); //沒有外觀的form的物件
 
-            fetch('pei_itin_add-api.php', {
+            fetch('pei_edit-api-itin.php', {
                     method: 'POST',
                     body: fd, //Content-Type 省略,multipart/form-data
                 }).then(r => r.json())
@@ -132,6 +132,9 @@ if (empty($row)) {
                         infoBar.classList.add('alert-success')
                         infoBar.innerHTML = '新增成功'
                         infoBar.style.display = 'block';
+                        setTimeout(() => {
+                            location.href = './parts/pei_parts/itin_list.php';
+                        }, 2000)
 
                     } else {
                         infoBar.classList.remove('alert-success')
