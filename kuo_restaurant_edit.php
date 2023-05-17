@@ -1,6 +1,6 @@
 <?php include './parts/head.php' ?>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<title>餐廳管理</title><!-- 網頁標題可自行修改-->
+<title>編輯餐廳資料</title><!-- 網頁標題可自行修改-->
 <style>
     /* CSS可以自行修改 */
 </style>
