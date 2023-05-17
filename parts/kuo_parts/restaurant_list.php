@@ -23,6 +23,7 @@ $totalPage = ceil($totalRows / $perPage);
 
 $rows = [];
 
+
 // 如果資料庫有資料再做資料撈取跟顯示
 if ($totalRows) {
 
@@ -41,9 +42,16 @@ if ($totalRows) {
 $sql_area = "SELECT * FROM area_list WHERE 1";
 $areaArray = $pdo->query($sql_area)->fetchAll();
 
+// 搜尋後顯示資料
+$search = isset($_GET['search']) ? $_GET['search'] : null;
+if ($search) {
+    $search_sql = sprintf("SELECT COUNT(1) FROM restaurant_list WHERE rest_area='%s'", $search);
+    $total_search_row = $pdo->query($search_sql)->fetch(PDO::FETCH_NUM)[0];
+}
+
 ?>
 
-
+<!-- 頁面呈現 -->
 <div class="container">
 
 
@@ -56,20 +64,10 @@ $areaArray = $pdo->query($sql_area)->fetchAll();
         </span>
     </div> -->
 
-    <div class="mb-3">
-        <label for="rest_area" class="form-label" class="form-control">以縣市搜尋</label>
-
-        <select name="rest_area" id="rest_area" class="form-select" aria-label="Default select example" data-required="2">
-            <option selected>--請選擇--</option>
-            <?php foreach ($areaArray as $i) : ?>
-                <option value="<?= $i['area_name'] ?>"><?= $i['area_name'] ?></option>
-            <?php endforeach ?>
-
-        </select>
-        <!-- 放大鏡按鈕 -->
-        <button type="button" class="btn btn-primary mt-3 ms-3" onclick="search()"><i class="fa-solid fa-magnifying-glass"></i></button>
-        <div class="form-text"></div>
-    </div>
+    <form class="input-group mb-3" method="GET">
+        <input name="search" type="text" class="form-control" placeholder="輸入關鍵字" value="<?= isset($_GET['search']) ? $_GET['search'] : null ?>" aria-label="Recipient's username" aria-describedby="button-addon2">
+        <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </form>
 
 
     <div class="row">

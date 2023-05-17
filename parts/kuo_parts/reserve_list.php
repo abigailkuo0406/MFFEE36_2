@@ -44,7 +44,9 @@ if ($totalRows) {
 $sql_area = "SELECT * FROM area_list WHERE 1";
 $areaArray = $pdo->query($sql_area)->fetchAll();
 
+
 ?>
+
 
 
 <div class="container">
@@ -60,9 +62,9 @@ $areaArray = $pdo->query($sql_area)->fetchAll();
     </div> -->
 
     <div class="mb-3">
-        <label for="rest_area" class="form-label" class="form-control">以縣市搜尋</label>
+        <label for="search" class="form-label" class="form-control">以縣市搜尋</label>
 
-        <select name="rest_area" id="rest_area" class="form-select" aria-label="Default select example" data-required="2">
+        <select name="search" id="search" class="form-select" aria-label="Default select example" data-required="2">
             <option selected>--請選擇--</option>
             <?php foreach ($areaArray as $i) : ?>
                 <option value="<?= $i['area_name'] ?>"><?= $i['area_name'] ?></option>
