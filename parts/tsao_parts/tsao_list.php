@@ -13,7 +13,7 @@ if($page < 1) {
 }
 
 $t_sql = "SELECT * FROM `itinerary_database`"; // COUNT(1) 得到一筆資料
-$totalRows = $pdo->query($t_sql)->fetch(); # 總筆數 #fetch(PDO::FETCH_NUM)[0] 第一欄
+$totalRows = $pdo->query($t_sql)->fetchAll(); # 總筆數 #fetch(PDO::FETCH_NUM)[0] 第一欄
 // $totalPages = ceil($totalRows / $perPage); # 總頁數
 // print_f($totalRows);
 // if($totalRows){ // 如果有資料沒空白
