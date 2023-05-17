@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 12, 2023 at 11:10 AM
+-- Generation Time: May 17, 2023 at 03:13 AM
 -- Server version: 5.7.24
 -- PHP Version: 8.0.1
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `project`
+-- Database: `mid-term`
 --
 
 -- --------------------------------------------------------
@@ -42,6 +42,28 @@ CREATE TABLE `hobby` (
   `in/out` varchar(10) NOT NULL,
   `hobby_name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `manager`
+--
+
+CREATE TABLE `manager` (
+  `sid` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `manager`
+--
+
+INSERT INTO `manager` (`sid`, `name`, `email`, `password`) VALUES
+(1, 'JOHN', 'JOHN_MAYER', '$2y$10$xJK76.kS11l8vZZgKSvXNOzMGurwtujiq5ZiOGvCM7N/naznG8UHq'),
+(2, 'Jessica', 'Jessica@gmail.com', '$2y$10$xJK76.kS11l8vZZgKSvXNOzMGurwtujiq5ZiOGvCM7N/naznG8UHq'),
+(3, 'Abigail', 'Abigail@gmail.com', '$2y$10$xJK76.kS11l8vZZgKSvXNOzMGurwtujiq5ZiOGvCM7N/naznG8UHq');
 
 -- --------------------------------------------------------
 
@@ -1080,7 +1102,17 @@ INSERT INTO `member` (`member_id`, `email`, `password`, `images`, `member_name`,
 (997, 'mail919984@test.com', 'M688411211o', 'img01', '金子豪', '1989-04-24', 'G192776381', '男', '新北市永和區', 183, 98, '魔羯座', 'B', '有', '滴酒不沾', '國小', '艙面部船員', '站內死了機會', '0911397857', '2023-05-12 16:19:59'),
 (998, 'mail229331@test.com', 'Y582259426d', 'img01', '馬宇翔', '1997-04-04', 'F151802039', '女', '新北市土城區', 195, 103, '巨蟹座', 'O', '有', '酒豪', '國中', '空服人員', '幾天肯定先後焦點既然和他熱情主機邀請搜尋引擎面前，女性建材什麼', '0911968124', '2023-05-12 16:19:59'),
 (999, 'mail701208@test.com', 'E441772022z', 'img01', '池姿穎', '1995-06-22', 'H169341957', '男', '新北市蘆洲區', 170, 71, '雙子座', 'AB', '無', '酒豪', '博士', 'IC設計工程師', '生命移動', '0911494817', '2023-05-12 16:19:59'),
-(1000, 'mail964353@test.com', 'O680787615i', 'img01', '巫沛璇', '1985-08-11', 'K277138492', '女', '新北市蘆洲區', 176, 60, '天秤座', 'B', '有', '滴酒不沾', '國小', '空服人員', '生命移動', '0911279323', '2023-05-12 16:19:59');
+(1000, 'mail964353@test.com', 'O680787615i', 'img01', '巫沛璇', '1985-08-11', 'K277138492', '女', '新北市蘆洲區', 176, 60, '天秤座', 'B', '有', '滴酒不沾', '國小', '空服人員', '生命移動', '0911279323', '2023-05-12 16:19:59'),
+(1005, 'jklk@kkllololololomemekmekmeke', '', '2', 'mgkl,', '2023-06-02', 'hjk', 'lasdf', 'asdf', 789, 789, 'asfasfd', '789', 'asdfasfd', 'asfdsfda', 'asfdasd', 'asfdasfd', 'asdfasfd', 'afdfasd', '2023-05-16 11:19:17'),
+(1006, 'jklk@kk', 'fds', '2', 'mgkl,', '2023-06-02', 'hjk', 'lasdf', 'asdf', 789, 789, 'asfasfd', 'asfdasdf', 'asdfasfd', 'asfdsfda', 'asfdasd', 'asfdasfd', 'asdfasfd', 'afdfasd', '2023-05-16 11:19:18'),
+(1007, 'jklk@kk', '85489489', '2454545', 'mgkl,', '2023-06-02', 'hjk', 'lasdf', 'asdf', 789, 789, 'asfasfd', '789', 'asdfasfd', 'asfdsfda', 'asfdasd', 'asfdasfd', 'asdfasfd', 'afdfasd', '2023-05-16 11:19:19'),
+(1008, 'jklk@kk', 'fds', '2', 'mgkl,', '2023-06-02', 'hjk', 'lasdf', 'asdf', 789, 789, 'asfasfd', 'asfdasdf', 'asdfasfd', 'asfdsfda', 'asfdasd', 'asfdasfd', 'asdfasfd', 'afdfasd', '2023-05-16 11:19:20'),
+(1009, 'jklk@kk', 'fds', '2', 'mgkl,', '2023-06-02', 'hjk', 'lasdf', 'asdf', 789, 789, 'asfasfd', 'asfdasdf', 'asdfasfd', 'asfdsfda', 'asfdasd', 'asfdasfd', 'asdfasfd', 'afdfasd', '2023-05-16 11:19:22'),
+(1010, 'jklk@kk', 'fds', '2', 'mgkl,', '2023-06-02', 'hjk', 'lasdf', 'asdf', 789, 789, 'asfasfd', 'asfdasdf', 'asdfasfd', 'asfdsfda', 'asfdasd', 'asfdasfd', 'asdfasfd', 'afdfasd', '2023-05-16 11:19:23'),
+(1011, 'jklk@kk', 'fds', '2', 'mgkl,', '2023-06-02', 'hjk', 'lasdf', 'asdf', 789, 789, 'asfasfd', 'asfdasdf', 'asdfasfd', 'asfdsfda', 'asfdasd', 'asfdasfd', 'asdfasfd', 'afdfasd', '2023-05-16 11:19:32'),
+(1012, 'jklk@kk', 'fds', '2', 'mgkl,', '2023-06-02', 'hjk', 'lasdf', 'asdf', 789, 789, 'asfasfd', 'asfdasdf', 'asdfasfd', 'asfdsfda', 'asfdasd', 'asfdasfd', 'asdfasfd', 'afdfasd', '2023-05-16 11:19:34'),
+(1013, '121321@jjkl', 'sgsg', '3', 'sfdgsfg', '2023-05-05', 'asfdasfd', 'adsf', 'sgfd', 32, 123, 'sfdg', 'sdfg', 'sfdg', 'sfdg', 'sfdg', 'sdfg', 'sfg', 'dfgj', '2023-05-16 16:30:18'),
+(1015, '121321@jjkl', 'agsfd', '144', 'adsfasd', '2023-05-12', 'asdfasd', 'asdfasdf', 'asdfasd', 212, 89748, 'asdfaa', 'sdfas', 'asfdg', 'hadfasdlc', 'jxsfjxfjxerg', 'ggsfdgsfd', 'ffkjfgkg', 'wyyet', '2023-05-16 19:16:56');
 
 -- --------------------------------------------------------
 
@@ -1105,6 +1137,12 @@ ALTER TABLE `hobby`
   ADD PRIMARY KEY (`hid`);
 
 --
+-- Indexes for table `manager`
+--
+ALTER TABLE `manager`
+  ADD PRIMARY KEY (`sid`);
+
+--
 -- Indexes for table `member`
 --
 ALTER TABLE `member`
@@ -1121,10 +1159,16 @@ ALTER TABLE `hobby`
   MODIFY `hid` int(10) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `manager`
+--
+ALTER TABLE `manager`
+  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
-  MODIFY `member_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1001;
+  MODIFY `member_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1016;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
