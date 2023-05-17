@@ -5,7 +5,7 @@ class DB
   private $dbHost = 'localhost';
   private $dbUser = 'root';
   private $dbPassword = '';
-  private $dbName = 'testdb';
+  private $dbName = 'testdb'; // Hi
   private $conn;
 
   public function __construct()
