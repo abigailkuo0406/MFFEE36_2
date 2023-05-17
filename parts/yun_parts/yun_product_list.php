@@ -1,5 +1,5 @@
 
-<form class="input-group mb-3" method="GET">
+<form class="input-group mb-3 w-75 mx-auto" method="GET">
   <input name="search" type="text" class="form-control" placeholder="輸入商品名稱或 ID" value="<?= isset($_GET['search']) ? $_GET['search'] : null ?>" aria-label="Recipient's username" aria-describedby="button-addon2">
     <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fa-solid fa-magnifying-glass"></i></button>
 </form>
@@ -65,7 +65,7 @@ if($search){
 <?php # include './parts/navbar.php' ?>
 
 
-<div class="container"> 
+<div class="container-fluid w-75"> 
     <div class="row">
 
     <!-- 以下為：頁碼選擇 nav -->
@@ -181,6 +181,59 @@ if($search){
   </tbody>
 </table>
     </div>
+
+
+    <div class="row">
+
+<!-- 以下為：頁碼選擇 nav -->
+<nav aria-label="Page navigation example">
+<ul class="pagination">
+
+
+<!-- 前面到第一頁和前一頁的兩個按鈕 start -->
+<!-- 如果 $page 為1，給予 disabled 不能按按鈕跳到第一頁 ($page 小於1已設定會轉成1) -->
+<li class="page-item <?= 1 == $page ? 'disabled' : '' ?>">
+  <a class="page-link" href="?page=1">
+    <i class="fa-solid fa-angles-left"></i>
+  </a>
+</li>
+<!-- 如果 $page 為1，給予 disabled 不能按上一頁按鈕 -->
+<li class="page-item <?= 1 == $page ? 'disabled' : '' ?>">
+  <a class="page-link" href="?page=<?= $page - 1 ?>">
+    <i class="fa-solid fa-angle-left"></i>
+  </a>
+</li>
+<!-- 前面到第一頁和前一頁的兩個按鈕 end -->
+
+<!-- 中間數字頁碼選項 start -->
+<!-- 可以的話設置加自己頁碼+前後各5個頁碼共11個頁碼 -->
+<?php for($i=$page-5; $i<=$page+5; $i++): 
+  if ($i >= 1 and $i <= $totalPages) :  # 讓小於1以及大於總頁數的頁碼不顯示出來
+?>
+    <!--當頁碼$i等於當前頁面時，加上BS屬性 active 讓當前頁碼反白-->
+    <li class="page-item <?= $i==$page ? 'active' : '' ?>">
+        <a class="page-link" href="?page=<?= $i #href內的 ?>"><?= $i #<a>顯示html的?></a>
+    </li>
+<?php endif;
+endfor; ?>
+<!-- 中間數字頁碼選項 end -->
+
+<!-- 後面到上一頁和到最後一頁的兩個按鈕 start -->
+<!-- 如果現在頁碼 $page 等於總共頁碼 $totalPages 就會 disabled-->
+<li class="page-item <?= $totalPages == $page ? 'disabled' : '' ?>">
+  <a class="page-link" href="?page=<?= $page + 1 ?>">
+    <i class="fa-solid fa-angle-right"></i>
+  </a>
+</li>
+<li class="page-item <?= $totalPages == $page ? 'disabled' : '' ?>">
+  <a class="page-link" href="?page=<?= $totalPages ?>">
+    <i class="fa-solid fa-angles-right"></i>
+  </a>
+</li>
+<!-- 後面到上一頁和到最後一頁的兩個按鈕 end -->
+</ul>
+</nav>
+</div>
 </div>
 
 
