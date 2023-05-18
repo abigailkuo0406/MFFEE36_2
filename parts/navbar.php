@@ -63,7 +63,7 @@
             <li class="nav-item dropdown">
                 <a class="link_btn" href="kuo_restaurant_list.php" role="button">
                     <span class="material-symbols-outlined nav-icon">local_activity</span>
-                    餐廳與訂位管理<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="false"></a>
+                    餐廳管理<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="false"></a>
                 </a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="kuo_restaurant_list.php">餐廳管理
@@ -75,12 +75,24 @@
                         </a>
                     </li>
                     <li><a class="dropdown-item" href="kuo_restaurant_add.php">新增餐廳</a></li>
+                    <li><a class="dropdown-item" href="kuo_restaurant_class_list.php">餐廳類型管理</a></li>
+                    <li><a class="dropdown-item" href="kuo_restaurant_class_add.php">新增餐廳類型</a></li>
+
+
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="link_btn" href="kuo_reserve_list.php" role="button">
+                    <span class="material-symbols-outlined nav-icon">local_activity</span>
+                    訂位管理<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="false"></a>
+                </a>
+                <ul class="dropdown-menu">
+
                     <li><a class="dropdown-item" href="kuo_reserve_list.php">訂位管理</a></li>
                     <li><a class="dropdown-item" href="kuo_reserve_add.php">新增訂位</a></li>
 
                 </ul>
             </li>
-
 
             <!-- 官方行程 -->
             <li class="nav-item">

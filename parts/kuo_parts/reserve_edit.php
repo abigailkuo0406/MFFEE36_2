@@ -177,6 +177,9 @@ $restrName = $pdo->query($sql_rest_name)->fetch(PDO::FETCH_NUM)[0];
                         infoBar.classList.add('alert-success')
                         infoBar.innerHTML = '編輯成功'
                         infoBar.style.display = 'block';
+                        setTimeout(() => {
+                            goback();
+                        }, 2000);
 
                     } else {
                         infoBar.classList.remove('alert-success')
@@ -202,5 +205,9 @@ $restrName = $pdo->query($sql_rest_name)->fetch(PDO::FETCH_NUM)[0];
         } else {
             // 沒通過檢查
         }
+    }
+
+    function goback() {
+        window.location.href = './kuo_reserve_list.php'
     }
 </script>
