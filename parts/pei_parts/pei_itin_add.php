@@ -8,6 +8,12 @@ include './parts/pei_parts/connect-db.php';
 ?>
 <?php #include './parts/navbar.php' 
 ?>
+<!-- 抓取會員全部id和name(遞增方式呈現)-->
+<?php
+$m_sql = "SELECT * FROM `member` ORDER BY `member_id` ASC";
+$m_rows = $pdo->query($m_sql)->fetchAll();
+?>
+
 
 <style>
     .form-text {
@@ -16,7 +22,6 @@ include './parts/pei_parts/connect-db.php';
 </style>
 
 <div class="container">
-    <?php include './parts/pei_parts/pei_navbar.php' ?>
     <div class="row mt-4">
         <div class="col-6 ">
             <div class="card">
@@ -29,6 +34,21 @@ include './parts/pei_parts/connect-db.php';
                             <div class="form-text" style="color:red"></div>
                         </div>
                         <div class="mb-3">
+                            <label for="member_id" class="form-label">會員編號</label>
+                            <select name="member_id" id="member_id" class="form-control" data-required="1">
+                                <?php foreach ($m_rows as $r) : ?>
+                                    <option value="<?= $r['member_id'] ?>">
+                                        <?= $r['member_id'] . "-" . $r['member_name'] ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <div class="form-text" style="color:red"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="ppl" class="form-label">人數</label>
+                            <input type="text" class="form-control" id="ppl" name="ppl" data-required="1">
+                            <div class="form-text"></div>
+                        </div>
+                        <div class="mb-3">
                             <label for="date " class="form-label">日期</label>
                             <input type="date" class="form-control" id="date" name="date" data-required="1">
                             <div class="form-text" style="color:red"></div>
@@ -39,8 +59,8 @@ include './parts/pei_parts/connect-db.php';
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
-                            <label for="description" class="description">介紹</label>
-                            <input type="text" class="form-control" id="description" name="description">
+                            <label for="description" class="form-label">說明</label>
+                            <textarea class="form-control" id="description" name="description"></textarea>
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
@@ -51,16 +71,8 @@ include './parts/pei_parts/connect-db.php';
                             <label class="form-check-label" for="public">不公開</label>
                             <div class="form-text"></div>
                         </div>
-                        <div class="mb-3">
-                            <label for="ppl" class="form-label">人數</label>
-                            <input type="text" class="form-control" id="ppl" name="ppl" data-required="1">
-                            <div class="form-text"></div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="member_id" class="form-label">會員編號</label>
-                            <input type="text" class="form-control" id="member_id" name="member_id" data-required="1">
-                            <div class="form-text" style="color:red"></div>
-                        </div>
+
+
                         <div class="mb-3">
                             <label for="create_at" class="form-label">建立時間</label>
                             <input type="text" class="form-control" id="create_at" name="create_at">
@@ -122,6 +134,9 @@ include './parts/pei_parts/connect-db.php';
                         infoBar.classList.add('alert-success')
                         infoBar.innerHTML = '新增成功'
                         infoBar.style.display = 'block';
+                        setTimeout(() => {
+                            goback();
+                        }, 2000)
 
                     } else {
                         infoBar.classList.remove('alert-success')
@@ -157,6 +172,10 @@ include './parts/pei_parts/connect-db.php';
     const second = now.getSeconds();
     const formattedTime = year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
     document.getElementById("create_at").value = formattedTime;
+
+    function goback() {
+        window.location = './pei_itin_custom_itinerary.php'
+    }
 </script>
 <?php # include './parts/html-foot.php' 
 ?>

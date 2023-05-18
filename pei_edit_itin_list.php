@@ -12,11 +12,20 @@ include './parts/pei_parts/connect-db.php';
 $itin_id = isset($_GET["itin_id"]) ? (string)$_GET["itin_id"] : '';
 $sql = "SELECT * FROM Itinerary WHERE itin_id ='{$itin_id}'";
 
+
+
 $row = $pdo->query($sql)->fetch();
 if (empty($row)) {
     header('Location:itin_list.php');
     exit;
 }
+//將會員id轉換成會員姓名
+$memberID = empty($row['member_id']) ? null : $row['member_id'];
+
+$sql_mid = sprintf("SELECT `member_name` FROM `member` WHERE `member_id`='%s'", $memberID);
+
+$memberName = $pdo->query($sql_mid)->fetch(PDO::FETCH_NUM)[0];
+
 ?>
 
 
@@ -35,7 +44,7 @@ if (empty($row)) {
                     <form name=form1 onsubmit="checkForm(event)">
                         <div class="mb-3">
                             <label for="itin_id " class="form-label">行程編號</label>
-                            <input type="text" class="form-control" id="itin_id" name="itin_id" data-required="1" value="<?= $row['itin_id'] ?>">
+                            <input type="text" class="form-control" id="itin_id" name="itin_id" data-required="1" value="<?= $row['itin_id'] ?>" readonly style="background-color:#F0F0F0;">
                             <div class=" form-text" style="color:red">
                             </div>
                         </div>
@@ -68,11 +77,11 @@ if (empty($row)) {
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
-                            <label for="member_id" class="form-label">會員編號</label>
-                            <input type="text" class="form-control" id="member_id" name="member_id" data-required="1" value="<?= $row['member_id'] ?>">
-                            <div class="form-text" style="color:red"></div>
+                            <label for="member_id" class="form-label">會員姓名</label>
+                            <input type="text" class="form-control" id="member_id" name="member_id" data-required="1" value="<?= $memberName ?>" style="background-color:#F0F0F0;" readonly>
+
                         </div>
-                        <div class="mb-3">
+                        <div class=" mb-3">
                             <label for="create_at" class="form-label">建立時間</label>
                             <input type="text" class="form-control" id="create_at" name="create_at" value="<?= $row['create_at'] ?>">
                             <div class="form-text"></div>
@@ -133,7 +142,7 @@ if (empty($row)) {
                         infoBar.innerHTML = '新增成功'
                         infoBar.style.display = 'block';
                         setTimeout(() => {
-                            location.href = './parts/pei_parts/itin_list.php';
+                            goback();
                         }, 2000)
 
                     } else {
@@ -170,6 +179,10 @@ if (empty($row)) {
     const second = now.getSeconds();
     const formattedTime = year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
     document.getElementById("create_at").value = formattedTime;
+
+    function goback() {
+        window.location = './pei_itin_custom_itinerary.php'
+    }
 </script>
 <?php # include './parts/html-foot.php' 
 ?>

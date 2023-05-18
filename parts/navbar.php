@@ -48,10 +48,17 @@
                     自訂行程<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="false"></a>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="./parts/pei_parts/pei_add.php">景點資料庫</a></li>
-                    <li><a class="dropdown-item" href="#">自訂行程資料庫</a></li>
+                    <li><a class="dropdown-item" href="pei_view_custom_itinerary.php">景點資料庫</a></li>
+                    <li><a class="dropdown-item" href="pei_view_add_custom_itinerary.php">新增景點</a></li>
+                    <li><a class="dropdown-item" href="pei_itin_custom_itinerary.php">自訂行程資料庫</a></li>
+                    <li><a class="dropdown-item" href="pei_itin_add_custom_itinerary.php">增加行程資料庫</a></li>
+
+
+
+
                 </ul>
             </li>
+
 
             <!-- 餐廳 & 票券 -->
             <!-- <li class="nav-item">
