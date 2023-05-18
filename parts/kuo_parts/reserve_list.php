@@ -34,6 +34,7 @@ require './parts/kuo_parts/restaurant_connect-db.php';
         echo 'Aa';
         echo '<div  class="mb-3">共有' . $total_search_row . '筆資料</div>';
 
+
         $sql = sprintf("SELECT R.`reserve_id`,
         M.`member_id`,
         M.`member_name`, 
@@ -53,6 +54,8 @@ require './parts/kuo_parts/restaurant_connect-db.php';
 
         $rows = $pdo->query($sql)->fetchAll();
 
+        // 計算總頁數
+        $totalPage = ceil($total_search_row / $perPage);
         // 如果當前頁碼大於總頁數
         if ($page > $totalPage) {
             header("Location:?page=$totalPage");
