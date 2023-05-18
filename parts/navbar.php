@@ -57,7 +57,7 @@
             </li> -->
             <li class="nav-item dropdown">
                 <a class="link_btn" href="kuo_restaurant_list.php" role="button">
-                    <span class="material-symbols-outlined nav-icon">local_activity</span>
+                    <i class="fa-solid fa-utensils"></i>
                     餐廳管理<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="false"></a>
                 </a>
                 <ul class="dropdown-menu">
