@@ -13,7 +13,7 @@ $classArray = $pdo->query($sql_class)->fetchAll();
 ?>
 
 
-<div class="container mt-5">
+<div class="container mt-5" style="width:100%x">
     <form name="searchForm" class="input-group mb-3" method="get">
         <div lass="mb-3 d-flex flex-colunm">
             <div class="mb-3 d-flex flex-row">
@@ -200,20 +200,20 @@ $classArray = $pdo->query($sql_class)->fetchAll();
     <!-- 頁面呈現 -->
 
     <div class="row mt-3">
-        <table class="table table-striped">
+        <table class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th scope="col">餐廳編號</th>
-                    <th scope="col">餐廳名稱</th>
-                    <th scope="col">所在縣市</th>
-                    <th scope="col">地址</th>
-                    <th scope="col">經度</th>
-                    <th scope="col">緯度</th>
-                    <th scope="col">介紹文字</th>
-                    <th scope="col">餐廳類型</th>
-                    <th scope="col">創建日期</th>
-                    <th scope="col">修改</th>
-                    <th scope="col">刪除</th>
+                    <th class="col-1" class="col">餐廳編號</th>
+                    <th class="col-1">餐廳名稱</th>
+                    <th class="col-1">所在縣市</th>
+                    <th class="col-1">地址</th>
+                    <th class="col">經度</th>
+                    <th class="col">緯度</th>
+                    <th class="col">介紹文字</th>
+                    <th class="col-1">餐廳類型</th>
+                    <th class="col">創建日期</th>
+                    <th class="col"></th>
+                    <th class="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -231,7 +231,7 @@ $classArray = $pdo->query($sql_class)->fetchAll();
 
                         <!-- 編輯資料(icon) -->
                         <td>
-                            <a href="kuo_restaurant_edit.php?rest_id=<?= $r['rest_id'] ?>">
+                            <a style="color:litghtblue" href="kuo_restaurant_edit.php?rest_id=<?= $r['rest_id'] ?>">
                                 <i class="fa-solid fa-pen"></i>
                             </a>
                         </td>
@@ -247,25 +247,27 @@ $classArray = $pdo->query($sql_class)->fetchAll();
         </table>
         <nav aria-label="Page navigation example">
             <ul class="pagination">
+
                 <!-- 最前頁 -->
-                <li class="page-item <?= 1 == $page ? 'disable' : '' ?>"><a class="page-link" href="?page=1">最前頁</a></li>
+                <li class="page-item <?= 1 == $page ? 'disabled' : '' ?>"><a class="page-link" href="?page=1">最前頁</a></li>
+
                 <!-- 回上頁 -->
-                <li class="page-item <?= 1 == $page ? 'disable' : '' ?>">
+                <li class="page-item <?= 1 == $page ? 'disabled' : '' ?>">
                     <a class="page-link" href="?page=<?= $page - 1 ?>">上一頁</a>
                 </li>
 
                 <?php for ($i = $page - 5; $i <= $page + 5; $i++) : ?>
                     <?php if ($i >= 1 and $i <= $totalPage) : ?>
                         <!-- 當前頁 -->
-                        <li class="page-item"><a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a></li>
+                        <li class="page-item <?= $i == $page ? 'active' : '' ?>"><a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a></li>
                     <?php endif ?>
                 <?php endfor ?>
 
                 <!-- 下一頁 -->
-                <li class="page-item <?= $totalPage == $page ? 'disable' : '' ?>"><a class="page-link" href="?page=<?= $page + 1 ?>">下一頁</a></li>
+                <li class="page-item <?= $totalPage == $page ? 'disabled' : '' ?>"><a class="page-link" href="?page=<?= $page + 1 ?>">下一頁</a></li>
 
                 <!-- 最後頁 -->
-                <li class="page-item <?= $totalPage == $page ? 'disable' : '' ?>"><a class="page-link" href="?page=<?= $totalPage ?>">最後頁</a></li>
+                <li class="page-item <?= $totalPage == $page ? 'disabled' : '' ?>"><a class="page-link" href="?page=<?= $totalPage ?>">最後頁</a></li>
             </ul>
         </nav>
     </div>
@@ -283,10 +285,5 @@ $classArray = $pdo->query($sql_class)->fetchAll();
             location.href = 'kuo_restaurant_delete_api.php?sid=' + sid;
         }
 
-    }
-
-    function conunt() {
-        let count_result = document.getElementById('count')
-        count_result.innerHTML = <?php $total_search_row ?>
     }
 </script>
