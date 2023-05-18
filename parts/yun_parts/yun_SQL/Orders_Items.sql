@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： localhost:8889
--- 產生時間： 2023 年 05 月 18 日 05:37
+-- 產生時間： 2023 年 05 月 18 日 05:38
 -- 伺服器版本： 5.7.39
 -- PHP 版本： 8.2.0
 
@@ -24,38 +24,14 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `Cart`
+-- 資料表結構 `Orders_Items`
 --
 
-CREATE TABLE `Cart` (
-  `cart_id` int(11) NOT NULL,
-  `member_id` int(11) NOT NULL,
-  `product_id` int(11) DEFAULT NULL,
-  `product_num` int(11) DEFAULT NULL
+CREATE TABLE `Orders_Items` (
+  `order_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `product_num` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- 已傾印資料表的索引
---
-
---
--- 資料表索引 `Cart`
---
-ALTER TABLE `Cart`
-  ADD PRIMARY KEY (`cart_id`) USING BTREE,
-  ADD UNIQUE KEY `cart_id` (`cart_id`),
-  ADD UNIQUE KEY `cart_id_2` (`cart_id`),
-  ADD UNIQUE KEY `cart_id_3` (`cart_id`);
-
---
--- 在傾印的資料表使用自動遞增(AUTO_INCREMENT)
---
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `Cart`
---
-ALTER TABLE `Cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

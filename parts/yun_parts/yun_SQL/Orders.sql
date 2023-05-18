@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： localhost:8889
--- 產生時間： 2023 年 05 月 17 日 07:35
+-- 產生時間： 2023 年 05 月 18 日 05:37
 -- 伺服器版本： 5.7.39
 -- PHP 版本： 8.2.0
 
@@ -39,15 +39,10 @@ CREATE TABLE `Orders` (
   `order_total` decimal(10,2) NOT NULL,
   `order_time` datetime NOT NULL,
   `ad` tinyint(1) NOT NULL,
-  `order_complete` tinyint(1) NOT NULL
+  `order_complete` tinyint(1) NOT NULL,
+  `complete_time` datetime DEFAULT NULL,
+  `order_status` varchar(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- 傾印資料表的資料 `Orders`
---
-
-INSERT INTO `Orders` (`order_id`, `member_id`, `receiver_name`, `receiver_gender`, `receiver_address`, `receiver_email`, `receiver_tel`, `order_note`, `order_total`, `order_time`, `ad`, `order_complete`) VALUES
-(1, 1, '我是收件者', '先生', '我家地址', 'abc123@gmail.com', '0988888888', '交送給大樓管理員', '198.00', '2023-05-15 01:30:08', 1, 0);
 
 --
 -- 已傾印資料表的索引
@@ -67,7 +62,7 @@ ALTER TABLE `Orders`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `Orders`
 --
 ALTER TABLE `Orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9999915;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
