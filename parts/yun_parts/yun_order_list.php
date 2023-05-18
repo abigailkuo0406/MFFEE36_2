@@ -1,6 +1,13 @@
-<form class="input-group mb-3 w-75 mx-auto" method="GET">
-  <input name="search" type="text" class="form-control" placeholder="輸入訂單 ID 或 會員 ID" value="<?= isset($_GET['search']) ? $_GET['search'] : null ?>" aria-label="Recipient's username" aria-describedby="button-addon2">
-    <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fa-solid fa-magnifying-glass"></i></button>
+<?php
+  $select = isset($_GET['select']) ? $_GET['select'] : null;
+?>
+<select name="select" onchange="select_search(this.value)" class="mb-3 w-75 mx-auto">
+  <option value="all" <?php if($select =='all'){echo "selected";} ?>>全部訂單</option>
+  <option value="launch" <?php if($select =='launch'){echo "selected";} ?>>訂單成立</option>
+  <option value="cancel" <?php if($select =='cancel'){echo "selected";} ?>>已取消訂單</option>
+  <option value="complete" <?php if($select =='complete'){echo "selected";} ?>>已完成訂單</option>
+</select>
+
 </form>
 <?php
 $pageName = 'list';
@@ -19,16 +26,22 @@ if($page < 1) {
     exit; // 結束所有code，因為已經要轉跳了，瀏覽器執行下面所有的程式碼是沒有意義的
 }
 
-$search = isset($_GET['search']) ? $_GET['search'] : null;
-if($search){
-  $search_type = 'order';
-  $t_sql = "SELECT COUNT(1) FROM Orders WHERE order_id = '$search'";
-  $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
-  if($totalRows == 0){
-    $t_sql = "SELECT COUNT(1) FROM Orders WHERE member_id = '$search'";
-    $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
-    $search_type = 'member';
+if($select){
+  switch ($select)
+  {
+  case "launch":
+    $t_sql = "SELECT COUNT(1) FROM Orders WHERE order_status = '訂單成立'";
+    break;  
+  case "cancel":
+    $t_sql = "SELECT COUNT(1) FROM Orders WHERE order_status = '已取消'";
+    break;
+  case "complete":
+    $t_sql = "SELECT COUNT(1) FROM Orders WHERE order_status = '已完成'";
+    break;
+  default:
+    $t_sql = "SELECT COUNT(1) FROM Orders";
   }
+  $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
   $totalPages = ceil($totalRows / $perPage);
   $rowcs = [];
   if($totalRows){
@@ -36,11 +49,21 @@ if($search){
       header("Location: ?page=$totalPages");
       exit;
     }
-    if($search_type == 'order') {
-      $sqlc = sprintf("SELECT Orders.*, Cart.* FROM Orders LEFT JOIN Cart ON Orders.member_id = Cart.member_id WHERE Orders.order_id = '$search'  ORDER BY Orders.order_id DESC LIMIT %s, %s", ($page-1)*$perPage, $perPage );
-    } else if($search_type == 'member') {
-      $sqlc = sprintf("SELECT Orders.*, Cart.* FROM Orders LEFT JOIN Cart ON Orders.member_id = Cart.member_id WHERE Orders.member_id = '$search'  ORDER BY Orders.order_id DESC LIMIT %s, %s", ($page-1)*$perPage, $perPage );
-    }
+
+    switch ($select)
+      {
+      case "launch":
+        $sqlc = sprintf("SELECT Orders.*, Sum_Cart.* FROM Orders LEFT JOIN Sum_Cart ON Orders.member_id = Sum_Cart.member_id WHERE Orders.order_status = '訂單成立'  ORDER BY Orders.order_id DESC LIMIT %s, %s", ($page-1)*$perPage, $perPage );
+        break;  
+      case "cancel":
+        $sqlc = sprintf("SELECT Orders.*, Sum_Cart.* FROM Orders LEFT JOIN Sum_Cart ON Orders.member_id = Sum_Cart.member_id WHERE Orders.order_status = '已取消'  ORDER BY Orders.order_id DESC LIMIT %s, %s", ($page-1)*$perPage, $perPage );
+        break;
+      case "complete":
+        $sqlc = sprintf("SELECT Orders.*, Sum_Cart.* FROM Orders LEFT JOIN Sum_Cart ON Orders.member_id = Sum_Cart.member_id WHERE Orders.order_status = '已完成'  ORDER BY Orders.order_id DESC LIMIT %s, %s", ($page-1)*$perPage, $perPage );
+        break;
+      default:
+      $sqlc = sprintf("SELECT Orders.*, Sum_Cart.* FROM Orders LEFT JOIN Sum_Cart ON Orders.member_id = Sum_Cart.member_id ORDER BY Orders.order_id DESC LIMIT %s, %s", ($page-1)*$perPage, $perPage );      
+      }
     $rowcs = $pdo->query($sqlc)->fetchAll();
   }
 }else {
@@ -54,27 +77,19 @@ if($search){
       exit;
     }
     $sqlc = sprintf(
-      "SELECT Orders.*, Cart.* 
+      "SELECT Orders.*, Sum_Cart.* 
       FROM Orders 
-      LEFT JOIN Cart 
-      ON Orders.member_id = Cart.member_id 
+      LEFT JOIN Sum_Cart 
+      ON Orders.member_id = Sum_Cart.member_id 
       ORDER BY Orders.order_id 
       DESC LIMIT %s, %s",
       ($page-1)*$perPage, $perPage );
     $rowcs = $pdo->query($sqlc)->fetchAll();
   }
 }
-$sql = "SELECT member.member_name, Sum_Cart.sum_price, Cart.product_id
-        FROM member
-        LEFT JOIN Sum_Cart ON member.member_id = Sum_Cart.member_id
-        LEFT JOIN Cart ON member.member_id = Cart.member_id
-        WHERE member.member_id = :member_id";
 
 
 ?>
-<?php # include './parts/html-head.php' ?>
-<?php # include './parts/navbar.php' ?>
-
 
 <div class="container-fluid w-75"> 
     <div class="row">
@@ -132,48 +147,101 @@ $sql = "SELECT member.member_name, Sum_Cart.sum_price, Cart.product_id
     <table class="table table-bordered table-striped">
   <thead>
     <tr>
-    <th scope="col"><i class="fa-solid fa-trash-can"></i></th>
       <th scope="col">訂單 ID</th>
       <th scope="col">會員 ID</th>
-      <th scope="col">訂購商品</th>
-      <th scope="col">訂購總金額</th>
+      <th scope="col">訂單金額</th>
       <th scope="col">收件者</th>
       <th scope="col">稱謂</th>
       <th scope="col">收件地址</th>
-      <th scope="col">Email</th>
       <th scope="col">聯絡電話</th>
+      <th scope="col">Email</th>
       <th scope="col">訂單備註</th>
-      <th scope="col">成立時間</th>
       <th scope="col">是否接收廣告</th>
-      <th scope="col"><i class="fa-solid fa-pen-to-square"></i></th>
+      <th scope="col">成立時間</th>
+      <th scope="col">是否完成</th>
+      <th scope="col">完成時間</th>
+      <th scope="col">訂單狀態</th>
+      <th scope="col">取消訂單</th>
+      <th scope="col">完成訂單</th>
+      <th scope="col">刪除訂單</th>
     </tr>
   </thead>
   <tbody>
-  <?php foreach($rowcs as $r): ?>
+    
+  <?php
+  foreach($rowcs as $r): ?>
                 <tr>
+                    <td
+                      style="<?php
+                        if($r['order_status'] =='已取消'){
+                          echo "text-decoration: line-through;";
+                        }
+                      ?>"
+                    ><?= $r['order_id'] ?>
+                    </td>
+                    <td><?= $r['member_id'] ?></td>
+                    <td><?= $r['order_total'] ?></td>
+                    <td><?= $r['member_id'] ?></td>
+                    <td><?= $r['receiver_name'] ?></td>
+                    <td><?= $r['receiver_gender'] ?></td>
+                    <td><?=  $r['receiver_address'] ?></td>
+                    <td><?=  $r['receiver_tel'] ?></td>
+                    <td><?=  $r['receiver_email'] ?></td>
+                    <td><?=  htmlentities($r['order_note']) ?></td>
+                    <td><?=  $r['ad'] ?></td>
+                    <td><?=  $r['order_time'] ?></td>
+                    <td><?=  $r['order_complete'] ?></td>
+                    <td><?=  $r['complete_time'] ?></td>
+                    <td><?=  $r['order_status'] ?></td>
+                    <td>
+                      <a
+                      <?php
+                        if($r['order_status'] =='訂單成立'){
+                          echo "href='javascript: cancel_it(".$r['order_id'].")'";
+                        }
+                      ?>"
+                      >
+                      <i class="fa-solid fa-xmark"></i>
+                      </a>
+                    </td>
+                    <td>
+                      <a href="./yun_order_edit.php?pid=<?= $r['order_id'] ?>">
+                      <a
+                      <?php
+                        if($r['order_status'] =='訂單成立'){
+                          echo "href='javascript: complete_it(".$r['order_id'].")'";
+                        }
+                      ?>"
+                      >
+                      <i class="fa-regular fa-circle-check"></i>
+                      </a>
+                    </td>
                     <td>
                       <a href="javascript: delete_it(<?= $r['order_id'] ?>)">
                         <i class="fa-solid fa-trash-can"></i>
                       </a>
                     </td>
-                    <td><?= $r['order_id'] ?></td>
-                    <td><?= $r['member_id'] ?></td>
-                    <td><?= $r['product_id'] ?></td>
-                    <td><?= $r['product_id'] * $r['product_num'] ?></td>
-                    <td><?= $r['receiver_name'] ?></td>
-                    <td><?= $r['receiver_gender'] ?></td>
-                    <td><?=  $r['receiver_address'] ?></td>
-                    <td><?=  $r['receiver_email'] ?></td>
-                    <td><?=  $r['receiver_tel'] ?></td>
-                    <td><?=  htmlentities($r['order_note']) ?></td>
-                    <td><?=  $r['order_time'] ?></td>
-                    <td><?=  $r['ads'] ?></td>
-                    <td>
-                    <!-- 讓 edit.php 帶有 ?sid=頁碼，來判斷是幫哪筆資料編輯 -->
-                    <a href="./yun_order_edit.php?pid=<?= $r['order_id'] ?>">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                      </a>
-                    </td>
+                </tr>
+                <tr>
+                  <?php
+
+$items_qlc =
+"SELECT Orders_Items.*, Orders.order_id
+FROM Orders
+INNER JOIN Orders_Items
+ON Orders.order_id=Orders_Items.order_id
+WHERE Orders.order_id = :oid";
+
+$items_stmt = $pdo->prepare($items_qlc);
+        $items_stmt->bindParam(':oid', $r['order_id']);
+        $items_stmt->execute();
+        $items_stmt = $items_stmt->fetchAll();
+                foreach ($items_stmt as $ritem):
+                ?>
+                  <td>
+                  <?= '商品：'.$ritem['product_id'].'，數量：'.$ritem['product_num'] ?>
+                  </td>
+                  <?php endforeach; ?>
                 </tr>
                 <?php endforeach; ?>
   </tbody>
@@ -236,15 +304,34 @@ $sql = "SELECT member.member_name, Sum_Cart.sum_price, Cart.product_id
 
 <?php #include './parts/scripts.php' ?>
 <script>
+  function select_search(value) {
+    window.location.href = "?select=" + value;
+  }
+
+
+
   // 已經在 php for 中的生成頁碼選擇按鈕設置 $i==$page ? 'active' : '' ，所以當前頁面會啟動 active 反白
   // 此程式碼目的為將當前頁碼移除可點擊連結的功能
   document.querySelector('li.page-item.active a').removeAttribute('href');
 
   // 點擊資料刪除 icon 會啟動的 JS function，點擊確定後連結到 delete.php?sid=編號
-  function delete_it(pid) {
-    if(confirm(`是否要刪除商品 ID 為：${pid} 的資料?`)){
-      location.href = 'yun_product_delete.php?pid=' + pid;
+  function cancel_it(oid) {
+    if(confirm(`是否取消 ID 為：${oid} 的訂單?`)){
+      location.href = 'yun_order_cancel-api.php?oid=' + oid;
     }
   }
+
+  function complete_it(oid) {
+    if(confirm(`訂單：${oid} 是否完成?`)){
+      location.href = 'yun_order_complete-api.php?oid=' + oid;
+    }
+  }
+
+  function delete_it(oid) {
+    if(confirm(`是否要刪除訂單 ID 為：${oid} 的資料?`)){
+      location.href = 'yun_order_delete.php?oid=' + oid;
+    }
+  }
+
 </script>
 <?php #include './parts/html-foot.php' ?>
