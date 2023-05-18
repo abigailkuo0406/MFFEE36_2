@@ -225,3 +225,6 @@ if($search){
 
 
 SELECT `rest_area`,`rest_class` FROM `restaurant_list` WHERE `rest_area`='新北市' AND`rest_class`='早午餐';
+
+
+SELECT R.`reserve_id`, M.`member_ID`, M.`member_name`, L.`rest_name`, L.`rest_area`, L.`rest_adress`, L.`rest_class`, R.`reserve_time`, R.`reserve_date`, R.`reserve_people`, R.`created_time` FROM reserve AS R JOIN member AS M ON R.`member_id` = M.`member_id` and M.`member_id`='2' JOIN restaurant_list AS L ON R.`rest_id` = L.`rest_id`;
