@@ -1,7 +1,12 @@
 <?php include './parts/head.php' ?>
-<title>Test for Layout</title> <!-- 網頁標題可自行修改-->
+<title>官方行程_曹祐嘉負責</title> <!-- 網頁標題可自行修改-->
 <style>
     /* CSS可以自行修改 */
+    @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
+
+    body {
+        font-family: 'Roboto Slab', serif;
+    }
 </style>
 </head>
 
