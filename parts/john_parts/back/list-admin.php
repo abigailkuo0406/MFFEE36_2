@@ -4,7 +4,7 @@ $pageName = 'list';
 $title = '列表';
 
 require './parts/john_parts/back/part/connect-db.php';
-require './parts/john_parts/back/part/html-head.php';
+#require './parts/john_parts/back/part/html-head.php';
 
 $perPage = 10; #每頁最多幾筆
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1; #用戶要看第幾頁
@@ -185,5 +185,5 @@ if (isset($_GET['keyword']) && $_GET['keyword'] != '') {
     })
 </script>
 
-<?php include './parts/john_parts/back/part//html-foot.php';
+<?php #include './parts/john_parts/back/part//html-foot.php';
 ?>

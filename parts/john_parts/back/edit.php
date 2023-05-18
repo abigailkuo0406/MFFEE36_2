@@ -16,7 +16,8 @@ if (empty($r)) {
 
 
 ?>
-<?php include './parts/john_parts/back/part/html-head.php' ?>
+<?php #include './parts/john_parts/back/part/html-head.php' 
+?>
 <style>
     form .mb-3 .form-text {
         color: red;
