@@ -47,7 +47,7 @@ $classArray = $pdo->query($sql_class)->fetchAll();
                     <!-- 縣市搜尋結果 -->
                     <div class="" style="font-size:16px;font-weight:800"><?= isset($_GET['search-area']) && $_GET['search-area'] != '依縣市搜尋' ? '縣市：' . $_GET['search-area'] : '' ?></div>
                     <!-- 料理類型結果 -->
-                    <div class="" style="font-size:16px;font-weight:800"><?= isset($_GET['search-class']) && $_GET['search-class'] != '依料理類型搜尋' ? '料理類型：' . $_GET['search-class'] : '' ?></div>
+                    <div class="mt-2" style="font-size:16px;font-weight:800"><?= isset($_GET['search-class']) && $_GET['search-class'] != '依料理類型搜尋' ? '料理類型：' . $_GET['search-class'] : '' ?></div>
                 </div>
             </div>
         </div>

@@ -10,7 +10,7 @@ require './parts/kuo_parts/restaurant_connect-db.php';
     }
 </style>
 
-<div class="container">
+<div class="container mt-5">
     <div class="row">
         <div class="col-6">
             <div class="card" style="width: 40rem;">
