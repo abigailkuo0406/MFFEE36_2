@@ -13,6 +13,11 @@ class DB
     try {
       $dsn = "mysql:host=" . $this->dbHost . ";dbname=" . $this->dbName;
       $this->conn = new PDO($dsn, $this->dbUser, $this->dbPassword);
+      // $this->conn = new PDO(
+      //   "mysql:host=localhost; dbname=mid-term",
+      //   "root",
+      //   "root"
+      // );
     } catch (PDOException $e) {
       die("DB Connection failed: " . $e->getMessage());
     }
@@ -22,7 +27,7 @@ class DB
   {
     $sql = "INSERT INTO whopost (name,email,post) VALUES (:name,:email,:post)";
     $stmt = $this->conn->prepare($sql);
-    $stmt->execute(['name' => $name, 'email' => $email, 'post' => $post]);
+    $stmt->execute([':name' => $name, ':email' => $email, ':post' => $post]);
     echo "data inserted";
   }
 
@@ -39,14 +44,14 @@ class DB
   {
     $sql = "DELETE FROM whopost WHERE id=:id";
     $stmt = $this->conn->prepare($sql);
-    $stmt->execute(['id' => $id]);
+    $stmt->execute([':id' => $id]);
     echo $stmt->rowCount() . " rows were affected.";
   }
 
-  public function editData($id, $name)
+  public function editData($id, $post)
   {
-    $sql = "UPDATE whopost SET name = :name WHERE id = :id";
+    $sql = "UPDATE whopost SET post = :post WHERE id = :id";
     $stmt = $this->conn->prepare($sql);
-    $stmt->execute([':id' => $id, ':name' => $name]);
+    $stmt->execute([':id' => $id, ':post' => $post]);
   }
 }

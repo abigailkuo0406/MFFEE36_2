@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 18, 2023 at 10:03 PM
+-- Generation Time: May 19, 2023 at 03:17 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -42,7 +42,12 @@ INSERT INTO `whopost` (`id`, `name`, `email`, `post`) VALUES
 (8, 'Peter', 'peter@gmail.com', '我愛耶穌'),
 (9, 'Steve', 'steve@gmail.com', '星期五要守齋'),
 (10, 'Stark', 'tony@gmail.com', '耶穌復活了！！'),
-(11, 'Mark', 'mark@gmail.com', '阿門');
+(11, 'Mark', 'mark@gmail.com', '阿門'),
+(14, '光頭強', 'nohair@gmail.com', '我是光頭強'),
+(15, 'Gucci', 'gucci@gmail.com', 'luxury stuff'),
+(16, 'Jerry', 'jerry@yahoo.com', '守齋比較好啦！'),
+(17, '黑面蔡', 'amao@yahoo.com', '耶穌復活了！！'),
+(18, '光頭強', 'nohair@gmail.com', '請問哪裡有賣便宜的假髮？');
 
 --
 -- Indexes for dumped tables
@@ -62,7 +67,7 @@ ALTER TABLE `whopost`
 -- AUTO_INCREMENT for table `whopost`
 --
 ALTER TABLE `whopost`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
