@@ -48,7 +48,7 @@
                 </a>
             </li> -->
             <li class="nav-item dropdown">
-                <a class="link_btn" href="custom_itinerary.php" role="button">
+                <a class="link_btn" href="pei_view_custom_itinerary.php" role="button">
                     <span class="material-symbols-outlined nav-icon">map</span>
                     自訂行程<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="false"></a>
                 </a>
