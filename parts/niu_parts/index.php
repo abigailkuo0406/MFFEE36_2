@@ -1,7 +1,7 @@
 <?php
 require_once 'db.php';
 $db = new DB();
-
+// Hi
 // Delete Data
 if (isset($_POST['deleteData'])) {
   $id = $_POST['id'];
