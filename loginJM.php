@@ -93,7 +93,7 @@ if (isset($_SESSION['admin'])) {
                         // location.href = 'index_.php';
                         setTimeout(() => {
                             console.log('tttttttttt')
-                            location.href = 'account.php';
+                            location.href = 'account_main.php';
                         }, 2000);
 
                     } else {

@@ -32,6 +32,15 @@ if ($totalRows) {
     $sql = sprintf("SELECT * FROM `member` LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
     $rows = $pdo->query($sql)->fetchAll();
 }
+
+// search
+
+$queryString = isset($_GET['keyword']) ? strval($_GET['keyword']) : '';
+
+if (isset($_GET['keyword']) && $_GET['keyword'] != '') {
+    $sql = "SELECT * FROM `member` WHERE`member_id` LIKE '%{$queryString}%' OR `email`LIKE '%{$queryString}%' OR  `password` LIKE '%{$queryString}%' OR  `images` LIKE '%{$queryString}%'OR  `member_name` LIKE '%{$queryString}%'OR  `id_number` LIKE '%{$queryString}%'OR  `gender` LIKE '%{$queryString}%'OR  `location` LIKE '%{$queryString}%'OR  `height` LIKE '%{$queryString}%'OR  `weight` LIKE '%{$queryString}%'OR  `zodiac` LIKE '%{$queryString}%'OR  `bloodtype` LIKE '%{$queryString}%'OR  `smoke` LIKE '%{$queryString}%'OR  `alchohol` LIKE '%{$queryString}%'OR  `education_level` LIKE '%{$queryString}%'OR  `job` LIKE '%{$queryString}%'OR  `profile` LIKE '%{$queryString}%'OR  `mobile` LIKE '%{$queryString}%'OR  `password` LIKE '%{$queryString}%'";
+    $rows = $pdo->query($sql)->fetchAll();
+}
 ?>
 
 
@@ -63,27 +72,27 @@ if ($totalRows) {
                 <li class="page-item <?= $totalPages == $page ? 'disabled' : '' ?>">
                     <a class="page-link" href="?page=<?= $totalPages ?>"><i class="fa-solid fa-angles-right"></i></a>
                 </li>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary ms-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    關鍵字找尋
+                </button>
             </ul>
         </nav>
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Launch demo modal
-        </button>
 
-        <!-- Modal -->
+        <!-- Modal Search -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">關鍵字找尋</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        ...
+                        <input type="text" id="ipt1" placeholder="請輸入關鍵字">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                        <button type="button" id="btn1" class="btn btn-primary">執行</button>
                     </div>
                 </div>
             </div>
@@ -94,6 +103,7 @@ if ($totalRows) {
             <thead>
                 <tr>
                     <th scope="col"><i class="fa-solid fa-trash"></i></th>
+                    <th scope="col">ID</th>
                     <th scope="col">帳號</th>
                     <th scope="col">密碼</th>
                     <th scope="col">大頭貼</th>
@@ -119,6 +129,7 @@ if ($totalRows) {
                 <?php foreach ($rows as $r) : ?>
                     <tr>
                         <td><a href="javascript: delete_it(<?= $r['member_id'] ?>)"><i class="fa-solid fa-trash"></i></a></td>
+                        <td><?= $r['member_id'] ?></td>
                         <td><?= $r['email'] ?></td>
                         <td><?= $r['password'] ?></td>
                         <td><?= $r['images'] ?></td>
@@ -150,12 +161,12 @@ if ($totalRows) {
 ?>
 
 <script>
-    const myModal = document.getElementById('myModal')
-    const myInput = document.getElementById('myInput')
+    // const myModal = document.getElementById('myModal')
+    const myInput = document.getElementById('myInput');
 
-    myModal.addEventListener('shown.bs.modal', () => {
-        myInput.focus();
-    })
+    // myModal.addEventListener('shown.bs.modal', () => {
+    //     myInput.focus();
+    // })
 
     document.querySelector('li.page-item.active a').removeAttribute('href');
 
@@ -165,6 +176,13 @@ if ($totalRows) {
         }
 
     }
+    // search_bar
+    const search_button = document.getElementById('btn1');
+    search_button.addEventListener('click', () => {
+        const queryString = document.getElementById("ipt1").value;
+        console.log(queryString);
+        location.href = 'account.php?keyword=' + queryString;
+    })
 </script>
 
 <?php include './parts/john_parts/back/part//html-foot.php';
