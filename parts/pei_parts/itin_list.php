@@ -19,7 +19,8 @@ if ($totalRows) {
         header("Location:?page=$totalpages");
         exit;
     }
-    $sql = sprintf("SELECT * FROM `Itinerary` ORDER BY itin_id DESC LIMIT %s,%s", ($page - 1) * $perPage, $perPage);
+    //會員資料從會員那張表去做join
+    $sql = sprintf("SELECT i.*,i.member_id,m.member_name FROM `Itinerary` i LEFT JOIN `member` m ON i.member_id = m.member_id LIMIT %s,%s", ($page - 1) * $perPage, $perPage);
     $rows = $pdo->query($sql)->fetchAll();
 }
 ?>
@@ -71,8 +72,9 @@ if ($totalRows) {
                     <th scope="col">日期</th>
                     <th scope="col">名稱</th>
                     <th scope="col">公開</th>
-                    <th scope="col">人數</th>
                     <th scope="col">會員編號</th>
+                    <th scope="col">會員姓名</th>
+                    <th scope="col">人數</th>
                     <th scope="col">建立時間</th>
                     <th scope="col"><i class="fa-regular fa-trash-can"></i></th>
                     <th scope="col"><i class="fa-regular fa-pen-to-square"></i></th>
@@ -85,8 +87,9 @@ if ($totalRows) {
                         <td><?= $r['date'] ?></td>
                         <td><?= $r['name'] ?></td>
                         <td><?= $r['public'] ?></td>
-                        <td><?= $r['ppl'] ?></td>
                         <td><?= $r['member_id'] ?></td>
+                        <td><?= $r['member_name'] ?></td>
+                        <td><?= $r['ppl'] ?></td>
                         <td><?= $r['create_at'] ?></td>
                         <td>
                             <a href="javascript:delete_it('<?= $r['itin_id'] ?>')">

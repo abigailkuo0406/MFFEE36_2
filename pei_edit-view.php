@@ -84,7 +84,7 @@ $typeName = $pdo->query($sql_typeid)->fetch(PDO::FETCH_NUM)[0];
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
-                            <label for="description" class="description">介紹</label><textarea class="form-control" id="description" name="description" value="<?= $row['description'] ?>"></textarea>
+                            <label for="description" class="description">介紹</label><textarea class="form-control" id="description" name="description" value=""><?= $row['description'] ?></textarea>
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
@@ -94,7 +94,7 @@ $typeName = $pdo->query($sql_typeid)->fetch(PDO::FETCH_NUM)[0];
                         </div>
                         <div class="mb-3">
                             <label for="address" class="form-label">地址</label>
-                            <textarea class="form-control" id="address" name="address" value="<?= htmlentities($row['address']) ?>"></textarea>
+                            <textarea class="form-control" id="address" name="address" value=""><?= htmlentities($row['address']) ?></textarea>
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
@@ -103,7 +103,7 @@ $typeName = $pdo->query($sql_typeid)->fetch(PDO::FETCH_NUM)[0];
                             <div class="form-text"></div>
                         </div>
                         <div class="alert alert-danger" role="alert" id="infoBar" style="display: none;"></div>
-                        <button type="submit" class="btn btn-primary">編輯完成</button>
+                        <button type="submit" class="btn btn-primary">編輯</button>
                     </form>
                 </div>
             </div>
@@ -158,7 +158,7 @@ $typeName = $pdo->query($sql_typeid)->fetch(PDO::FETCH_NUM)[0];
                         infoBar.innerHTML = '編輯成功'
                         infoBar.style.display = 'block';
                         setTimeout(() => {
-                            location.href = './parts/pei_parts/list.php';
+                            goback();
                         }, 2000)
 
 
@@ -183,6 +183,10 @@ $typeName = $pdo->query($sql_typeid)->fetch(PDO::FETCH_NUM)[0];
                     }, 2000)
                 })
         }
+    }
+
+    function goback() {
+        window.location = './pei_view_custom_itinerary.php'
     }
 </script>
 <?php include './parts/foot.php'

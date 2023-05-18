@@ -1,69 +1,50 @@
 <?php
 #MVC
 $pageName = 'list';
-// $title = '列表';
+
 require './parts/pei_parts/connect-db.php';
 
 $perPage = 10; # 每頁最多幾筆
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1; # 用戶要看第幾頁
-$search = isset($_GET['search']) ? $_GET['search'] : null;
+#抓搜尋欄位的value
+$search = isset($_GET['search_city']) ? $_GET['search_city'] : null;
 
+#判斷有沒有抓到縣市的值
+if ($search) {
+    $t_sql = sprintf("SELECT COUNT(1) FROM `attractions` where city='%s'", $search);
+    $sql = sprintf("SELECT * FROM attractions where city= '%s' ORDER BY id LIMIT %s,%s", $search, ($page - 1) * $perPage, $perPage);
+} else {
+    $t_sql = "SELECT COUNT(1) FROM `attractions`";
+    $sql = sprintf("SELECT * FROM attractions ORDER BY id LIMIT %s,%s", ($page - 1) * $perPage, $perPage);
+}
 
 //計算總筆數
-$t_sql = "SELECT COUNT(1) FROM `attractions`";
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0]; //總筆數
-#$totalPages = ceil($totalRows / $perPage); //總頁數
-#$rows = [];
+$totalPages = ceil($totalRows / $perPage); //總頁數
+$rows = [];
 
 if ($totalRows) {
     if ($page > $totalPages) {
         header("Location:?page=$totalpages");
         exit;
     }
-    $sql = sprintf("SELECT * FROM attractions ORDER BY id LIMIT %s,%s", ($page - 1) * $perPage, $perPage);
     $rows = $pdo->query($sql)->fetchAll();
 }
 
-//  搜尋欄
-$search = isset($_GET['search']) ? $_GET['search'] : null;
-if ($search) {
-    $search_type = 'id';
-    $t_sql = "SELECT COUNT(1) FROM `attractions` WHERE `id`=$search";
-    $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
-    if ($totalRows == 0) {
-        $t_sql = "SELECT COUNT(1) FROM `attractions` WHERE `name` = '$search'";
-        $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
-        $search_type = 'name_v';
-    }
-    $totalPages = ceil($totalRows / $perPage); //總頁數
-    $rows = [];
-    if ($totalRows) {
-        if ($page > $totalPages) {
-            header("Location:?page=$totalpages");
-            exit;
-        }
-        if ($search_type == 'id') {
-            $sql = sprintf("SELECT COUNT(1) FROM `attractions` WHERE `id`='$search'ORDER BY id DESC LIMIT %s,%s", ($page - 1) * $perPage, $perPage);
-        } else if ($search_type == 'name_v') {
-            $sql = sprintf("SELECT * FROM `attractions` WHERE `name` = '$search' ORDER BY id DESC  LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
-        }
-        $rows = $pdo->query($sql)->fetchAll();
-    }
-} else {
-    $t_sql = "SELECT COUNT(1) FROM `attractions`";
-    $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0]; //總筆數
-    $totalPages = ceil($totalRows / $perPage); //總頁數
-    $rows = [];
-}
 ?>
 
-
 <div class="container mt-4">
-    <form class="input-group mb-3" method="$_GET">
-        <input name="search" type="text" class="form-control" placeholder="搜尋內容" value="<?= isset($_GET['search']) ? $_GET['search'] : null ?>" aria-label="Recipient's username" aria-describedby="button-addon2">
-        <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fa-solid fa-magnifying-glass"></i></button>
+    <form method="GET" action="">
+        <label for="city1">選擇城市：</label>
+        <select name="search_city" id="city1">
+            <option value="">---請選擇---</option>
+            <option value="台北市">台北市</option>
+            <option value="新北市">新北市</option>
+            <option value="基隆市">基隆市</option>
+        </select>
+        <input type="submit" value="搜尋">
     </form>
-    <!-- 篩選bar -->
+
     <div class="row">
         <nav aria-label="Page navigation example">
             <!-- 分頁(pagination)，顯示的頁碼 -->

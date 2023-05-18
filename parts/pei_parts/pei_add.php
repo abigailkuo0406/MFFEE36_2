@@ -48,7 +48,8 @@ $typeArray = $pdo->query($sql_type)->fetchAll();
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
-                            <label for="description" class="form-label">介紹</label><textarea class="form-control" id="description" name="description"></textarea>
+                            <label for="description" class="form-label">介紹</label>
+                            <textarea class="form-control" id="description" name="description"></textarea>
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
@@ -131,6 +132,9 @@ $typeArray = $pdo->query($sql_type)->fetchAll();
                         infoBar.classList.add('alert-success')
                         infoBar.innerHTML = '新增成功'
                         infoBar.style.display = 'block';
+                        setTimeout(() => {
+                            goback();
+                        }, 2000)
 
                     } else {
                         infoBar.classList.remove('alert-success')
@@ -155,6 +159,10 @@ $typeArray = $pdo->query($sql_type)->fetchAll();
         } else {
             //沒有通過
         }
+    }
+
+    function goback() {
+        window.location = './pei_view_custom_itinerary.php'
     }
 </script>
 <?php # include './parts/html-foot.php' 

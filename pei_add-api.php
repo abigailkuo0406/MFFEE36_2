@@ -15,11 +15,9 @@ if (!empty($_POST['name'])) {
 
     $typeName = empty($_POST['type_name']) ? null : $_POST['type_name'];
 
-    $sql_typeid = sprintf("SELECT `id` FROM `attractions＿type` WHERE `type_name`='%s'", $typeName);
+    $sql_typeid = sprintf("SELECT `type_id` FROM `attractions＿type` WHERE `type_name`='%s'", $typeName);
 
     $typeid = $pdo->query($sql_typeid)->fetch(PDO::FETCH_NUM)[0];
-
-
 
 
 
