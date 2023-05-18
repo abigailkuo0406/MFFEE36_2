@@ -181,7 +181,6 @@ if($select){
                     </td>
                     <td><?= $r['member_id'] ?></td>
                     <td><?= $r['order_total'] ?></td>
-                    <td><?= $r['member_id'] ?></td>
                     <td><?= $r['receiver_name'] ?></td>
                     <td><?= $r['receiver_gender'] ?></td>
                     <td><?=  $r['receiver_address'] ?></td>
