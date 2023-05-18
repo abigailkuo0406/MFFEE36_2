@@ -206,6 +206,7 @@ $classArray = $pdo->query($sql_class)->fetchAll();
     }
 
     function goback() {
-        window.location.href = './kuo_restaurant_list.php'
+        let previousPageUrl = document.referrer;
+        location.href = previousPageUrl;
     }
 </script>

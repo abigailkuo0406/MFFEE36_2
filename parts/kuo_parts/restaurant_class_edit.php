@@ -138,6 +138,7 @@ if (empty($r)) {
     }
 
     function goback() {
-        window.location.href = './kuo_restaurant_class_list.php'
+        let previousPageUrl = document.referrer;
+        location.href = previousPageUrl;
     }
 </script>

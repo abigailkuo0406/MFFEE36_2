@@ -6,7 +6,7 @@ require './parts/kuo_parts/restaurant_connect-db.php';
 $sql_area = "SELECT * FROM area_list WHERE 1";
 $areaArray = $pdo->query($sql_area)->fetchAll();
 
-// 取料理類型資料以放到下拉式選單
+// 取餐廳類型資料以放到下拉式選單
 $sql_class = "SELECT * FROM restaurant_class WHERE 1";
 $classArray = $pdo->query($sql_class)->fetchAll();
 
@@ -28,10 +28,10 @@ $classArray = $pdo->query($sql_class)->fetchAll();
 
                     </select>
                 </div>
-                <!-- 料理類型下拉選單 -->
+                <!-- 餐廳類型下拉選單 -->
                 <div class="me-3">
                     <select name="search-class" id="search-class" class="form-select" aria-label="Default select example" data-required="2">
-                        <option selected>依料理類型搜尋</option>
+                        <option selected>依餐廳類型搜尋</option>
                         <?php foreach ($classArray as $c) : ?>
                             <option value="<?= isset($c['rest_class']) ? $c['rest_class'] : null ?>"><?= $c['rest_class'] ?></option>
                         <?php endforeach ?>
@@ -45,14 +45,14 @@ $classArray = $pdo->query($sql_class)->fetchAll();
             <!-- 搜尋結果顯示 -->
             <div>
                 <!-- 「搜尋結果」文字 -->
-                <div class="my-3" style="font-size:18px;font-weight:800"><?= ($_GET['search-area'] != null && $_GET['search-class']) && ($_GET['search-area'] != '依縣市搜尋' || $_GET['search-class'] !='依料理類型搜尋' ) ? '搜尋結果：' : '' ?></div>
+                <div class="my-3" style="font-size:18px;font-weight:800"><?= ($_GET['search-area'] != null && $_GET['search-class']) && ($_GET['search-area'] != '依縣市搜尋' || $_GET['search-class'] !='依餐廳類型搜尋' ) ? '搜尋結果：' : '' ?></div>
 
                 <!-- 搜尋結果 -->
-                <div class="alert alert-warning" role="alert" style=<?= ($_GET['search-area'] != null && $_GET['search-class']) && ($_GET['search-area'] != '依縣市搜尋' || $_GET['search-class'] !='依料理類型搜尋' )? "display:block"  : "display:none" ?>>
+                <div class="alert alert-warning" role="alert" style=<?= ($_GET['search-area'] != null && $_GET['search-class']) && ($_GET['search-area'] != '依縣市搜尋' || $_GET['search-class'] !='依餐廳類型搜尋' )? "display:block"  : "display:none" ?>>
                     <!-- 縣市搜尋結果 -->
                     <div class="" style="font-size:18px;font-weight:800"><?= isset($_GET['search-area']) && $_GET['search-area'] != '依縣市搜尋' ? '縣市：' . $_GET['search-area'] : '' ?></div>
-                    <!-- 料理類型結果 -->
-                    <div class="mt-2" style="font-size:18px;font-weight:800"><?= isset($_GET['search-class']) && $_GET['search-class'] != '依料理類型搜尋' ? '料理類型：' . $_GET['search-class'] : '' ?></div>
+                    <!-- 餐廳類型結果 -->
+                    <div class="mt-2" style="font-size:18px;font-weight:800"><?= isset($_GET['search-class']) && $_GET['search-class'] != '依餐廳類型搜尋' ? '餐廳類型：' . $_GET['search-class'] : '' ?></div>
                 </div>
             </div>
                 
@@ -73,7 +73,7 @@ $classArray = $pdo->query($sql_class)->fetchAll();
     // 搜尋後顯示資料
     $search_area = isset($_GET['search-area']) ? $_GET['search-area'] : null; //取得縣市搜尋結果
 
-    $search_class = isset($_GET['search-class']) ? $_GET['search-class'] : null; //取得料理類型搜尋結果
+    $search_class = isset($_GET['search-class']) ? $_GET['search-class'] : null; //取得餐廳類型搜尋結果
 
     // 設定搜尋結果type，方便用swirch case語法
     $search_result_type = 0;
@@ -82,22 +82,22 @@ $classArray = $pdo->query($sql_class)->fetchAll();
     $total_search_row = [];
 
     // 判斷搜尋結果type
-    if ($search_area != '依縣市搜尋' && $search_class != '依料理類型搜尋' && $search_area != null && $search_class != null) { //兩個都有查詢
+    if ($search_area != '依縣市搜尋' && $search_class != '依餐廳類型搜尋' && $search_area != null && $search_class != null) { //兩個都有查詢
         $search_sql = sprintf("SELECT COUNT(1) FROM restaurant_list WHERE rest_area='%s' AND`rest_class`='%s'", $search_area, $search_class);
         $total_search_row = $pdo->query($search_sql)->fetch(PDO::FETCH_NUM)[0];
         $search_result_type = 1;
         // echo 'A';
-    } elseif ($search_area != '依縣市搜尋' && $search_class == '依料理類型搜尋') { //只查詢縣市
+    } elseif ($search_area != '依縣市搜尋' && $search_class == '依餐廳類型搜尋') { //只查詢縣市
         $search_sql = sprintf("SELECT COUNT(1) FROM restaurant_list WHERE rest_area='%s'", $search_area);
         $total_search_row = $pdo->query($search_sql)->fetch(PDO::FETCH_NUM)[0];
         $search_result_type = 2;
         // echo 'B';
-    } elseif ($search_area == '依縣市搜尋' && $search_class != '依料理類型搜尋') { //只查詢料理類型
+    } elseif ($search_area == '依縣市搜尋' && $search_class != '依餐廳類型搜尋') { //只查詢餐廳類型
         $search_sql = sprintf("SELECT COUNT(1) FROM restaurant_list WHERE rest_class='%s'", $search_class);
         $total_search_row = $pdo->query($search_sql)->fetch(PDO::FETCH_NUM)[0];
         $search_result_type = 3;
         // echo 'C';
-    } elseif ($search_area == '依縣市搜尋' && $search_class == '依料理類型搜尋') {
+    } elseif ($search_area == '依縣市搜尋' && $search_class == '依餐廳類型搜尋') {
         // echo "<script language='JavaScript'>alert('請選擇搜尋條件');</script>";
         echo "<div class='alert alert-danger' role='alert' style='font-size:18px;font-weight:800'>請選擇搜尋條件</div>";
     }
@@ -153,7 +153,7 @@ $classArray = $pdo->query($sql_class)->fetchAll();
     } else { 
 
         //設定未選擇搜尋條件時要顯示的資料筆數
-        if (($search_area == null && $search_class == null) || ($search_area == '依縣市搜尋' && $search_class == '依料理類型搜尋')) {
+        if (($search_area == null && $search_class == null) || ($search_area == '依縣市搜尋' && $search_class == '依餐廳類型搜尋')) {
             // echo 'EEE';
             #計算總筆數
             $t_sql = "SELECT COUNT(1) FROM restaurant_list";
