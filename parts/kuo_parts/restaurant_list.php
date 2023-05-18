@@ -13,9 +13,9 @@ $classArray = $pdo->query($sql_class)->fetchAll();
 ?>
 
 
-<div class="container mt-5" style="width:100%x">
-    <form name="searchForm" class="input-group mb-3" method="get">
-        <div lass="mb-3 d-flex flex-colunm">
+<div class="container mt-5" style="width:100%">
+    <form name="searchForm" class="input-group" method="get">
+        <div class="mb-3">
             <div class="mb-3 d-flex flex-row">
                 <div class="me-3">
                     <select name="search-area" id="search-area" class="form-select" aria-label="Default select example" data-required="2">
@@ -40,12 +40,15 @@ $classArray = $pdo->query($sql_class)->fetchAll();
                 </div>
             </div>
             <div>
-                <div class="my-3"><?= (isset($_GET['search-area']) || isset($_GET['search-class'])) && ($_GET['search-area'] != '依縣市搜尋' && $_GET['search-area'] != '依料理類型搜尋') ? '搜尋結果：' : '' ?></div>
+                <div class="my-3" style="font-size:16px;font-weight:800"><?= (isset($_GET['search-area']) || isset($_GET['search-class'])) && ($_GET['search-area'] != '依縣市搜尋' && $_GET['search-area'] != '依料理類型搜尋') ? '搜尋結果：' : '' ?></div>
 
-                <!-- 縣市搜尋結果 -->
-                <div class="mb-3"><?= isset($_GET['search-area']) && $_GET['search-area'] != '依縣市搜尋' ? '縣市：' . $_GET['search-area'] : '' ?></div>
-                <!-- 料理類型結果 -->
-                <div class=""><?= isset($_GET['search-class']) && $_GET['search-class'] != '依料理類型搜尋' ? '料理類型：' . $_GET['search-class'] : '' ?></div>
+
+                <div class="alert alert-warning" role="alert" id="infoBar" style=<?= (isset($_GET['search-area']) || isset($_GET['search-class'])) && ($_GET['search-area'] != '依縣市搜尋' && $_GET['search-area'] != '依料理類型搜尋') ? "display:block"  : "display:none" ?>>
+                    <!-- 縣市搜尋結果 -->
+                    <div class="" style="font-size:16px;font-weight:800"><?= isset($_GET['search-area']) && $_GET['search-area'] != '依縣市搜尋' ? '縣市：' . $_GET['search-area'] : '' ?></div>
+                    <!-- 料理類型結果 -->
+                    <div class="" style="font-size:16px;font-weight:800"><?= isset($_GET['search-class']) && $_GET['search-class'] != '依料理類型搜尋' ? '料理類型：' . $_GET['search-class'] : '' ?></div>
+                </div>
             </div>
         </div>
     </form>
@@ -95,7 +98,7 @@ $classArray = $pdo->query($sql_class)->fetchAll();
 
     if ($total_search_row) {
         // echo "<script language='JavaScript'>count();</script>"
-        echo '<div  class"mb-3">共有' . $total_search_row . '筆資料</div>';
+        echo '<div  class"mb-3" style="font-size:20px;font-weight:800">共有 <a style="color:red">' . $total_search_row . '</a> 筆資料</div>';
 
         switch ($search_result_type) {
             case 1:
@@ -162,7 +165,7 @@ $classArray = $pdo->query($sql_class)->fetchAll();
             }
         } else {
             // echo 'DDD';
-            echo '<div class"mb-3">共有' . 0 . '筆資料<div/>';
+            echo '<div  class="mb-3" style="font-size:20px;font-weight:800">共有 <a style="color:red">'  . 0 . '</a> 筆資料</div>';
 
             #計算總筆數
             $t_sql = "SELECT COUNT(1) FROM restaurant_list";
@@ -200,10 +203,10 @@ $classArray = $pdo->query($sql_class)->fetchAll();
     <!-- 頁面呈現 -->
 
     <div class="row mt-3">
-        <table class="table table-bordered table-striped">
+        <table class="table table-striped">
             <thead>
                 <tr>
-                    <th class="col-1" class="col">餐廳編號</th>
+                    <th class="col-1">餐廳編號</th>
                     <th class="col-1">餐廳名稱</th>
                     <th class="col-1">所在縣市</th>
                     <th class="col-1">地址</th>

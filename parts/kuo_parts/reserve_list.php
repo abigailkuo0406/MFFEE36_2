@@ -3,12 +3,12 @@
 require './parts/kuo_parts/restaurant_connect-db.php';
 ?>
 
-<div class="container mt-3">
+<div class="container mt-3" style="width:100%">
     <form class="input-group my-3" method="GET" style="width:15%;">
         <input name="search" type="text" class="form-control" placeholder="輸入會員ID" value="<?= isset($_GET['search']) ? htmlentities($_GET['search']) : null ?>" aria-label="Recipient's username" aria-describedby="button-addon2">
         <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fa-solid fa-magnifying-glass"></i></button>
     </form>
-    <label><?= isset($_GET['search']) && $_GET['search'] != '' ? '搜尋結果：' : '' ?></label>
+    <label style="font-size:20px;font-weight:800" class="mb-2"><?= isset($_GET['search']) && $_GET['search'] != '' ? '搜尋結果：' : '' ?></label>
     <?php
 
     // 每頁要顯示的資料數量
@@ -34,7 +34,7 @@ require './parts/kuo_parts/restaurant_connect-db.php';
 
     if ($total_search_row) {
         // echo 'Aa';
-        echo '<div  class="mb-3">共有' . $total_search_row . '筆資料</div>';
+        echo '<div  class="mb-3" style="font-size:20px;font-weight:800">共有 <a style="color:red">' . $total_search_row . '</a> 筆資料</div>';
 
 
         $sql = sprintf("SELECT R.`reserve_id`,
@@ -68,7 +68,7 @@ require './parts/kuo_parts/restaurant_connect-db.php';
             echo "<script language='JavaScript'>alert('未找到資料');</script>";
         }
         if ($search != null) {
-            echo '<div  class="mb-3">共有' . 0 . '筆資料</div>';
+            echo '<div  class="mb-3" style="font-size:20px;font-weight:800">共有 <a style="color:red">' . 0 . '</a> 筆資料</div>';
         }
 
         #計算總筆數
@@ -134,19 +134,19 @@ require './parts/kuo_parts/restaurant_connect-db.php';
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col">訂位編號</th>
-                    <th scope="col">會員ID</th>
-                    <th scope="col">會員名稱</th>
-                    <th scope="col">訂位餐廳</th>
-                    <th scope="col">地區</th>
-                    <th scope="col">餐廳地址</th>
-                    <th scope="col">餐廳類型</th>
-                    <th scope="col">訂位日期</th>
-                    <th scope="col">訂位時間</th>
-                    <th scope="col">訂位人數</th>
-                    <th scope="col">訂位建立時間</th>
-                    <th scope="col">修改</th>
-                    <th scope="col">刪除</th>
+                    <th class="col">訂位編號</th>
+                    <th class="col">會員ID</th>
+                    <th class="col">會員名稱</th>
+                    <th class="col">訂位餐廳</th>
+                    <th class="col">地區</th>
+                    <th class="col">餐廳地址</th>
+                    <th class="col">餐廳類型</th>
+                    <th class="col">訂位日期</th>
+                    <th class="col">訂位時間</th>
+                    <th class="col">訂位人數</th>
+                    <th class="col">訂位建立時間</th>
+                    <th class="col">修改</th>
+                    <th class="col">刪除</th>
                 </tr>
             </thead>
             <tbody>
@@ -192,7 +192,7 @@ require './parts/kuo_parts/restaurant_connect-db.php';
                 <?php for ($i = $page - 5; $i <= $page + 5; $i++) : ?>
                     <?php if ($i >= 1 and $i <= $totalPage) : ?>
                         <!-- 當前頁 -->
-                        <li class="page-item"><a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a></li>
+                        <li class="page-item <?= $i == $page ? 'active' : '' ?>"><a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a></li>
                     <?php endif ?>
                 <?php endfor ?>
 
