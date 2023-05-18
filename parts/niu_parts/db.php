@@ -1,5 +1,5 @@
 <?php
-
+// Hi
 class DB
 {
   private $dbHost = 'localhost';
