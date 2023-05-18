@@ -5,14 +5,14 @@ require './parts/kuo_parts/restaurant_connect-db.php';
 
 <div class="container mt-3">
     <form class="input-group my-3" method="GET">
-        <input name="search" type="text" class="form-control" placeholder="輸入會員ID" value="<?= isset($_GET['search']) ? $_GET['search'] : null ?>" aria-label="Recipient's username" aria-describedby="button-addon2">
+        <input name="search" type="text" class="form-control" placeholder="輸入會員ID" value="<?= isset($_GET['search']) ? htmlentities($_GET['search']) : null ?>" aria-label="Recipient's username" aria-describedby="button-addon2">
         <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fa-solid fa-magnifying-glass"></i></button>
     </form>
-    <label>搜尋結果：</label>
+    <label><?= isset($_GET['search']) && $_GET['search'] != '' ? '搜尋結果：' : '' ?></label>
     <?php
 
     // 每頁要顯示的資料數量
-    $perPage = 5;
+    $perPage = 10;
 
     // 使用者當前查看的頁面是第幾頁
     $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
@@ -23,15 +23,17 @@ require './parts/kuo_parts/restaurant_connect-db.php';
 
     $total_search_row = [];
 
-    if ($search) {
-        echo 'A';
+    if ($search && $search != '') {
+        // echo 'A';
         $search_sql = sprintf("SELECT COUNT(1) FROM reserve WHERE member_ID='%s'", $search);
         $total_search_row = $pdo->query($search_sql)->fetch(PDO::FETCH_NUM)[0];
+    } elseif (isset($search) && $search == '') {
+        echo "<script language='JavaScript'>alert('請輸入會員編號');</script>";
     }
 
 
     if ($total_search_row) {
-        echo 'Aa';
+        // echo 'Aa';
         echo '<div  class="mb-3">共有' . $total_search_row . '筆資料</div>';
 
 
@@ -61,8 +63,14 @@ require './parts/kuo_parts/restaurant_connect-db.php';
             header("Location:?page=$totalPage");
         }
     } else {
-        echo 'Ab';
-        echo '<div  class="mb-3">共有' . 0 . '筆資料</div>';
+        // echo 'Ab';
+        if ($total_search_row == 0 && $search != null) {
+            echo "<script language='JavaScript'>alert('未找到資料');</script>";
+        }
+        if ($search != null) {
+            echo '<div  class="mb-3">共有' . 0 . '筆資料</div>';
+        }
+
         #計算總筆數
         $t_sql = "SELECT COUNT(1) FROM reserve";
         $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
@@ -95,10 +103,6 @@ require './parts/kuo_parts/restaurant_connect-db.php';
             #依照在第幾頁，撈取對應資料，例如第一頁顯示1-10筆資料，第二頁顯示第11-20筆資料
 
             $rows = $pdo->query($sql)->fetchAll();
-
-            // echo print_r($rows);
-
-
 
             // 如果當前頁碼大於總頁數
             if ($page > $totalPage) {

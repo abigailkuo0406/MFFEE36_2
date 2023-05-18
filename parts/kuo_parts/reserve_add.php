@@ -19,7 +19,7 @@ $restaurantArray = $pdo->query($sql_restaurant)->fetchAll();
     }
 </style>
 
-<div class="container">
+<div class="container mt-5">
     <div class="row">
         <div class="col-6">
             <div class="card" style="width: 40rem;">
