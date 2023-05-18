@@ -40,11 +40,12 @@ $classArray = $pdo->query($sql_class)->fetchAll();
                 </div>
             </div>
             <div>
-                <div class="my-3">搜尋結果:</div>
+                <div class="my-3"><?= (isset($_GET['search-area']) || isset($_GET['search-class'])) && ($_GET['search-area'] != '依縣市搜尋' && $_GET['search-area'] != '依料理類型搜尋') ? '搜尋結果：' : '' ?></div>
+
                 <!-- 縣市搜尋結果 -->
-                <div class="mb-3"><?= isset($_GET['search-area']) && $_GET['search-area'] != '依縣市搜尋' ? '縣市：' . $_GET['search-area'] : '縣市：請選擇搜尋條件' ?></div>
+                <div class="mb-3"><?= isset($_GET['search-area']) && $_GET['search-area'] != '依縣市搜尋' ? '縣市：' . $_GET['search-area'] : '' ?></div>
                 <!-- 料理類型結果 -->
-                <div class=""><?= isset($_GET['search-class']) && $_GET['search-class'] != '依料理類型搜尋' ? '料理類型：' . $_GET['search-class'] : '料理類型：請選擇搜尋條件' ?></div>
+                <div class=""><?= isset($_GET['search-class']) && $_GET['search-class'] != '依料理類型搜尋' ? '料理類型：' . $_GET['search-class'] : '' ?></div>
             </div>
         </div>
     </form>
@@ -73,23 +74,25 @@ $classArray = $pdo->query($sql_class)->fetchAll();
         $search_sql = sprintf("SELECT COUNT(1) FROM restaurant_list WHERE rest_area='%s' AND`rest_class`='%s'", $search_area, $search_class);
         $total_search_row = $pdo->query($search_sql)->fetch(PDO::FETCH_NUM)[0];
         $search_result_type = 1;
-        echo 'A';
+        // echo 'A';
     } elseif ($search_area != '依縣市搜尋' && $search_class == '依料理類型搜尋') { //只查詢縣市
         $search_sql = sprintf("SELECT COUNT(1) FROM restaurant_list WHERE rest_area='%s'", $search_area);
         $total_search_row = $pdo->query($search_sql)->fetch(PDO::FETCH_NUM)[0];
         $search_result_type = 2;
-        echo 'B';
+        // echo 'B';
     } elseif ($search_area == '依縣市搜尋' && $search_class != '依料理類型搜尋') { //只查詢料理類型
         $search_sql = sprintf("SELECT COUNT(1) FROM restaurant_list WHERE rest_class='%s'", $search_class);
         $total_search_row = $pdo->query($search_sql)->fetch(PDO::FETCH_NUM)[0];
         $search_result_type = 3;
-        echo 'C';
+        // echo 'C';
+    } elseif ($search_area == '依縣市搜尋' && $search_class == '依料理類型搜尋') {
+        echo "<script language='JavaScript'>alert('請選擇搜尋條件');</script>";
     }
-
 
     if ($total_search_row == 0 && $search_area != null && $search_class != null) {
         echo "<script language='JavaScript'>alert('未找到資料');</script>";
     }
+
     if ($total_search_row) {
         // echo "<script language='JavaScript'>count();</script>"
         echo '<div  class"mb-3">共有' . $total_search_row . '筆資料</div>';
@@ -103,7 +106,7 @@ $classArray = $pdo->query($sql_class)->fetchAll();
                 #依照在第幾頁，撈取對應資料，例如第一頁顯示1-10筆資料，第二頁顯示第11-20筆資料
 
                 $rows = $pdo->query($sql)->fetchAll();
-                echo 'Aa';
+                // echo 'Aa';
 
                 break;
             case 2:
@@ -114,7 +117,7 @@ $classArray = $pdo->query($sql_class)->fetchAll();
                 #依照在第幾頁，撈取對應資料，例如第一頁顯示1-10筆資料，第二頁顯示第11-20筆資料
 
                 $rows = $pdo->query($sql)->fetchAll();
-                echo 'Bb';
+                // echo 'Bb';
                 break;
             case 3:
                 // 計算總頁數
@@ -124,7 +127,7 @@ $classArray = $pdo->query($sql_class)->fetchAll();
                 #依照在第幾頁，撈取對應資料，例如第一頁顯示1-10筆資料，第二頁顯示第11-20筆資料
 
                 $rows = $pdo->query($sql)->fetchAll();
-                echo 'Cc';
+                // echo 'Cc';
                 break;
         }
 
@@ -134,7 +137,7 @@ $classArray = $pdo->query($sql_class)->fetchAll();
         }
     } else {
         if (($search_area == null && $search_class == null) || ($search_area == '依縣市搜尋' && $search_class == '依料理類型搜尋')) {
-            echo 'EEE';
+            // echo 'EEE';
             #計算總筆數
             $t_sql = "SELECT COUNT(1) FROM restaurant_list";
             $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
@@ -158,7 +161,7 @@ $classArray = $pdo->query($sql_class)->fetchAll();
                 }
             }
         } else {
-            echo 'DDD';
+            // echo 'DDD';
             echo '<div class"mb-3">共有' . 0 . '筆資料<div/>';
 
             #計算總筆數
@@ -268,6 +271,8 @@ $classArray = $pdo->query($sql_class)->fetchAll();
     </div>
 
 </div>
+
+
 <script>
     // 滑鼠移到當前頁的頁碼無法有超連結效果
     document.querySelector('li.page-item.active a').removeAttribute('href'); //有問題

@@ -12,7 +12,7 @@ require './parts/kuo_parts/restaurant_connect-db.php';
     <?php
 
     // 每頁要顯示的資料數量
-    $perPage = 5;
+    $perPage = 10;
 
     // 使用者當前查看的頁面是第幾頁
     $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
@@ -62,7 +62,13 @@ require './parts/kuo_parts/restaurant_connect-db.php';
         }
     } else {
         echo 'Ab';
-        echo '<div  class="mb-3">共有' . 0 . '筆資料</div>';
+        if ($total_search_row == 0 && $search != null) {
+            echo "<script language='JavaScript'>alert('未找到資料');</script>";
+        }
+        if ($search != null) {
+            echo '<div  class="mb-3">共有' . 0 . '筆資料</div>';
+        }
+
         #計算總筆數
         $t_sql = "SELECT COUNT(1) FROM reserve";
         $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
