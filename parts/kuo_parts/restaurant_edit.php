@@ -28,7 +28,8 @@ $classArray = $pdo->query($sql_class)->fetchAll();
     }
 </style>
 
-<div class="container">
+<div class="container mt-5">
+
     <div class="row">
         <div class="col-6">
             <div class="card" style="width: 40rem;">
