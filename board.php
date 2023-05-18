@@ -8,6 +8,7 @@
 <body>
 
     <?php include './parts/navbar.php' ?>
+    <?php include './Login_navbar.php' ?>
     <div class="main_screen d-flex justify-content-between">
         <button id="OffcanvasNav" class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i class="fa-solid fa-caret-right"></i></button>
 
