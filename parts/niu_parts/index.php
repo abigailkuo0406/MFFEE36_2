@@ -7,8 +7,8 @@ if (isset($_POST['deleteData'])) {
   $id = $_POST['id'];
   $db->deleteData($id);
 }
-?>
 
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,8 +16,7 @@ if (isset($_POST['deleteData'])) {
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Details</title>
-
+  <title>Who post?</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
@@ -28,11 +27,11 @@ if (isset($_POST['deleteData'])) {
 </head>
 
 <body>
-
   <h1>Insert</h1>
   <form action="insert.php" method="post">
-    <input type="text" placeholder="Name" name="name">
-    <input type="text" placeholder="Email" name="email">
+    <input type="text" placeholder="誰發的文" name="name">
+    <input type="email" placeholder="發文者的email" name="email">
+    <input type="text" placeholder="發文在此" name="post">
     <input type="submit" value="Insert" name="insertData">
   </form>
 
@@ -45,7 +44,7 @@ if (isset($_POST['deleteData'])) {
   <h1>Edit</h1>
   <form action="editData.php" method="post">
     <input type="text" placeholder="Id" name="id">
-    <input type="text" placeholder="Name" name="name">
+    <input type="text" placeholder="誰發的文" name="name">
     <input type="submit" value="Edit" name="editData">
   </form>
 
@@ -53,9 +52,10 @@ if (isset($_POST['deleteData'])) {
   <?php
   $data = $db->getData();
   foreach ($data as $i) {
-    echo $i['id'] . '. ' . $i['name'] . ' - ' . $i['email'] . '<br>';
+    echo $i['id'] . ". " . $i['name'] . " - " . $i['email'] . " - " . $i['post'] . "<br>";
   }
   ?>
+
 </body>
 
 </html>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 18, 2023 at 02:36 AM
+-- Generation Time: May 18, 2023 at 10:03 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -24,34 +24,34 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `userdetails`
+-- Table structure for table `whopost`
 --
 
-CREATE TABLE `userdetails` (
+CREATE TABLE `whopost` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL
+  `email` varchar(100) NOT NULL,
+  `post` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `userdetails`
+-- Dumping data for table `whopost`
 --
 
-INSERT INTO `userdetails` (`id`, `name`, `email`) VALUES
-(9, 'Steve', 'steve@gmail.com'),
-(10, 'Stark', 'tony@gmail.com'),
-(11, 'YouJia', 'mark@gmail.com'),
-(13, 'GoodFriend', 'master@yahoo.com'),
-(14, 'Mary', 'mary@gmail.com');
+INSERT INTO `whopost` (`id`, `name`, `email`, `post`) VALUES
+(8, 'Peter', 'peter@gmail.com', '我愛耶穌'),
+(9, 'Steve', 'steve@gmail.com', '星期五要守齋'),
+(10, 'Stark', 'tony@gmail.com', '耶穌復活了！！'),
+(11, 'Mark', 'mark@gmail.com', '阿門');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `userdetails`
+-- Indexes for table `whopost`
 --
-ALTER TABLE `userdetails`
+ALTER TABLE `whopost`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -59,10 +59,10 @@ ALTER TABLE `userdetails`
 --
 
 --
--- AUTO_INCREMENT for table `userdetails`
+-- AUTO_INCREMENT for table `whopost`
 --
-ALTER TABLE `userdetails`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+ALTER TABLE `whopost`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
