@@ -68,7 +68,7 @@ form .mb-3 .form-text {
                         </div>
                         <div class="mb-3">
                             <label for="product_num" class="form-label">購買數量</label>
-                            <input type="text" class="form-control" id="product_num" name="product_num" value="<?= $r['product_num'] ?>" data-required="1">
+                            <input type="number" min="1" class="form-control" id="product_num" name="product_num" value="<?= $r['product_num'] ?>" data-required="1">
                             <div class="form-text"></div>
                         </div>
                     
@@ -80,6 +80,8 @@ form .mb-3 .form-text {
                         <div class="alert alert-danger" role="alert" id="infoBar" style="display:none"></div>
 
                         <button type="submit" class="btn btn-primary">修改</button>
+                        <button type="button" class="btn btn-primary" onclick="goBack()">取消</button>
+
                     </form>
                 </div>
             </div>
@@ -164,7 +166,7 @@ form .mb-3 .form-text {
 
             
         } else {
-        window.location.href = './yun_product.php';
+        window.location.href = './yun_cart.php';
     }
 
     }

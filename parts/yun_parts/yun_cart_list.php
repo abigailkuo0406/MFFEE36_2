@@ -119,6 +119,7 @@ $rowsum = $pdo->query($sql_sum)->fetchAll();
     <!-- 後面到上一頁和到最後一頁的兩個按鈕 end -->
   </ul>
 </nav>
+<a class="nav-link <?= $pageName=='add' ? 'active' : '' ?>" href="yun_cart_add.php">新增</a>
     </div>
     <div class="row">
     <table class="table table-bordered table-striped">
