@@ -1,6 +1,6 @@
 <?php
 
-require_once 'db.php';
+require_once './parts/tsao_parts/db.php';
 
 if (isset($_POST['editData'])) {
     $id = $_POST['id'];
@@ -10,5 +10,5 @@ if (isset($_POST['editData'])) {
     $db = new DB();
     $db->editData($id, $rname, $rintro);
 
-    header("Location: index.php");
+    header("Location: official_itinerary.php");
 }
