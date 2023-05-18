@@ -7,11 +7,11 @@ if (isset($_POST['insertData'])) {
     $rintro = $_POST['rintro'];
 
     // connect to database
-    require_once 'db.php';
+    require_once './parts/tsao_parts/db.php';
 
     // use insertData function to insert data to route table
     $db = new DB();
     $db->insertData($rname, $rintro);
 
-    header("Location: index.php");
+    header("Location: official_itinerary.php");
 }
