@@ -13,7 +13,7 @@ require './parts/john_parts/back/part/connect-db.php';
 
 
 <div class="container">
-    <?php include './parts/john_parts/back/part/html-head.php'
+    <?php #include './parts/john_parts/back/part/html-head.php'
     ?>
     <?php include './parts/john_parts/back/part/navbar.php';
     ?>
@@ -200,7 +200,7 @@ require './parts/john_parts/back/part/connect-db.php';
 </div>
 
 
-<?php # include './parts/scripts.php' 
+<?php include './parts/scripts.php'
 ?>
 <script>
     const nameField = document.querySelector('#name');

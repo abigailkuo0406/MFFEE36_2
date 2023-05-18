@@ -4,7 +4,7 @@ $title = '登入';
 require './parts/john_parts/back/part/connect-db.php';
 
 if (isset($_SESSION['admin'])) {
-    header('Location: account.php');
+    header('Location: account_main.php');
     exit;
 }
 ?>
