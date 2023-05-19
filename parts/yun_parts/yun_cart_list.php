@@ -1,6 +1,3 @@
-<?php
-include './yun_cart_sum-api.php';
-?>
 <form class="input-group mb-3 w-75 mx-auto" method="GET">
   <input name="search" type="text" class="form-control" placeholder="輸入會員 ID 或 產品 ID" value="<?= isset($_GET['search']) ? $_GET['search'] : null ?>" aria-label="Recipient's username" aria-describedby="button-addon2">
     <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -65,10 +62,10 @@ $rowsum = $pdo->query($sql_sum)->fetchAll();
 
 ?>
 <?php # include './parts/html-head.php' ?>
-<?php # include './parts/navbar.php' ?>
+<?php if($totalPages<1){$totalPages = 1;} ?>
 
 
-<div class="container-fluid w-75"> 
+<div class="container"> 
     <div class="row">
 
     <!-- 以下為：頁碼選擇 nav -->
@@ -119,41 +116,40 @@ $rowsum = $pdo->query($sql_sum)->fetchAll();
     <!-- 後面到上一頁和到最後一頁的兩個按鈕 end -->
   </ul>
 </nav>
-<a class="nav-link <?= $pageName=='add' ? 'active' : '' ?>" href="yun_cart_add.php">新增</a>
+<a class="nav-link <?= $pageName=='add' ? 'active' : '' ?>" href="yun_cart_add.php"><button class="btn"><i class="fa-solid fa-folder-plus"></i></button></a>
     </div>
     <div class="row">
     <table class="table table-bordered table-striped">
   <thead>
     <tr>
-    <th scope="col"><i class="fa-solid fa-trash-can"></i></th>
       <th scope="col">會員 ID</th>
       <th scope="col">產品 ID</th>
       <th scope="col">產品名稱</th>
       <th scope="col">產品價格</th>
       <th scope="col">產品數量</th>
       <th scope="col">購買金額</th>
-      <th scope="col"><i class="fa-solid fa-pen-to-square"></i></th>
+      <th scope="col">更新購買</th>
+      <th scope="col">刪除購買</th>
     </tr>
   </thead>
   <tbody>
   <?php foreach($rowcs as $r): ?>
                 <tr>
-                    <td>
-                      <a href="javascript: delete_it(<?= $r['cart_id'] ?>, <?= $r['member_id'] ?>, <?= $r['product_price'] * $r['product_num'] ?>)">
-                        <i class="fa-solid fa-trash-can"></i>
-                      </a>
-                    </td>
                     <td><?= htmlentities($r['member_id']) ?></td>
                     <td><?= $r['product_id'] ?></td>
                     <td><?= $r['product_name'] ?></td>
                     <td><?= $r['product_price'] ?></td>
                     <td><?=  $r['product_num'] ?></td>
                     <td><?=  $r['product_price'] * $r['product_num'] ?></td>
-                    
                     <td>
-                    <!-- 讓 edit.php 帶有 ?sid=頁碼，來判斷是幫哪筆資料編輯 -->
-                    <a href="./yun_cart_edit.php?cid=<?= $r['cart_id'] ?>">
+                      <!-- 讓 edit.php 帶有 ?sid=頁碼，來判斷是幫哪筆資料編輯 -->
+                      <a href="./yun_cart_edit.php?cid=<?= $r['cart_id'] ?>">
                         <i class="fa-solid fa-pen-to-square"></i>
+                      </a>
+                    </td>
+                    <td>
+                      <a href="javascript: delete_it(<?= $r['cart_id'] ?>, <?= $r['member_id'] ?>, <?= $r['product_price'] * $r['product_num'] ?>)">
+                        <i class="fa-solid fa-trash-can"></i>
                       </a>
                     </td>
                 </tr>
@@ -186,7 +182,8 @@ $rowsum = $pdo->query($sql_sum)->fetchAll();
 
 <!-- 中間數字頁碼選項 start -->
 <!-- 可以的話設置加自己頁碼+前後各5個頁碼共11個頁碼 -->
-<?php for($i=$page-5; $i<=$page+5; $i++): 
+<?php 
+for($i=$page-5; $i<=$page+5; $i++): 
   if ($i >= 1 and $i <= $totalPages) :  # 讓小於1以及大於總頁數的頁碼不顯示出來
 ?>
     <!--當頁碼$i等於當前頁面時，加上BS屬性 active 讓當前頁碼反白-->
@@ -199,7 +196,7 @@ endfor; ?>
 
 <!-- 後面到上一頁和到最後一頁的兩個按鈕 start -->
 <!-- 如果現在頁碼 $page 等於總共頁碼 $totalPages 就會 disabled-->
-<li class="page-item <?= $totalPages == $page ? 'disabled' : '' ?>">
+<li class="page-item <?php echo $totalPages == $page ? 'disabled' : '';?>">
   <a class="page-link" href="?page=<?= $page + 1 ?>">
     <i class="fa-solid fa-angle-right"></i>
   </a>

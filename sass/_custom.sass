@@ -30,7 +30,7 @@
 // @import "../bootstrap/scss/bootstrap"
 // 8. Add additional custom code here
 .offcanvas.offcanvas-start
-    width: 200px
+    width: 10%
     // height: 100vh
     // height: 500px
 .navbar-nav
@@ -46,3 +46,45 @@
     border-right: 0.5em solid transparent
     border-left: 0.5em solid transparent
     margin-top: 10px
+@media (min-width: 1400px)
+    .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container 
+        max-width: 78%
+.table
+    table-bordered:none
+.table>:not(caption)>*>*
+    box-shadow: none
+.table-bordered>:not(caption)>*
+    border-width: 22px
+
+
+.pagination
+    --bs-pagination-padding-x: 0.75rem
+    --bs-pagination-padding-y: 0.375rem
+    --bs-pagination-font-size: 1rem
+    --bs-pagination-color: var(--cus4)
+    --bs-pagination-bg: #fff
+    --bs-pagination-border-width: 1px
+    --bs-pagination-border-color: none
+    --bs-pagination-border-radius: 0.375rem
+    --bs-pagination-hover-color: var(--cus3)
+    --bs-pagination-hover-bg: var(--cus7)
+    --bs-pagination-hover-border-color: var(--cus7)
+    --bs-pagination-focus-color: var(--cus6)
+    --bs-pagination-focus-bg: var(--cus7)
+    --bs-pagination-focus-box-shadow: none
+    --bs-pagination-active-color: #fff
+    --bs-pagination-active-bg: var(--cus3)
+    --bs-pagination-active-border-color: var(--cus3)
+    --bs-pagination-disabled-color: var(--cus5)
+    --bs-pagination-disabled-bg: #fff
+    --bs-pagination-disabled-border-color: #dee2e6
+    display: flex
+    padding-left: 0
+    list-style: none
+.page-link
+    font-size:14px
+.btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active
+    background-color: var(--cus4)
+    border-color: none
+.btn i
+    color: white

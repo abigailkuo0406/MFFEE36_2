@@ -33,6 +33,11 @@ $sum_price= $stmt->fetch();
 form .mb-3 .form-text {
     color: red;
 }
+.row{
+         display: flex;
+    justify-content: center;
+    margin-top: 60px;
+    }
 </style>
 
 

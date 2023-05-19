@@ -2,7 +2,8 @@
 <title><?= isset($title) ? $title . '-FriendTrip' : 'FriendTrip' ?>
 </title><!-- 網頁標題可自行修改-->
 <style>
-    /* CSS可以自行修改 */
+
+   
 </style>
 </style>
 </head>

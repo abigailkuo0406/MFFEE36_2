@@ -90,8 +90,8 @@ if($select){
 
 
 ?>
-
-<div class="container-fluid w-75"> 
+<?php if($totalPages<1){$totalPages = 1;} ?>
+<div class="container"> 
     <div class="row">
 
     <!-- 以下為：頁碼選擇 nav -->
@@ -189,15 +189,25 @@ if($select){
                     <td><?=  $r['receiver_email'] ?></td>
                     <td><?=  htmlentities($r['order_note']) ?></td>
                     <td><?=  $r['ad'] ?></td>
-                    <td><?=  $r['order_time'] ?></td>
+                    <td style="font-size:12px;"><?=  $r['order_time'] ?></td>
                     <td><?=  $r['order_complete'] ?></td>
-                    <td><?=  $r['complete_time'] ?></td>
-                    <td><?=  $r['order_status'] ?></td>
+                    <td style="font-size:12px;"><?=  $r['complete_time'] ?></td>
+                    <td
+                    style="<?php
+                        if($r['order_status'] =='已取消'){
+                          echo "background-color:#FFE8F1;";
+                        } else if ($r['order_status'] =='已完成'){
+                          echo "background-color:#57bc90;";
+                        }
+                      ?>"
+                    ><?=  $r['order_status'] ?></td>
                     <td>
                       <a
                       <?php
                         if($r['order_status'] =='訂單成立'){
-                          echo "href='javascript: cancel_it(".$r['order_id'].")'";
+                          echo "href='javascript: cancel_it(".$r['order_id'].")' class='order_hover_yes'";
+                        } else {
+                          echo "class='order_hover_no'";
                         }
                       ?>"
                       >
@@ -209,7 +219,9 @@ if($select){
                       <a
                       <?php
                         if($r['order_status'] =='訂單成立'){
-                          echo "href='javascript: complete_it(".$r['order_id'].")'";
+                          echo "href='javascript: complete_it(".$r['order_id'].")' class='order_hover_yes'";
+                        } else {
+                          echo "class='order_hover_no'";
                         }
                       ?>"
                       >
@@ -223,25 +235,42 @@ if($select){
                     </td>
                 </tr>
                 <tr>
-                  <?php
+                <td colspan="17" style="background-color:#FFF2E6;">
+                <?php
+                $items_qlc =
+                  "SELECT Orders_Items.*, Orders.order_id
+                  FROM Orders
+                  INNER JOIN Orders_Items
+                  ON Orders.order_id=Orders_Items.order_id
+                  WHERE Orders.order_id = :oid";
 
-$items_qlc =
-"SELECT Orders_Items.*, Orders.order_id
-FROM Orders
-INNER JOIN Orders_Items
-ON Orders.order_id=Orders_Items.order_id
-WHERE Orders.order_id = :oid";
+                $items_stmt = $pdo->prepare($items_qlc);
+                $items_stmt->bindParam(':oid', $r['order_id']);
+                $items_stmt->execute();
+                $items_stmt = $items_stmt->fetchAll();
 
-$items_stmt = $pdo->prepare($items_qlc);
-        $items_stmt->bindParam(':oid', $r['order_id']);
-        $items_stmt->execute();
-        $items_stmt = $items_stmt->fetchAll();
                 foreach ($items_stmt as $ritem):
+
+                $pdetail_sql =  
+                "SELECT Orders_Items.product_id, Products.product_id, Products.product_name
+                FROM Orders_Items
+                INNER JOIN Products
+                ON Orders_Items.product_id=Products.product_id
+                WHERE Orders_Items.product_id = :ritem";
+
+                $pdetail_stmt = $pdo->prepare($pdetail_sql);
+                $pdetail_stmt->bindParam(':ritem', $ritem['product_id']);
+                $pdetail_stmt->execute();
+                $pdetail_stmt = $pdetail_stmt->fetch();
+
+                
                 ?>
-                  <td>
-                  <?= '商品：'.$ritem['product_id'].'，數量：'.$ritem['product_num'] ?>
-                  </td>
+                
+                    <a><?= $pdetail_stmt['product_name']?></a>
+                  <a><?= '，ID：'.$ritem['product_id'].'，數量：'.$ritem['product_num']?></a><br>
+                  
                   <?php endforeach; ?>
+                  </td>
                 </tr>
                 <?php endforeach; ?>
   </tbody>

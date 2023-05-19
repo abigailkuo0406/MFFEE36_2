@@ -11,6 +11,11 @@ require './parts/yun_parts/yun_connect-db.php';
 form .mb-3 .form-text {
     color: red;
 }
+.row{
+         display: flex;
+    justify-content: center;
+    margin-top: 60px;
+    }
 </style>
 
 
@@ -230,10 +235,15 @@ form .mb-3 .form-text {
     }
     function goBack() {
         if (document.referrer) {
-            history.back();
+            var previousPageURL = document.referrer;
+            window.location.href = previousPageURL;
+
+            
         } else {
         window.location.href = './yun_product.php';
     }
-}
+//
+
+    }
 </script>
 <?php include './parts/foot.php' ?>

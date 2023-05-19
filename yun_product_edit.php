@@ -12,6 +12,11 @@ $r = $pdo->query($sql)->fetch();
 form .mb-3 .form-text {
     color: red;
 }
+.row{
+         display: flex;
+    justify-content: center;
+    margin-top: 60px;
+    }
 </style>
 
 
@@ -93,7 +98,7 @@ form .mb-3 .form-text {
 
                         <div class="mb-3">
                             <label for="product_description" class="form-label">商品描述</label>
-                            <textarea class="form-control" id="product_description" name="product_description" data-required="1"  value="<?= htmlentities($r['product_description']) ?>"></textarea>
+                            <textarea class="form-control" id="product_description" name="product_description" data-required="1"><?= htmlentities($r['product_description']) ?></textarea>
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
