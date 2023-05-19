@@ -157,7 +157,7 @@ if (isset($_GET['keyword']) && $_GET['keyword'] != '') {
     </div>
 </div>
 
-<?php include './parts/john_parts/back/part/scripts.php';
+<?php #include './parts/john_parts/back/part/scripts.php';
 ?>
 
 <script>

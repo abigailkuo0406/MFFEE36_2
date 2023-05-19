@@ -5,7 +5,7 @@
 </style>
 </head>
 
-<body>
+<body style="background-color:#57BC90;">
 
     <?php include './parts/navbar.php' ?>
     <div class="main_screen d-flex justify-content-between">

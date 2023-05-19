@@ -3,21 +3,24 @@
 <title>餐廳管理</title><!-- 網頁標題可自行修改-->
 <style>
     table>thead>tr>th:nth-child(1) {
-        width: 5%;
+        width: 6%;
     }
+
     table>thead>tr>th:nth-child(2) {
         width: 8%;
     }
+
     table>thead>tr>th:nth-child(3) {
-        width: 4%;
+        width: 6%;
     }
+
     table>thead>tr>th:nth-child(4) {
         width: 8%;
     }
+
     table>thead>tr>th:nth-child(7) {
         width: 40%;
     }
-
 </style>
 </head>
 

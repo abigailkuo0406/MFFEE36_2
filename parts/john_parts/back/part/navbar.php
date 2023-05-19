@@ -19,10 +19,14 @@
     }
 
     #intro {
-        background-image: url("./parts/john_parts/back/imgs/ship.jpg");
+        background-image: url("./imgs/logo/logo.png");
         background-position: center;
-        /* width: 100px; */
+        background-repeat: no-repeat;
+        background-size: contain;
+        width: 100%;
         height: 85vh;
+
+
     }
 </style>
 <div class="container">

@@ -17,10 +17,10 @@ if (isset($_SESSION['admin'])) {
 </style>
 
 
-<div class="container" style="height: 85vh">
+<div class="container" style="height: 85vh; background-color:#57BC90;">
     <div class="row" id="intro">
         <div class="col-12">
-            <div class="card w-50 m-auto mt-2">
+            <div class="card w-50 m-auto mt-5">
                 <div class="card-body">
                     <h5 class="card-title">登入管理員</h5>
                     <form name="form1" onsubmit="checkForm(event)">

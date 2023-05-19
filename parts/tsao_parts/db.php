@@ -3,7 +3,7 @@
 class DB
 {
     private $dbHost = "localhost";
-    private $dbName = "mid-term";
+    private $dbName = "friendtrip";
     private $dbUser = "root";
     private $dbPassword = "root";
     private $conn;

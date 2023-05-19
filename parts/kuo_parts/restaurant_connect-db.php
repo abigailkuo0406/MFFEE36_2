@@ -3,7 +3,7 @@
 // 設定連線參數
 
 $db_severname = 'localhost'; //主機名稱
-$db_name = 'mid-term'; //資料庫名稱
+$db_name = 'friendtrip'; //資料庫名稱
 $db_username = 'root'; //進資料庫的使用者名稱
 $db_password = 'root'; //進資料庫的密碼
 

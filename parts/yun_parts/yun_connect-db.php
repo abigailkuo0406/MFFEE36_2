@@ -1,6 +1,6 @@
 <?php
 $db_host = 'localhost';
-$db_name = 'mid-term';
+$db_name = 'friendtrip';
 $db_user = 'root';
 $db_pass = 'root';
 $dsn = "mysql:host={$db_host};dbname={$db_name};charset=utf8"; // data source name

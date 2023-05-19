@@ -1,7 +1,7 @@
 <?php
 
 $db_host = 'localhost';
-$db_name = 'mid-term';
+$db_name = 'friendtrip';
 $db_user = 'root';
 $db_pass = 'root';
 
