@@ -1,5 +1,5 @@
 <?php
-require_once 'db.php';
+require_once './parts/niu_parts/db.php';
 
 if (isset($_POST['editData'])) {
   $id = $_POST['id'];
@@ -8,5 +8,5 @@ if (isset($_POST['editData'])) {
   $db = new DB();
   $db->editData($id, $post);
 
-  header('Location: index.php');
+  header('Location: board.php');
 }

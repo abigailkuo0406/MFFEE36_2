@@ -6,9 +6,9 @@ if (isset($_POST['insertData'])) {
   $email = $_POST['email'];
   $post = $_POST['post'];
 
-  require_once 'db.php';
+  require_once './parts/niu_parts/db.php';
   $db = new DB();
   $db->insertData($name, $email, $post);
 
-  header('Location: index.php');
+  header('Location: board.php');
 }
