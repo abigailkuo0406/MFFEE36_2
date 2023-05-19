@@ -28,7 +28,7 @@ if (isset($_POST['member_name'])) {
     $stmt->execute([
         $_POST['email'],
         $_POST['password'],
-        $_POST['images'],
+        $_POST['main_img'],
         $_POST['member_name'],
         $_POST['member_birth'],
         $_POST['id_number'],

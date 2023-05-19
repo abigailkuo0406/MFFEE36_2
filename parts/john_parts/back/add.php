@@ -34,8 +34,13 @@ require './parts/john_parts/back/part/connect-db.php';
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
-                            <label for="images" class="form-label">大頭貼</label>
-                            <input type="number" class="form-control" id="images" name="images">
+                            <label for="main_img" class="form-label">大頭貼</label>
+                            <!--隱藏的 input 傳送檔名到資料庫-->
+                            <input type="text" class="form-control" id="main_img" name="main_img" style="display: none;">
+                            <div id="avatar_div" class="input-group mb-3">
+                                <input type="file" class="form-control" id="avatar" name="avatar">
+                            </div>
+                            <img src="" alt="" id="avatar_img" class="w-50">
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
@@ -288,6 +293,29 @@ require './parts/john_parts/back/part/connect-db.php';
 
 
     }
+    const inp_avatar = document.querySelector('#avatar');
+    const div_avatar = document.querySelector('#avatar_div');
+    inp_avatar.addEventListener('change', function(event) {
+        const fd_avatar = new FormData(document.form1);
+        console.log("上傳檔案名稱:" + inp_avatar.files[0].name);
+        fetch('./upload-img-api.php', {
+                method: 'POST',
+                body: fd_avatar
+            }).then(r => r.json())
+            .then(obj => {
+                if (obj.filename) {
+                    document.querySelector('#avatar_img').src = './parts/john_parts/back/imgs/' + obj.filename;
+                    console.log("抓漏");
+                }
+                console.log("傳輸檔名到input中：" + obj.filename);
+                //obj.filename 為圖檔名
+                const main_img = document.querySelector('#main_img');
+                main_img.value = obj.filename;
+            })
+            .catch(ex => {
+                console.log(ex);
+            })
+    })
 </script>
 <?php #include './parts/html-foot.php' 
 ?>
