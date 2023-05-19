@@ -4,6 +4,7 @@ require './parts/kuo_parts/restaurant_connect-db.php';
 ?>
 
 <div class="container mt-3" style="width:100%">
+<!--搜尋欄-->
     <form class="input-group my-3" method="GET" style="width:15%;">
         <input name="search" type="text" class="form-control" placeholder="輸入會員ID" value="<?= isset($_GET['search']) ? htmlentities($_GET['search']) : null ?>" aria-label="Recipient's username" aria-describedby="button-addon2">
         <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fa-solid fa-magnifying-glass"></i></button>
