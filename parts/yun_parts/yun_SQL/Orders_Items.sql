@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： localhost:8889
--- 產生時間： 2023 年 05 月 18 日 05:38
+-- 產生時間： 2023 年 05 月 19 日 02:20
 -- 伺服器版本： 5.7.39
 -- PHP 版本： 8.2.0
 
@@ -24,14 +24,25 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `Orders_Items`
+-- 資料表結構 `orders_items`
 --
 
-CREATE TABLE `Orders_Items` (
+CREATE TABLE `orders_items` (
   `order_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `product_num` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 傾印資料表的資料 `orders_items`
+--
+
+INSERT INTO `orders_items` (`order_id`, `product_id`, `product_num`) VALUES
+(1, 13, 2),
+(2, 2, 2),
+(2, 9, 10),
+(3, 13, 12),
+(3, 4, 2);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

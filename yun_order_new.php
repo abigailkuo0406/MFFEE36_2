@@ -156,7 +156,7 @@
                             } else if($imageContent == false) {
                             echo "https://digitalfinger.id/wp-content/uploads/2019/12/no-image-available-icon-6.png";
                             }
-                            ?>" style="width: 150px;"><h6 class="catch_product_name"><?= $card_order['product_name']?></h6><a>數量: <a class="catch_product_num"><?=$value?></a></a><a> | </a><>單價: <?=$card_order['product_price']?></a><a class="catch_product_id" style="display:none;"><?= $key ?></a><a class="catch_member_id" style="display:none;"><?= $member_id ?></a></li>
+                            ?>" style="width: 150px;"><h6 class="catch_product_name"><?= $card_order['product_name']?></h6><a>數量: <a class="catch_product_num"><?=$value?></a></a><a> | </a>單價: <?=$card_order['product_price']?></a><a class="catch_product_id" style="display:none;"><?= $key ?></a><a class="catch_member_id" style="display:none;"><?= $member_id ?></a></li>
                             
                             <?php endforeach; ?>
                         </ul>
