@@ -2,7 +2,21 @@
 <title><?= isset($title) ? $title . '-FriendTrip' : 'FriendTrip' ?>
 </title><!-- 網頁標題可自行修改-->
 <style>
-    /* CSS可以自行修改 */
+    table>thead>tr>th:nth-child(1) {
+        width: 2%;
+    }
+    table>thead>tr>th:nth-child(2) {
+        width: 8%;
+    }
+    table>thead>tr>th:nth-child(3) {
+        width: 3%;
+    }
+    table>thead>tr>th:nth-child(4) {
+        width: 5%;
+    }
+    table>thead>tr>th:nth-child(5) {
+        width: 45%;
+    }
 </style>
 </style>
 </head>

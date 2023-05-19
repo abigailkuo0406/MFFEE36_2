@@ -3,6 +3,11 @@
 <title>新增訂位</title><!-- 網頁標題可自行修改-->
 <style>
     /* CSS可以自行修改 */
+    .row{
+         display: flex;
+    justify-content: center;
+    margin-top: 60px;
+    }
 </style>
 </head>
 

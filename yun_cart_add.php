@@ -19,6 +19,11 @@ $m_rows = $pdo->query($m_sql)->fetchAll();
 form .mb-3 .form-text {
     color: red;
 }
+.row{
+         display: flex;
+    justify-content: center;
+    margin-top: 60px;
+    }
 </style>
 
 

@@ -5,7 +5,7 @@
             <div class="w-100 d-flex justify-content-end pe-3 pt-2">
                 <button type="button" class="btn-close d-block" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
-            <a href="account_main.php">旅遊交友</a>
+            <a href="account_main.php">FriendTrip</a>
         </div>
 
         <ul class="navbar-nav d-flex align-items-center flex-grow-1">
@@ -26,13 +26,7 @@
                     <li><a class="dropdown-item" href="account_add.php">新增</a></li>
                 </ul>
             </li>
-            <!-- 交友配對 -->
-            <li class="nav-item">
-                <a href="matching.php" class="link_btn">
-                    <span class="material-symbols-outlined nav-icon">person_search</span>
-                    <span class="nav-link">交友配對</span>
-                </a>
-            </li>
+         
 
 
             <!-- 自訂行程 -->
