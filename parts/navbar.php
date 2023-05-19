@@ -5,7 +5,7 @@
             <div class="w-100 d-flex justify-content-end pe-3 pt-2">
                 <button type="button" class="btn-close d-block" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
-            <a href="account_main.php">FriendTrip</a>
+            <a href="account_main.php"><img src="./imgs/logo/logo.png" style="width: 70%"></a>
         </div>
 
         <ul class="navbar-nav d-flex align-items-center flex-grow-1">
