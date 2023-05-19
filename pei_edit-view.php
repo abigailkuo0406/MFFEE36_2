@@ -64,7 +64,7 @@ $typeName = $pdo->query($sql_typeid)->fetch(PDO::FETCH_NUM)[0];
                         <!-- 在下拉式選單中顯示資料 -->
                         <div class="mb-3">
                             <label for="type_name" class="form-label">景點類別</label>
-                            <select name="type_name" id="type_name">
+                            <select name="type_name" id="type_name" class="form-control">
                                 <option selected><?= $typeName ?></option>
                                 <?php foreach ($typeArray as $i) : ?>
                                     <option value="<?= $i['type_name'] ?>"><?= $i['type_name'] ?></option>

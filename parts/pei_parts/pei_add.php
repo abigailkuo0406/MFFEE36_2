@@ -95,13 +95,13 @@ $typeArray = $pdo->query($sql_type)->fetchAll();
     function checkForm(event) {
         event.preventDefault(); //不要用傳統方式送出去
 
-        // for (let f of fields) {
-        //     // 出錯時標示出外觀的樣式
-        //     f.style.border = '1px solid #CCC';
-        //     f.nextElementSibling.innerHTML = '';
-        // }
-        // nameField.style.border = '1px solid #CCC';
-        // nameField.nextElementSibling.innerHTML = '';
+        for (let f of fields) {
+            // 出錯時標示出外觀的樣式
+            f.style.border = '1px solid #CCC';
+            f.nextElementSibling.innerHTML = '';
+        }
+        nameField.style.border = '1px solid #CCC';
+        nameField.nextElementSibling.innerHTML = '';
 
         let isPass = true; // 預設值是通過的
 
