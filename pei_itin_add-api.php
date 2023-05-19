@@ -14,7 +14,7 @@ if (!empty($_POST['name'])) {
 
     #檢查欄位
     // $open_time = empty($_POST['name']) ? null : $_POST['name'];
-    $public = isset($_POST['public']) ? 1 : 0;
+    // $public = isset($_POST['public']) ? 1 : 0;
 
     $sql = "INSERT INTO `Itinerary`(
         `itin_id`, `date`, `name`, 
@@ -32,7 +32,7 @@ if (!empty($_POST['name'])) {
         $_POST['date'],
         $_POST['name'],
         $_POST['description'],
-        $public,
+        $_POST['public'],
         $_POST['ppl'],
         $_POST['member_id'],
     ]);

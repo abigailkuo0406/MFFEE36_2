@@ -35,7 +35,7 @@ $typeArray = $pdo->query($sql_type)->fetchAll();
                         </div>
                         <div class="mb-3">
                             <label for="type_name" class="form-label">景點類別</label>
-                            <select name="type_name" id="type_name">
+                            <select name="type_name" id="type_name" class="form-control">
                                 <option selected>--請選擇---</option>
                                 <?php foreach ($typeArray as $i) : ?>
                                     <option value="<?= $i['type_name'] ?>"><?= $i['type_name'] ?></option>
@@ -44,7 +44,13 @@ $typeArray = $pdo->query($sql_type)->fetchAll();
                         </div>
                         <div class="mb-3">
                             <label for="city" class="form-label">城市</label>
-                            <input type="text" class="form-control" id="city" name="city">
+                            <select class="form-select" aria-label="Default select example" id="city" name="city">
+                                <option selected>---請選擇---</option>
+                                <option value="台北市">台北市</option>
+                                <option value="新北市">新北市</option>
+                                <option value="基隆市">基隆市</option>
+                            </select>
+                            <!-- <input type="text" class="form-control" id="city" name="city"> -->
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
@@ -59,7 +65,7 @@ $typeArray = $pdo->query($sql_type)->fetchAll();
                         </div>
                         <div class="mb-3">
                             <label for="address" class="form-label">地址</label>
-                            <textarea class="form-control" id="address" name="address"></textarea>
+                            <textarea class="form-control" id="address" name="address" data-required="1"></textarea>
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">

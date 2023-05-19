@@ -73,13 +73,6 @@ $typeName = $pdo->query($sql_typeid)->fetch(PDO::FETCH_NUM)[0];
                         </div>
                         <div class="mb-3">
                             <label for="city" class="form-label">城市</label>
-                            <!-- <select class="form-select" id="typ_id" name="typ_id" data-required="1">
-                                <option selected>----選擇-----</option>
-                                <option value="1">台北市</option>
-                                <option value="2">新北市</option>
-                                <option value="3">基隆市</option>
-                            </select> -->
-
                             <input type="text" class="form-control" id="city" name="city" value="<?= $row['city'] ?>">
                             <div class="form-text"></div>
                         </div>
