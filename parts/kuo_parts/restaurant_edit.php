@@ -24,7 +24,11 @@ $classArray = $pdo->query($sql_class)->fetchAll();
 
 <style>
     form .mb-3 .form-text {
-        color: red;
+        color: #57BC90;
+    }
+
+    h5 {
+        color: #57BC90;
     }
 </style>
 
@@ -143,7 +147,7 @@ $classArray = $pdo->query($sql_class)->fetchAll();
         for (let f of fields) {
             if (!f.value) {
                 ispass = false;
-                f.style.border = '1px solid red';
+                f.style.border = '1px solid #57BC90';
                 f.nextElementSibling.innerHTML = '請輸入資料'
             }
 
@@ -152,7 +156,7 @@ $classArray = $pdo->query($sql_class)->fetchAll();
         for (let s of selects) {
             if (s.value == '--請選擇--') {
                 ispass = false;
-                s.style.border = '1px solid red';
+                s.style.border = '1px solid #57BC90';
                 s.nextElementSibling.innerHTML = '請選擇欄位'
             }
 

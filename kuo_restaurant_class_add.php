@@ -1,12 +1,12 @@
 <?php include './parts/head.php' ?>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<title>新增餐廳</title><!-- 網頁標題可自行修改-->
+<title>新增餐廳類型</title><!-- 網頁標題可自行修改-->
 <style>
     /* CSS可以自行修改 */
-    .row{
-         display: flex;
-    justify-content: center;
-    margin-top: 60px;
+    .row {
+        display: flex;
+        justify-content: center;
+        margin-top: 60px;
     }
 </style>
 </head>

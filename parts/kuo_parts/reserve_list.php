@@ -4,7 +4,7 @@ require './parts/kuo_parts/restaurant_connect-db.php';
 ?>
 
 <div class="container mt-3" style="width:100%">
-<!--搜尋欄-->
+    <!--搜尋欄-->
     <form class="input-group my-3" method="GET" style="width:15%;">
         <input name="search" type="text" class="form-control" placeholder="輸入會員ID" value="<?= isset($_GET['search']) ? htmlentities($_GET['search']) : null ?>" aria-label="Recipient's username" aria-describedby="button-addon2">
         <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -30,14 +30,14 @@ require './parts/kuo_parts/restaurant_connect-db.php';
         $total_search_row = $pdo->query($search_sql)->fetch(PDO::FETCH_NUM)[0];
     } elseif (isset($search) && $search == '') {
         // echo "<script language='JavaScript'>alert('請輸入會員編號');</script>";
-        echo "<div class='alert alert-danger' role='alert' style='font-size:18px;font-weight:800'>請輸入會員編號</div>";
+        echo "<div class='alert alert-warning' role='alert' style='font-size:18px;font-weight:800'>請輸入會員編號</div>";
     }
 
 
     if ($total_search_row) {
         // echo 'Aa';
-        echo "<div class='alert alert-warning' role='alert'>
-        <label style='font-size:20px;font-weight:800' class='mb-2'>搜尋結果：</label><div style='font-size:20px;font-weight:800'>共有 <a style='color:red'>$total_search_row</a> 筆資料</div></div>";
+        echo "<div class='alert alert-success' role='alert'>
+        <label style='font-size:20px;font-weight:800' class='mb-2'>搜尋結果：</label><div style='font-size:20px;font-weight:800'>共有 <a style='color:#F056A3'>$total_search_row</a> 筆資料</div></div>";
 
 
         $sql = sprintf("SELECT R.`reserve_id`,
@@ -69,7 +69,7 @@ require './parts/kuo_parts/restaurant_connect-db.php';
         // echo 'Ab';
         if ($total_search_row == 0 && $search != null) {
             // echo "<script language='JavaScript'>alert('未找到資料');</script>";
-            echo "<div class='alert alert-danger' role='alert' style='font-size:18px;font-weight:800'>未找到資料</div>";
+            echo "<div class='alert alert-warning' role='alert' style='font-size:18px;font-weight:800'>未找到資料</div>";
         }
 
         // if ($search != null) {

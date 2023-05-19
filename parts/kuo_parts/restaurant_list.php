@@ -39,7 +39,7 @@ $classArray = $pdo->query($sql_class)->fetchAll();
                 </div>
                 <!-- 搜尋鈕 -->
                 <div class="me-3">
-                    <button id="submit" type="submit" class="btn btn-primary">搜尋</button>
+                    <button id="submit" type="submit" class="btn btn-primary" style="color:white">搜尋</button>
                 </div>
             </div>
             <!-- 搜尋結果顯示 -->
@@ -52,11 +52,11 @@ $classArray = $pdo->query($sql_class)->fetchAll();
                     <?php }; ?></div>
 
                 <!-- 搜尋結果 -->
-                <div class="alert alert-warning" role="alert" style=<?= (isset($_GET['search-area']) && $_GET['search-area'] != null) && ($_GET['search-area'] != '依縣市搜尋' || $_GET['search-class'] != '依餐廳類型搜尋') ? "display:block"  : "display:none" ?>>
+                <div class="alert alert-success" role="alert" style=<?= (isset($_GET['search-area']) && $_GET['search-area'] != null) && ($_GET['search-area'] != '依縣市搜尋' || $_GET['search-class'] != '依餐廳類型搜尋') ? "display:block"  : "display:none" ?>>
                     <!-- 縣市搜尋結果 -->
-                    <div class="" style="font-size:18px;font-weight:800"><?= isset($_GET['search-area']) && $_GET['search-area'] != '依縣市搜尋' ? '縣市：' . $_GET['search-area'] : '' ?></div>
+                    <div class="mt-2" style="font-size:18px;font-weight:600"><?= isset($_GET['search-area']) && $_GET['search-area'] != '依縣市搜尋' ? '縣市：' . $_GET['search-area'] : '' ?></div>
                     <!-- 餐廳類型結果 -->
-                    <div class="mt-2" style="font-size:18px;font-weight:800"><?= isset($_GET['search-class']) && $_GET['search-class'] != '依餐廳類型搜尋' ? '餐廳類型：' . $_GET['search-class'] : '' ?></div>
+                    <div class="mt-2" style="font-size:18px;font-weight:600"><?= isset($_GET['search-class']) && $_GET['search-class'] != '依餐廳類型搜尋' ? '餐廳類型：' . $_GET['search-class'] : '' ?></div>
                 </div>
             </div>
 
@@ -103,18 +103,18 @@ $classArray = $pdo->query($sql_class)->fetchAll();
         // echo 'C';
     } elseif ($search_area == '依縣市搜尋' && $search_class == '依餐廳類型搜尋') {
         // echo "<script language='JavaScript'>alert('請選擇搜尋條件');</script>";
-        echo "<div class='alert alert-danger' role='alert' style='font-size:18px;font-weight:800'>請選擇搜尋條件</div>";
+        echo "<div class='alert alert-warning' role='alert' style='font-size:18px;font-weight:700'>請選擇搜尋條件</div>";
     }
     // 沒找到資料要顯示
     if ($total_search_row == 0 && $search_area != null && $search_class != null) {
         // echo "<script language='JavaScript'>alert('未找到資料');</script>";
-        echo "<div class='alert alert-danger' role='alert' style='font-size:18px;font-weight:800'>未找到資料</div>";
+        echo "<div class='alert alert-warning' role='alert' style='font-size:18px;font-weight:700'>未找到資料</div>";
     }
 
     // 判斷要顯示甚麼條件、多少筆資料
     if ($total_search_row) {
         // echo "<script language='JavaScript'>count();</script>"
-        echo '<div  class"mb-3" style="font-size:18px;font-weight:800">共有 <a style="color:red">' . $total_search_row . '</a> 筆資料</div>';
+        echo '<div  class"mb-3" style="font-size:18px;font-weight:800">共有 <a style="color: #BD608E">' . $total_search_row . '</a> 筆資料</div>';
 
         switch ($search_result_type) {
             case 1:

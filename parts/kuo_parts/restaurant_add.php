@@ -26,11 +26,15 @@ $totalPage = ceil($totalRows / $perPage);
 
 <style>
     form .mb-3 .form-text {
-        color: red;
+        color: #57BC90;
+    }
+
+    h5 {
+        color: #57BC90;
     }
 </style>
 
-<div class="container mt-5">
+<div class="container my-3">
     <div class="row">
         <div class="col-6">
             <div class="card" style="width: 40rem;">
@@ -142,7 +146,7 @@ $totalPage = ceil($totalRows / $perPage);
         for (let f of fields) {
             if (!f.value) {
                 ispass = false;
-                f.style.border = '1px solid red';
+                f.style.border = '1px solid #57BC90';
                 f.nextElementSibling.innerHTML = '請輸入資料'
             }
 
@@ -151,7 +155,7 @@ $totalPage = ceil($totalRows / $perPage);
         for (let s of selects) {
             if (s.value == '--請選擇--') {
                 ispass = false;
-                s.style.border = '1px solid red';
+                s.style.border = '1px solid #57BC90';
                 s.nextElementSibling.innerHTML = '請選擇欄位'
             }
 
@@ -207,6 +211,6 @@ $totalPage = ceil($totalRows / $perPage);
     function goback() {
         // let previousPageUrl = document.referrer;
         // location.href = previousPageUrl;
-        window.location.href = './kuo_restaurant_list.php?page=<?= $totalPage?>'
+        window.location.href = './kuo_restaurant_list.php?page=<?= $totalPage ?>'
     }
 </script>
