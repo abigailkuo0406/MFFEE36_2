@@ -45,15 +45,15 @@ if ($page < 1) {
 
 <!-- 頁面呈現 -->
 
-<div class="container">
+<div class="container mt-5" style="width:85%">
     <div class="row mt-3">
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col">類型編號</th>
-                    <th scope="col">類型名稱</th>
-                    <th scope="col">修改</th>
-                    <th scope="col">刪除</th>
+                    <th class="col-1">類型編號</th>
+                    <th class="col-10">類型名稱</th>
+                    <th class="col"></th>
+                    <th class="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -82,24 +82,24 @@ if ($page < 1) {
         <nav aria-label="Page navigation example">
             <ul class="pagination">
                 <!-- 最前頁 -->
-                <li class="page-item <?= 1 == $page ? 'disable' : '' ?>"><a class="page-link" href="?page=1">最前頁</a></li>
+                <li class="page-item <?= 1 == $page ? 'disabled' : '' ?>"><a class="page-link" href="?page=1">最前頁</a></li>
                 <!-- 回上頁 -->
-                <li class="page-item <?= 1 == $page ? 'disable' : '' ?>">
+                <li class="page-item <?= 1 == $page ? 'disabled' : '' ?>">
                     <a class="page-link" href="?page=<?= $page - 1 ?>">上一頁</a>
                 </li>
 
                 <?php for ($i = $page - 5; $i <= $page + 5; $i++) : ?>
                     <?php if ($i >= 1 and $i <= $totalPage) : ?>
                         <!-- 當前頁 -->
-                        <li class="page-item"><a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a></li>
+                        <li class="page-item <?= $i == $page ? 'active' : '' ?>"><a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a></li>
                     <?php endif ?>
                 <?php endfor ?>
 
                 <!-- 下一頁 -->
-                <li class="page-item <?= $totalPage == $page ? 'disable' : '' ?>"><a class="page-link" href="?page=<?= $page + 1 ?>">下一頁</a></li>
+                <li class="page-item <?= $totalPage == $page ? 'disabled' : '' ?>"><a class="page-link" href="?page=<?= $page + 1 ?>">下一頁</a></li>
 
                 <!-- 最後頁 -->
-                <li class="page-item <?= $totalPage == $page ? 'disable' : '' ?>"><a class="page-link" href="?page=<?= $totalPage ?>">最後頁</a></li>
+                <li class="page-item <?= $totalPage == $page ? 'disabled' : '' ?>"><a class="page-link" href="?page=<?= $totalPage ?>">最後頁</a></li>
             </ul>
         </nav>
     </div>

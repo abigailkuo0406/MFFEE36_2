@@ -10,6 +10,14 @@ require './parts/kuo_parts/restaurant_connect-db.php';
 $sql_restaurant = "SELECT rest_name FROM `restaurant_list` WHERE 1";
 $restaurantArray = $pdo->query($sql_restaurant)->fetchAll();
 
+// 每頁要顯示的資料數量
+$perPage = 10;
+#計算總筆數
+$t_sql = "SELECT COUNT(1) FROM reserve";
+$totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
+
+// 計算總頁數
+$totalPage = ceil($totalRows / $perPage);
 
 ?>
 
@@ -182,6 +190,8 @@ $restaurantArray = $pdo->query($sql_restaurant)->fetchAll();
     }
 
     function goback() {
-        window.location.href = './kuo_reserve_list.php'
+        // let previousPageUrl = document.referrer;
+        // location.href = previousPageUrl;
+        window.location.href = './kuo_reserve_list.php?page=<?= $totalPage?>'
     }
 </script>

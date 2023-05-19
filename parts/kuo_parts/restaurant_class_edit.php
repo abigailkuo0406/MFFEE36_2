@@ -19,7 +19,8 @@ if (empty($r)) {
     }
 </style>
 
-<div class="container">
+<div class="container mt-5">
+
     <div class="row">
         <div class="col-6">
             <div class="card" style="width: 40rem;">
@@ -137,6 +138,7 @@ if (empty($r)) {
     }
 
     function goback() {
-        window.location.href = './kuo_restaurant_class_list.php'
+        let previousPageUrl = document.referrer;
+        location.href = previousPageUrl;
     }
 </script>

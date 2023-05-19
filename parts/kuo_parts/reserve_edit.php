@@ -43,7 +43,7 @@ $restrName = $pdo->query($sql_rest_name)->fetch(PDO::FETCH_NUM)[0];
     }
 </style>
 
-<div class="container">
+<div class="container mt-5">
     <div class="row">
         <div class="col-6">
             <div class="card" style="width: 40rem;">
@@ -208,6 +208,7 @@ $restrName = $pdo->query($sql_rest_name)->fetch(PDO::FETCH_NUM)[0];
     }
 
     function goback() {
-        window.location.href = './kuo_reserve_list.php'
+        let previousPageUrl = document.referrer;
+        location.href = previousPageUrl;
     }
 </script>

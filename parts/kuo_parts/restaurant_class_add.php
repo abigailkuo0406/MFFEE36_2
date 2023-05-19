@@ -2,6 +2,15 @@
 
 require './parts/kuo_parts/restaurant_connect-db.php';
 
+// 每頁要顯示的資料數量
+$perPage = 10;
+#計算總筆數
+$t_sql = "SELECT COUNT(1) FROM restaurant_class";
+$totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
+
+// 計算總頁數
+$totalPage = ceil($totalRows / $perPage);
+
 ?>
 
 <style>
@@ -10,7 +19,7 @@ require './parts/kuo_parts/restaurant_connect-db.php';
     }
 </style>
 
-<div class="container">
+<div class="container mt-5">
     <div class="row">
         <div class="col-6">
             <div class="card" style="width: 40rem;">
@@ -126,6 +135,8 @@ require './parts/kuo_parts/restaurant_connect-db.php';
     }
 
     function goback() {
-        window.location.href = './kuo_restaurant_class_list.php'
+        // let previousPageUrl = document.referrer;
+        // location.href = previousPageUrl;
+        window.location.href = './kuo_restaurant_class_list.php?page=<?= $totalPage?>'
     }
 </script>
