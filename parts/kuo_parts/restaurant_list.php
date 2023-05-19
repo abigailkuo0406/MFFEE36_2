@@ -14,7 +14,7 @@ $classArray = $pdo->query($sql_class)->fetchAll();
 
 
 <div class="container mt-5" style="width:100%">
-<!-- 搜尋功能 -->
+    <!-- 搜尋功能 -->
     <form name="searchForm" class="input-group" method="get">
         <div class="mb-3">
             <div class="mb-3 d-flex flex-row">
@@ -45,18 +45,22 @@ $classArray = $pdo->query($sql_class)->fetchAll();
             <!-- 搜尋結果顯示 -->
             <div>
                 <!-- 「搜尋結果」文字 -->
-                <div class="my-3" style="font-size:18px;font-weight:800"><?= ($_GET['search-area'] != null && $_GET['search-class']) && ($_GET['search-area'] != '依縣市搜尋' || $_GET['search-class'] !='依餐廳類型搜尋' ) ? '搜尋結果：' : '' ?></div>
+                <div class="my-3" style="font-size:18px;font-weight:800">
+                    <?php
+                    if (isset($_GET['search-area'])) { ?>
+                        <?= ($_GET['search-area'] != null) && ($_GET['search-area'] != '依縣市搜尋' || $_GET['search-class'] != '依餐廳類型搜尋') ? '搜尋結果：' : ''; ?>
+                    <?php }; ?></div>
 
                 <!-- 搜尋結果 -->
-                <div class="alert alert-warning" role="alert" style=<?= ($_GET['search-area'] != null && $_GET['search-class']) && ($_GET['search-area'] != '依縣市搜尋' || $_GET['search-class'] !='依餐廳類型搜尋' )? "display:block"  : "display:none" ?>>
+                <div class="alert alert-warning" role="alert" style=<?= (isset($_GET['search-area']) && $_GET['search-area'] != null) && ($_GET['search-area'] != '依縣市搜尋' || $_GET['search-class'] != '依餐廳類型搜尋') ? "display:block"  : "display:none" ?>>
                     <!-- 縣市搜尋結果 -->
                     <div class="" style="font-size:18px;font-weight:800"><?= isset($_GET['search-area']) && $_GET['search-area'] != '依縣市搜尋' ? '縣市：' . $_GET['search-area'] : '' ?></div>
                     <!-- 餐廳類型結果 -->
                     <div class="mt-2" style="font-size:18px;font-weight:800"><?= isset($_GET['search-class']) && $_GET['search-class'] != '依餐廳類型搜尋' ? '餐廳類型：' . $_GET['search-class'] : '' ?></div>
                 </div>
             </div>
-                
-                
+
+
     </form>
 
 
@@ -150,7 +154,7 @@ $classArray = $pdo->query($sql_class)->fetchAll();
         if ($page > $totalPage) {
             header("Location:?page=$totalPage");
         }
-    } else { 
+    } else {
 
         //設定未選擇搜尋條件時要顯示的資料筆數
         if (($search_area == null && $search_class == null) || ($search_area == '依縣市搜尋' && $search_class == '依餐廳類型搜尋')) {
