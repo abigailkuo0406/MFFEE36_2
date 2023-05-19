@@ -65,14 +65,12 @@ $m_rows = $pdo->query($m_sql)->fetchAll();
                         </div>
                         <div class="mb-3">
                             <label for="public" class="form-label">是否需要公開</label>
-                            <input class="form-check-input" type="radio" name="public[]" id="public" value="公開">
+                            <input class="form-check-input" type="radio" name="public" id="public" value="公開">
                             <label class="form-check-label" for="public">公開</label>
-                            <input class="form-check-input" type="radio" name="public[]" id="public" value="不公開">
+                            <input class="form-check-input" type="radio" name="public" id="public" value="不公開">
                             <label class="form-check-label" for="public">不公開</label>
                             <div class="form-text"></div>
                         </div>
-
-
                         <div class="mb-3">
                             <label for="create_at" class="form-label">建立時間</label>
                             <input type="text" class="form-control" id="create_at" name="create_at">

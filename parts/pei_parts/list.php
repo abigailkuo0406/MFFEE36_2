@@ -1,6 +1,6 @@
 <?php
 #MVC
-$pageName = 'list';
+// $pageName = 'list';
 
 require './parts/pei_parts/connect-db.php';
 
@@ -23,6 +23,7 @@ $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0]; //總筆數
 $totalPages = ceil($totalRows / $perPage); //總頁數
 $rows = [];
 
+
 if ($totalRows) {
     if ($page > $totalPages) {
         header("Location:?page=$totalpages");
@@ -32,19 +33,25 @@ if ($totalRows) {
 }
 
 ?>
-
+<!-- 搜尋縣市欄 -->
 <div class="container mt-4">
-    <form method="GET" action="">
-        <label for="city1">選擇城市：</label>
-        <select name="search_city" id="city1">
-            <option value="">---請選擇---</option>
-            <option value="台北市">台北市</option>
-            <option value="新北市">新北市</option>
-            <option value="基隆市">基隆市</option>
-        </select>
-        <input type="submit" value="搜尋">
+    <form class="row row-cols-lg-auto g-3 align-items-center" method=" GET" action="">
+        <div class="col-12">
+            <label class="visually-hidden" for="city1">選擇城市：</label>
+            <select name="search_city" id="city1" class="form-select">
+                <option selected value="">---請選擇城市---</option>
+                <option value="台北市">台北市</option>
+                <option value="新北市">新北市</option>
+                <option value="基隆市">基隆市</option>
+            </select>
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-outline-primary" id="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+        <div class="row row-cols-lg-auto g-3 align-items-center4">
+            <p class="font-monospace fw-normal">共有：<?php echo $totalRows ?> 筆</p>
+        </div>
     </form>
-
     <div class="row">
         <nav aria-label="Page navigation example">
             <!-- 分頁(pagination)，顯示的頁碼 -->
@@ -82,11 +89,13 @@ if ($totalRows) {
                 </li>
             </ul>
         </nav>
+
     </div>
+    <!-- 列表的呈現表格各個名稱 ,table-striped -->
     <div class="row">
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-hover">
             <thead>
-                <tr>
+                <tr class="align-middle text-center">
                     <th scope="col">#</th>
                     <th scope="col">景點</th>
                     <th scope="col">類型</th>
@@ -101,7 +110,7 @@ if ($totalRows) {
             </thead>
             <tbody>
                 <?php foreach ($rows as $r) : ?>
-                    <tr>
+                    <tr class="text-start">
                         <td><?= $r['id'] ?></td>
                         <td><?= $r['name'] ?></td>
                         <td><?= $r['typ_id'] ?></td>

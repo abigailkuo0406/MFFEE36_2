@@ -9,7 +9,13 @@ $output = [
 ];
 
 
-if (!empty($_POST['name']) and !empty($_POST['itin_id'])) {
+if (!empty($_POST['member_id']) and !empty($_POST['itin_id'])) {
+
+    $memberName = empty($_POST['member_id']) ? null : $_POST['member_id'];
+
+    $sql_mid = sprintf("SELECT `member_id` FROM `member` WHERE `member_name`='%s'", $memberName);
+
+    $nemberid = $pdo->query($sql_mid)->fetch(PDO::FETCH_NUM)[0];
 
     // #檢查欄位
     // $open_time = empty($_POST['name']) ? null : $_POST['name'];
@@ -31,8 +37,8 @@ if (!empty($_POST['name']) and !empty($_POST['itin_id'])) {
         $_POST['description'],
         $_POST['public'],
         $_POST['ppl'],
-        $_POST['member_id'],
-        $_POST['itin_id']
+        $nemberid,
+        $_POST['itin_id'],
     ]);
     $output['success'] = !!$stmt->rowCount();
 }

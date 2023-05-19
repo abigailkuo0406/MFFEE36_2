@@ -36,20 +36,26 @@
                     <span class="nav-link">自訂行程</span>
                 </a>
             </li> -->
+
+            <!-- 景點 -->
             <li class="nav-item dropdown">
                 <a class="link_btn" href="pei_view_custom_itinerary.php" role="button">
+                    <i class="fa-solid fa-mountain"></i>
+                    景點<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="false"></a>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="pei_view_add_custom_itinerary.php">新增景點</a></li>
+                </ul>
+            </li>
+
+            <!-- 自訂行程 -->
+            <li class="nav-item dropdown">
+                <a class="link_btn" href="pei_itin_custom_itinerary.php" role="button">
                     <span class="material-symbols-outlined nav-icon">map</span>
                     自訂行程<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="false"></a>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="pei_view_custom_itinerary.php">景點資料庫</a></li>
-                    <li><a class="dropdown-item" href="pei_view_add_custom_itinerary.php">新增景點</a></li>
-                    <li><a class="dropdown-item" href="pei_itin_custom_itinerary.php">自訂行程資料庫</a></li>
-                    <li><a class="dropdown-item" href="pei_itin_add_custom_itinerary.php">增加行程資料庫</a></li>
-
-
-
-
+                    <li><a class="dropdown-item" href="pei_itin_add_custom_itinerary.php">行程增加資料庫</a></li>
                 </ul>
             </li>
 
