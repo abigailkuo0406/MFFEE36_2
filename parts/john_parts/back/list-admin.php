@@ -132,7 +132,7 @@ if (isset($_GET['keyword']) && $_GET['keyword'] != '') {
                         <td><?= $r['member_id'] ?></td>
                         <td><?= $r['email'] ?></td>
                         <td><?= $r['password'] ?></td>
-                        <td><?= $r['images'] ?></td>
+                        <td><img src='./parts/john_parts/back/imgs/<?= $r['images'] ?>'></td>
                         <td><?= $r['member_name'] ?></td>
                         <td><?= $r['member_birth'] ?></td>
                         <td><?= $r['id_number'] ?></td>
