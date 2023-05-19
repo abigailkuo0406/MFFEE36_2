@@ -7,6 +7,8 @@ $output = [
     'error' => [],
 ];
 
+
+
 if(!empty($_POST['member_id'])){
     $isPass = true;
 
@@ -23,7 +25,9 @@ if(!empty($_POST['member_id'])){
     // $product_id = empty($_POST['product_id']) ? null : $_POST['product_id'];
     // $product_num = empty($_POST['product_num']) ? null : $_POST['product_num'];
 
-    $sql = "INSERT INTO `Orders`(
+
+/* 成立orders訂單 start */
+    $order_sql = "INSERT INTO `Orders`(
         `member_id`
         ,`receiver_name`
         , `receiver_gender`
@@ -33,15 +37,17 @@ if(!empty($_POST['member_id'])){
         , `order_note`
         , `order_total`
         , `order_time`
-        , `ads`
+        , `ad`
+        , `order_complete`
+        , `order_status`
         ) VALUES (
-            ?, ?, ?, ?, ?, ?, ?,999, now(),1
+            ?, ?, ?, ?, ?, ?, ?, ?, now(),?,?,?
         )";
 
-    $stmt = $pdo->prepare($sql);
+    $order_stmt = $pdo->prepare($order_sql);
 
     if($isPass){
-        $stmt->execute([
+        $order_stmt->execute([
             $_POST['member_id']
             ,$_POST['receiver_name']
             ,$_POST['receiver_gender']
@@ -49,11 +55,52 @@ if(!empty($_POST['member_id'])){
             ,$_POST['receiver_email']
             ,$_POST['receiver_tel']
             ,$_POST['order_note']
+            ,$_POST['order_total']
+            
+            ,$_POST['ad']
+            ,0,"訂單成立"
            
         ]);
     
-        $output['success'] = !! $stmt->rowCount();
+        $output['success'] = !! $order_stmt->rowCount();
+
+        ##當訂單生成後，產生 order id，可以建立新的資料表資料
+        $order_id = $pdo->lastInsertId(); #抓取剛生成資料的 order_id
+
+        $jsonData = $_POST['jsonData'];
+        $product_data = json_decode($jsonData, true);
+        $idArray = $product_data['id'];
+        $numArray = $product_data['num'];
+        $lengthArray = count($idArray);
+
+        for ($i = 0; $i < $lengthArray; $i++){
+            $item_sql = "INSERT INTO `Orders_Items`(
+            `order_id`
+            ,`product_id`
+            , `product_num`
+            ) VALUES (
+                ?, ?, ?
+            )";
+    
+        $item_stmt = $pdo->prepare($item_sql);
+    
+        if($isPass){
+            $item_stmt->execute([
+                $order_id
+                ,$idArray[$i]
+                ,$numArray[$i]
+            ]);
+        }
+
     }
+        
+            $output['success'] = !! $order_stmt->rowCount();
+        
+    }
+    
+
+    
+
 }
 header('Content-Type: application/json');
 echo json_encode($output, JSON_UNESCAPED_UNICODE);

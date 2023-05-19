@@ -7,10 +7,23 @@ require './parts/yun_parts/yun_connect-db.php';
 ?>
 <?php include './parts/head.php' ?>
 <?php include './parts/navbar.php' ?>
+
+<?php
+$p_sql = "SELECT * FROM Products ORDER BY product_id DESC";
+$p_rows = $pdo->query($p_sql)->fetchAll();
+$m_sql = "SELECT * FROM member ORDER BY member_id ASC";
+$m_rows = $pdo->query($m_sql)->fetchAll();
+
+?>
 <style>
 form .mb-3 .form-text {
     color: red;
 }
+.row{
+         display: flex;
+    justify-content: center;
+    margin-top: 60px;
+    }
 </style>
 
 
@@ -24,17 +37,25 @@ form .mb-3 .form-text {
                     <form name="form1" onsubmit="checkForm(event)">
                         <div class="mb-3">
                             <label for="member_id" class="form-label">會員 ID</label>
-                            <input type="text" class="form-control" id="member_id" name="member_id" data-required="1">
+                            <select name="member_id" id="member_id" class="form-control" data-required="1">
+                            <?php foreach($m_rows as $r): ?>
+                                <option value="<?= $r['member_id'] ?>"><?= $r['member_id']." - ".$r['member_name'] ?></option>
+                            <?php endforeach; ?>
+                            </select>
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
                             <label for="product_id" class="form-label">產品 ID</label>
-                            <input type="text" class="form-control" id="product_id" name="product_id">
+                            <select name="product_id" id="product_id" class="form-control" data-required="1">
+                            <?php foreach($p_rows as $r): ?>
+                                <option value="<?= $r['product_id'] ?>"><?= $r['product_name']." - $".$r['product_price'] ?></option>
+                            <?php endforeach; ?>
+                            </select>
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
                             <label for="product_num" class="form-label">購買數量</label>
-                            <input type="text" class="form-control" id="product_num" name="product_num">
+                            <input type="number" min="1" value="1" class="form-control" id="product_num" name="product_num">
                             <div class="form-text"></div>
                         </div>
                         
@@ -42,6 +63,7 @@ form .mb-3 .form-text {
                         <div class="alert alert-danger" role="alert" id="infoBar" style="display:none"></div>
 
                         <button type="submit" class="btn btn-primary">新增</button>
+                        <button type="button" class="btn btn-primary" onclick="goBack()">取消</button>
                     </form>
                 </div>
             </div>
@@ -89,6 +111,9 @@ form .mb-3 .form-text {
                         infoBar.classList.add('alert-success')
                         infoBar.innerHTML = '新增成功'
                         infoBar.style.display = 'block';
+                        setTimeout(()=>{
+                            goBack();
+                        }, 2000);
 
                     } else {
                         infoBar.classList.remove('alert-success')
@@ -114,7 +139,19 @@ form .mb-3 .form-text {
         } else {
             // 沒通過檢查
         }
+        
 
+
+    }
+    function goBack() {
+        if (document.referrer) {
+            var previousPageURL = document.referrer;
+            window.location.href = previousPageURL;
+
+            
+        } else {
+        window.location.href = './yun_cart.php';
+    }
 
     }
 </script>

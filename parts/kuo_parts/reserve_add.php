@@ -3,21 +3,35 @@
 require './parts/kuo_parts/restaurant_connect-db.php';
 
 // 取地區資料
-$sql_area = "SELECT * FROM area_list WHERE 1";
-$areaArray = $pdo->query($sql_area)->fetchAll();
+// $sql_area = "SELECT * FROM area_list WHERE 1";
+// $areaArray = $pdo->query($sql_area)->fetchAll();
 
-// 取料理類型資料
-$sql_class = "SELECT * FROM restaurant_class WHERE 1";
-$classArray = $pdo->query($sql_class)->fetchAll();
+// 取餐廳名稱資料
+$sql_restaurant = "SELECT rest_name FROM `restaurant_list` WHERE 1";
+$restaurantArray = $pdo->query($sql_restaurant)->fetchAll();
+
+// 每頁要顯示的資料數量
+$perPage = 10;
+#計算總筆數
+$t_sql = "SELECT COUNT(1) FROM reserve";
+$totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
+
+// 計算總頁數
+$totalPage = ceil($totalRows / $perPage);
+
 ?>
 
 <style>
     form .mb-3 .form-text {
-        color: red;
+        color: #57BC90;
+    }
+
+    h5 {
+        color: #57BC90;
     }
 </style>
 
-<div class="container">
+<div class="container mt-5">
     <div class="row">
         <div class="col-6">
             <div class="card" style="width: 40rem;">
@@ -29,68 +43,65 @@ $classArray = $pdo->query($sql_class)->fetchAll();
                             <input type="text" class="form-control" id="member_name" name="member_name" value="<?= isset($_POST['member_name']) ? htmlentities($_POST['member_name']) : '' ?>" data-required="1">
                             <div class="form-text"></div>
                         </div>
-                        <div class="mb-3">
-                            <label for="rest_name" class="form-label">餐廳名稱</label>
-                            <input type="text" class="form-control" id="rest_name" name="rest_name" value="<?= isset($_POST['rest_name']) ? htmlentities($_POST['rest_name']) : '' ?>" data-required="1">
-                            <div class="form-text"></div>
-                        </div>
 
                         <div class="mb-3">
-                            <label for="rest_area" class="form-label" class="form-control">所在縣市</label>
-                            <select name="rest_area" id="rest_area" class="form-select" aria-label="Default select example" data-required="2">
+                            <label for="rest_name" class="form-label">訂位餐廳</label>
+
+                            <select name="rest_name" id="rest_name" class="form-select" aria-label="Default select example" data-required="2">
                                 <option selected>--請選擇--</option>
-                                <?php foreach ($areaArray as $i) : ?>
-                                    <option value="<?= $i['area_name'] ?>"><?= $i['area_name'] ?></option>
-                                <?php endforeach ?>
-
-                            </select>
-                            <div class="form-text"></div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="rest_adress" class="form-label">地址</label>
-                            <input type="text" class="form-control" id="rest_adress" name="rest_adress" value="<?= isset($_POST['rest_adress']) ? htmlentities($_POST['rest_adress']) : '' ?>" data-required="1">
-                            <div class="form-text"></div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="rest_class" class="form-label">料理類型</label>
-
-                            <select name="rest_class" id="rest_class" class="form-select" aria-label="Default select example" data-required="2">
-                                <option selected>--請選擇--</option>
-
-                                <?php foreach ($classArray as $c) : ?>
-                                    <option value="<?= $c['rest_class'] ?>"><?= $c['rest_class'] ?></option>
+                                <?php foreach ($restaurantArray as $rt) : ?>
+                                    <option value="<?= $rt['rest_name'] ?>"><?= $rt['rest_name'] ?></option>
                                 <?php endforeach ?>
                             </select>
                             <div class="form-text"></div>
 
 
-                        </div>
 
-                </div>
-                <!-- 上傳檔案 -->
-                <!-- <div class="input-group mb-3">
+                            <div class="mb-3">
+                                <label for="reserve_date" class="form-label">訂位日期</label>
+                                <input type="date" class="form-control" id="reserve_date" name="reserve_date" value="<?= isset($_POST['reserve_date']) ? htmlentities($_POST['reserve_date']) : '' ?>" data-required="1">
+                                <div class="form-text"></div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="reserve_time" class="form-label">訂位時間</label>
+                                <input type="time" class="form-control" id="reserve_time" name="reserve_time" value="<?= isset($_POST['reserve_time']) ? htmlentities($_POST['reserve_time']) : '' ?>" data-required="1">
+                                <div class="form-text"></div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="reserve_people" class="form-label">訂位人數</label>
+                                <input type="number" class="form-control" id="reserve_people" name="reserve_people" value="<?= isset($_POST['reserve_people']) ? htmlentities($_POST['reserve_people']) : '' ?>" data-required="1">
+                                <div class="form-text"></div>
+                            </div>
+
+
+
+
+
+
+                            <!-- 上傳檔案 -->
+                            <!-- <div class="input-group mb-3">
                             <input type="file" class="form-control" id="inputGroupFile02">
                             <label class="input-group-text" for="inputGroupFile02"><i class="fa-solid fa-ellipsis"></i></label>
                         </div> -->
 
-                <!-- <div class="mb-3">
+                            <!-- <div class="mb-3">
                             <label for="">資料建立時間</label>
 
                         </div> -->
 
-                <div class="alert alert-danger" role="alert" id="infoBar" style="display:none"></div>
+                            <div class="alert alert-danger" role="alert" id="infoBar" style="display:none"></div>
 
-                <button type="submit" class="btn btn-primary">新增</button>
+                            <button type="submit" class="btn btn-primary">新增</button>
 
-                </form>
+                    </form>
+                </div>
             </div>
+
+
         </div>
-
-
     </div>
-</div>
 
 
 
@@ -120,7 +131,7 @@ $classArray = $pdo->query($sql_class)->fetchAll();
         for (let f of fields) {
             if (!f.value) {
                 ispass = false;
-                f.style.border = '1px solid red';
+                f.style.border = '1px solid #57BC90';
                 f.nextElementSibling.innerHTML = '請輸入資料'
             }
 
@@ -129,7 +140,7 @@ $classArray = $pdo->query($sql_class)->fetchAll();
         for (let s of selects) {
             if (s.value == '--請選擇--') {
                 ispass = false;
-                s.style.border = '1px solid red';
+                s.style.border = '1px solid #57BC90';
                 s.nextElementSibling.innerHTML = '請選擇欄位'
             }
 
@@ -139,7 +150,7 @@ $classArray = $pdo->query($sql_class)->fetchAll();
         if (ispass) {
             const fd = new FormData(document.restaurant_addform);
 
-            fetch('kuo_restaurant_add_api.php', {
+            fetch('kuo_reserve_add_api.php', {
                     method: 'POST',
                     body: fd,
                 })
@@ -152,6 +163,9 @@ $classArray = $pdo->query($sql_class)->fetchAll();
                         infoBar.classList.add('alert-success')
                         infoBar.innerHTML = '新增成功'
                         infoBar.style.display = 'block';
+                        setTimeout(() => {
+                            goback();
+                        }, 2000);
 
                     } else {
                         infoBar.classList.remove('alert-success')
@@ -177,5 +191,11 @@ $classArray = $pdo->query($sql_class)->fetchAll();
         } else {
             // 沒通過檢查
         }
+    }
+
+    function goback() {
+        // let previousPageUrl = document.referrer;
+        // location.href = previousPageUrl;
+        window.location.href = './kuo_reserve_list.php?page=<?= $totalPage ?>'
     }
 </script>

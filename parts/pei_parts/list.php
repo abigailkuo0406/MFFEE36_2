@@ -1,40 +1,55 @@
 <?php
 #MVC
-$pageName = 'list';
-// $title = '列表';
+// $pageName = 'list';
+
 require './parts/pei_parts/connect-db.php';
 
 $perPage = 10; # 每頁最多幾筆
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1; # 用戶要看第幾頁
+#抓搜尋欄位的value
+$search = isset($_GET['search_city']) ? $_GET['search_city'] : null;
 
+#判斷有沒有抓到縣市的值
+if ($search) {
+    $t_sql = sprintf("SELECT COUNT(1) FROM `attractions` where city='%s'", $search);
+    $sql = sprintf("SELECT * FROM attractions where city= '%s' ORDER BY id LIMIT %s,%s", $search, ($page - 1) * $perPage, $perPage);
+} else {
+    $t_sql = "SELECT COUNT(1) FROM `attractions`";
+    $sql = sprintf("SELECT * FROM attractions ORDER BY id LIMIT %s,%s", ($page - 1) * $perPage, $perPage);
+}
 
 //計算總筆數
-$t_sql = "SELECT COUNT(1) FROM `attractions`";
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0]; //總筆數
 $totalPages = ceil($totalRows / $perPage); //總頁數
 $rows = [];
+
 
 if ($totalRows) {
     if ($page > $totalPages) {
         header("Location:?page=$totalpages");
         exit;
     }
-    $sql = sprintf("SELECT * FROM attractions ORDER BY id DESC LIMIT %s,%s", ($page - 1) * $perPage, $perPage);
     $rows = $pdo->query($sql)->fetchAll();
 }
-?>
 
+?>
+<!-- 搜尋縣市欄 -->
 <div class="container mt-4">
-    <!-- 篩選bar -->
-    <form action="" method="$_POST" accept-charset="utf-8">
-        <div class="col-sm-3">
-            <label class="visually-hidden">城市</label>
-            <select class="form-select" id="city" name="city">
-                <option selected>-------------選擇-------------</option>
-                <option value="1">台北市</option>
-                <option value="2">新北市</option>
-                <option value="3">基隆市</option>
+    <form class="row row-cols-lg-auto g-3 align-items-center" method=" GET" action="">
+        <div class="col-12">
+            <label class="visually-hidden" for="city1">選擇城市：</label>
+            <select name="search_city" id="city1" class="form-select">
+                <option selected value="">---請選擇城市---</option>
+                <option value="台北市">台北市</option>
+                <option value="新北市">新北市</option>
+                <option value="基隆市">基隆市</option>
             </select>
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-outline-primary" id="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+        <div class="row row-cols-lg-auto g-3 align-items-center4">
+            <p class="font-monospace fw-normal">共有：<?php echo $totalRows ?> 筆</p>
         </div>
     </form>
     <div class="row">
@@ -74,11 +89,13 @@ if ($totalRows) {
                 </li>
             </ul>
         </nav>
+
     </div>
+    <!-- 列表的呈現表格各個名稱 ,table-striped -->
     <div class="row">
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-hover">
             <thead>
-                <tr>
+                <tr class="align-middle text-center">
                     <th scope="col">#</th>
                     <th scope="col">景點</th>
                     <th scope="col">類型</th>
@@ -93,7 +110,7 @@ if ($totalRows) {
             </thead>
             <tbody>
                 <?php foreach ($rows as $r) : ?>
-                    <tr>
+                    <tr class="text-start">
                         <td><?= $r['id'] ?></td>
                         <td><?= $r['name'] ?></td>
                         <td><?= $r['typ_id'] ?></td>
@@ -102,6 +119,7 @@ if ($totalRows) {
                         <td><?= $r['open_time'] ?></td>
                         <td><?= $r['address'] ?></td>
                         <td><?= $r['tel'] ?></td>
+                        <!-- 垃圾桶＆編輯icon -->
                         <td><a href="javascript:delete_it(<?= $r['id'] ?>)">
                                 <i class="fa-regular fa-trash-can"></i></a></td>
                         <td><a href="pei_edit-view.php?id=<?= $r['id'] ?>">

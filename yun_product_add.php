@@ -11,6 +11,11 @@ require './parts/yun_parts/yun_connect-db.php';
 form .mb-3 .form-text {
     color: red;
 }
+.row{
+         display: flex;
+    justify-content: center;
+    margin-top: 60px;
+    }
 </style>
 
 
@@ -29,7 +34,7 @@ form .mb-3 .form-text {
                         </div>
                         <div class="mb-3">
                             <label for="product_price" class="form-label">價格</label>
-                            <input type="text" class="form-control" id="product_price" name="product_price" data-required="1">
+                            <input type="number" min="1" class="form-control" id="product_price" name="product_price" data-required="1">
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
@@ -50,7 +55,7 @@ form .mb-3 .form-text {
                         </div>
                         <div class="mb-3">
                             <label for="product_launch" class="form-label">上架時間</label>
-                            <input type="datetime-local" class="form-control" id="product_launch" name="product_launch">
+                            <input type="datetime-local" class="form-control" id="product_launch" name="product_launch" value="<?= date('Y-m-d\TH:i'); ?>">
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
@@ -83,6 +88,8 @@ form .mb-3 .form-text {
                         <div class="alert alert-danger" role="alert" id="infoBar" style="display:none"></div>
 
                         <button type="submit" class="btn btn-primary">新增</button>
+                        <button type="button" class="btn btn-primary" onclick="goBack()">取消</button>
+
                     </form>
                 </div>
             </div>
@@ -228,10 +235,15 @@ form .mb-3 .form-text {
     }
     function goBack() {
         if (document.referrer) {
-            history.back();
+            var previousPageURL = document.referrer;
+            window.location.href = previousPageURL;
+
+            
         } else {
         window.location.href = './yun_product.php';
     }
-}
+//
+
+    }
 </script>
 <?php include './parts/foot.php' ?>

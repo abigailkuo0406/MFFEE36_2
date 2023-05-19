@@ -12,11 +12,20 @@ include './parts/pei_parts/connect-db.php';
 $itin_id = isset($_GET["itin_id"]) ? (string)$_GET["itin_id"] : '';
 $sql = "SELECT * FROM Itinerary WHERE itin_id ='{$itin_id}'";
 
+
+
 $row = $pdo->query($sql)->fetch();
 if (empty($row)) {
     header('Location:itin_list.php');
     exit;
 }
+//將會員id轉換成會員姓名
+$memberID = empty($row['member_id']) ? null : $row['member_id'];
+
+$sql_mid = sprintf("SELECT `member_name` FROM `member` WHERE `member_id`='%s'", $memberID);
+
+$memberName = $pdo->query($sql_mid)->fetch(PDO::FETCH_NUM)[0];
+
 ?>
 
 
@@ -35,7 +44,7 @@ if (empty($row)) {
                     <form name=form1 onsubmit="checkForm(event)">
                         <div class="mb-3">
                             <label for="itin_id " class="form-label">行程編號</label>
-                            <input type="text" class="form-control" id="itin_id" name="itin_id" data-required="1" value="<?= $row['itin_id'] ?>">
+                            <input type="text" class="form-control" id="itin_id" name="itin_id" data-required="1" value="<?= $row['itin_id'] ?>" readonly style="background-color:#F0F0F0;">
                             <div class=" form-text" style="color:red">
                             </div>
                         </div>
@@ -55,10 +64,10 @@ if (empty($row)) {
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
-                            <label for="public" class="form-label">是否需要公開</label>
-                            <input class="form-check-input" type="radio" name="public[]" id="public" value="公開" checked>
+                            <label for="public" class="form-label">是否需要公開?</label>
+                            <input class="form-check-input" type="radio" name="public" id="public1" value="公開" <?= $row['public'] == "公開" ? 'checked' : '' ?>>
                             <label class="form-check-label" for="public">公開</label>
-                            <input class="form-check-input" type="radio" name="public[]" id="public" value="不公開">
+                            <input class="form-check-input" type="radio" name="public" id="public2" value="不公開" <?= $row['public'] == "不公開" ? 'checked' : '' ?>>
                             <label class="form-check-label" for="public">不公開</label>
                             <div class="form-text"></div>
                         </div>
@@ -68,17 +77,17 @@ if (empty($row)) {
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
-                            <label for="member_id" class="form-label">會員編號</label>
-                            <input type="text" class="form-control" id="member_id" name="member_id" data-required="1" value="<?= $row['member_id'] ?>">
-                            <div class="form-text" style="color:red"></div>
+                            <label for="member_id" class="form-label">會員姓名</label>
+                            <input type="text" class="form-control" id="member_id" name="member_id" data-required="1" value="<?= $memberName ?>" style="background-color:#F0F0F0;" readonly>
+
                         </div>
-                        <div class="mb-3">
+                        <div class=" mb-3">
                             <label for="create_at" class="form-label">建立時間</label>
                             <input type="text" class="form-control" id="create_at" name="create_at" value="<?= $row['create_at'] ?>">
                             <div class="form-text"></div>
                         </div>
                         <div class="alert alert-danger" role="alert" id="infoBar" style="display: none;"></div>
-                        <button type="submit" class="btn btn-primary">編輯</button>
+                        <button type="submit" class="btn btn-primary">編輯完成</button>
                     </form>
                 </div>
             </div>
@@ -120,7 +129,7 @@ if (empty($row)) {
             // 有通過就執行
             const fd = new FormData(document.form1); //沒有外觀的form的物件
 
-            fetch('pei_itin_add-api.php', {
+            fetch('pei_edit-api-itin.php', {
                     method: 'POST',
                     body: fd, //Content-Type 省略,multipart/form-data
                 }).then(r => r.json())
@@ -132,6 +141,9 @@ if (empty($row)) {
                         infoBar.classList.add('alert-success')
                         infoBar.innerHTML = '新增成功'
                         infoBar.style.display = 'block';
+                        setTimeout(() => {
+                            goback();
+                        }, 2000)
 
                     } else {
                         infoBar.classList.remove('alert-success')
@@ -167,6 +179,10 @@ if (empty($row)) {
     const second = now.getSeconds();
     const formattedTime = year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
     document.getElementById("create_at").value = formattedTime;
+
+    function goback() {
+        window.location = './pei_itin_custom_itinerary.php'
+    }
 </script>
 <?php # include './parts/html-foot.php' 
 ?>

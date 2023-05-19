@@ -12,6 +12,11 @@ $r = $pdo->query($sql)->fetch();
 form .mb-3 .form-text {
     color: red;
 }
+.row{
+         display: flex;
+    justify-content: center;
+    margin-top: 60px;
+    }
 </style>
 
 
@@ -33,7 +38,7 @@ form .mb-3 .form-text {
                         </div>
                         <div class="mb-3">
                             <label for="product_price" class="form-label">價格</label>
-                            <input type="text" class="form-control" id="product_price" name="product_price" data-required="1" value="<?= htmlentities($r['product_price']) ?>">
+                            <input type="number" min="1" class="form-control" id="product_price" name="product_price" data-required="1" value="<?= htmlentities($r['product_price']) ?>">
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
@@ -93,7 +98,7 @@ form .mb-3 .form-text {
 
                         <div class="mb-3">
                             <label for="product_description" class="form-label">商品描述</label>
-                            <textarea class="form-control" id="product_description" name="product_description" data-required="1"  value="<?= htmlentities($r['product_description']) ?>"></textarea>
+                            <textarea class="form-control" id="product_description" name="product_description" data-required="1"><?= htmlentities($r['product_description']) ?></textarea>
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
@@ -105,6 +110,9 @@ form .mb-3 .form-text {
 
                         <div id="infoBar" class="alert alert-danger" role="alert" style="display:none"></div>
                         <button type="submit" class="btn btn-primary">編輯</button>
+                        <button type="button" class="btn btn-primary" onclick="goBack()">取消</button>
+
+                        
                     </form>
                 </div>
             </div>

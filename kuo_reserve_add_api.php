@@ -2,36 +2,46 @@
 
 require './parts/kuo_parts/restaurant_connect-db.php';
 
+
+
 $output = [
     'success' => false,
     'postData' => $_POST,
     'code' => 0,
     'error' => '',
 ];
-if (!empty($_POST['rest_name'])) {
+if (!empty($_POST['member_name'])) {
     $ispass = true;
 
-    $sql = "INSERT INTO `restaurant_list` (
-        `rest_name`, `rest_area`, `rest_adress`, 
-        `rest_lon`, `rest_lat`, `rest_intro`, 
-        `rest_class`
-        ) VALUES (
-            ?,?,?, 
-            ?,?,?,
-            ?
-            )";
+    // 把會員名字轉成會員ID讀進資料庫
+    $memberName = empty($_POST['member_name']) ? null : $_POST['member_name'];
+
+    $sql_memberId = sprintf("SELECT `member_id` FROM `member` WHERE `member_name` = '%s'", $memberName);
+
+    $memberId = $pdo->query($sql_memberId)->fetch(PDO::FETCH_NUM)[0];
+
+
+    // 把餐廳名稱轉成餐廳ID讀進資料庫
+    $restName = empty($_POST['rest_name']) ? null : $_POST['rest_name'];
+    $sql_restId = sprintf("SELECT `rest_id` FROM `restaurant_list` WHERE `rest_name`='%s'", $restName);
+    $restrId = $pdo->query($sql_restId)->fetch(PDO::FETCH_NUM)[0];
+
+
+    $sql = "INSERT INTO `reserve`
+    (`member_id`, `rest_id`, `reserve_date`, `reserve_time`, `reserve_people`) 
+    VALUES (?,?,?,?,?)";
 
 
     $stmt = $pdo->prepare($sql);
     if ($ispass) {
         $stmt->execute([
-            $_POST['rest_name'],
-            $_POST['rest_area'],
-            $_POST['rest_adress'],
-            $_POST['rest_lon'],
-            $_POST['rest_lat'],
-            $_POST['rest_intro'],
-            $_POST['rest_class'],
+            $memberId,
+            $restrId,
+            // $_POST['member_id'],
+            // $_POST['rest_id'],
+            $_POST['reserve_date'],
+            $_POST['reserve_time'],
+            $_POST['reserve_people']
         ]);
     }
     $output['success'] = !!$stmt->rowCount();

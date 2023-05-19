@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 17, 2023 at 01:24 AM
+-- Generation Time: May 19, 2023 at 03:17 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -18,38 +18,45 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `testdb`
+-- Database: `mid-term`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `userdetails`
+-- Table structure for table `whopost`
 --
 
-CREATE TABLE `userdetails` (
+CREATE TABLE `whopost` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL
+  `email` varchar(100) NOT NULL,
+  `post` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `userdetails`
+-- Dumping data for table `whopost`
 --
 
-INSERT INTO `userdetails` (`id`, `name`, `email`) VALUES
-(1, 'John Doe', 'john@gmail.com'),
-(2, 'Thomas', 'thomasniu@gmail.com'),
-(3, 'Thomas', 'thomasniu@gmail.com');
+INSERT INTO `whopost` (`id`, `name`, `email`, `post`) VALUES
+(8, 'Peter', 'peter@gmail.com', '我愛耶穌'),
+(9, 'Steve', 'steve@gmail.com', '星期五要守齋'),
+(10, 'Stark', 'tony@gmail.com', '耶穌復活了！！'),
+(11, 'Mark', 'mark@gmail.com', '阿門'),
+(14, '光頭強', 'nohair@gmail.com', '我是光頭強'),
+(15, 'Gucci', 'gucci@gmail.com', 'luxury stuff'),
+(16, 'Jerry', 'jerry@yahoo.com', '守齋比較好啦！'),
+(17, '黑面蔡', 'amao@yahoo.com', '耶穌復活了！！'),
+(18, '光頭強', 'nohair@gmail.com', '請問哪裡有賣便宜的假髮？');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `userdetails`
+-- Indexes for table `whopost`
 --
-ALTER TABLE `userdetails`
+ALTER TABLE `whopost`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -57,10 +64,10 @@ ALTER TABLE `userdetails`
 --
 
 --
--- AUTO_INCREMENT for table `userdetails`
+-- AUTO_INCREMENT for table `whopost`
 --
-ALTER TABLE `userdetails`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `whopost`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

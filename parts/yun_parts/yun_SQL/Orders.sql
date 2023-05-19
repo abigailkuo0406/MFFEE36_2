@@ -3,10 +3,10 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： localhost:8889
--- 產生時間： 2023 年 05 月 16 日 07:27
+-- 產生時間： 2023 年 05 月 19 日 02:20
 -- 伺服器版本： 5.7.39
 -- PHP 版本： 8.2.0
--- 
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -24,10 +24,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `Orders`
+-- 資料表結構 `orders`
 --
 
-CREATE TABLE `Orders` (
+CREATE TABLE `orders` (
   `order_id` int(11) NOT NULL,
   `member_id` int(11) NOT NULL,
   `receiver_name` varchar(20) NOT NULL,
@@ -38,27 +38,29 @@ CREATE TABLE `Orders` (
   `order_note` varchar(255) DEFAULT NULL,
   `order_total` decimal(10,2) NOT NULL,
   `order_time` datetime NOT NULL,
-  `ads` tinyint(1) NOT NULL
+  `ad` tinyint(1) NOT NULL,
+  `order_complete` tinyint(1) NOT NULL,
+  `complete_time` datetime DEFAULT NULL,
+  `order_status` varchar(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- 傾印資料表的資料 `Orders`
+-- 傾印資料表的資料 `orders`
 --
 
-INSERT INTO `Orders` (`order_id`, `member_id`, `receiver_name`, `receiver_gender`, `receiver_address`, `receiver_email`, `receiver_tel`, `order_note`, `order_total`, `order_time`, `ads`) VALUES
-(999991, 99999111, '我是收件者', '先生', '我家地址', 'abc123@gmail.com', '0988888888', '交送給大樓管理員', '198.00', '2023-05-15 01:30:08', 1),
-(9999912, 878787, '我是收件者', '先生', '我家地址', 'abc123@gmail.com', '0988888888', '交送給大樓管理員', '198.00', '2023-05-15 01:30:08', 1),
-(9999913, 123, '123', '123', '123', '123', '123', '123', '999.00', '2023-05-16 02:19:04', 1),
-(9999914, 111111, '', '', '', '', '', '', '999.00', '2023-05-16 02:20:00', 1);
+INSERT INTO `orders` (`order_id`, `member_id`, `receiver_name`, `receiver_gender`, `receiver_address`, `receiver_email`, `receiver_tel`, `order_note`, `order_total`, `order_time`, `ad`, `order_complete`, `complete_time`, `order_status`) VALUES
+(1, 1, '龎哲宇', '先生', '基隆市七堵區', 'mail739856@test.com', '0911506206', '交由管理員', '600.00', '2023-05-19 02:38:59', 1, 0, '2023-05-19 02:39:18', '已完成'),
+(2, 8, '秦昱凱', '小姐', '臺北市中正區', 'mail426212@test.com', '0911482140', '阿咪陀佛', '450.00', '2023-05-19 02:41:18', 1, 0, NULL, '已取消'),
+(3, 17, '何昱翔', '小姐', '新北市泰山區', 'mail354332@test.com', '0911217083', '！', '3798.00', '2023-05-19 10:16:43', 1, 0, NULL, '訂單成立');
 
 --
 -- 已傾印資料表的索引
 --
 
 --
--- 資料表索引 `Orders`
+-- 資料表索引 `orders`
 --
-ALTER TABLE `Orders`
+ALTER TABLE `orders`
   ADD PRIMARY KEY (`order_id`);
 
 --
@@ -66,10 +68,10 @@ ALTER TABLE `Orders`
 --
 
 --
--- 使用資料表自動遞增(AUTO_INCREMENT) `Orders`
+-- 使用資料表自動遞增(AUTO_INCREMENT) `orders`
 --
-ALTER TABLE `Orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9999915;
+ALTER TABLE `orders`
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

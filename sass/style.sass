@@ -3,21 +3,33 @@
 @import _color
 
 :root
-    --cus1: #333EBC
-    --cus2: #f4f6fa
-    --cus3: #7ac3f1
+    // --cus1: #333EBC
+    // --cus2: #f4f6fa
+    // --cus3: #7ac3f1
+    // --cus4: #f5f9fc
 
+    --cus1: #001210
+    --cus2: #fcfbfb
+    --cus3: #57BC90
+    --cus4: #77C9D4
+    --cus5: #A5A5AF
+    --cus6: #015249
+    --cus7: #b3f9db
+    --cus8: #f3fdf9
 /* General */
 html
-  margin: 0
-  padding: 0
-
+    margin: 0
+    padding: 0
+body
+    background-color: var(--cus2)
 li a, li span
     text-decoration: none
 
-nav
+nav.offcanvas
     overflow: scroll
-
+    .navbar_content
+        background: rgb(119,201,212)
+        background: linear-gradient(68deg, rgba(119,201,212,1) 30%, rgba(87,188,144,1) 100%)
 
 #Logo
     .btn-close
@@ -37,42 +49,99 @@ nav
         &:not(.dropdown .link_btn)
             padding: 20px 0 25px 0
     &:hover
-        background-color: var(--cus1)
+        background-color: var(--cus3)
         span, a, i
             color: var(--cus2)
 #offcanvasScrolling .nav-item span, #offcanvasScrolling .nav-item a, #offcanvasScrolling .nav-item i
     display: block
     text-align: center
-    color: var(--cus1)
+    color: white
 #offcanvasScrolling .nav-link
     margin-top: 2px
     &:focus
-        color: var(--cus1)
+        color: white
 #offcanvasScrolling  .nav-icon
     font-size: 28px
 
 #offcanvasScrolling .navbar_content
-  width: 100%
+    width: 100%
 
 #offcanvasScrolling .dropdown-menu
-  background-color: rgba(0, 0, 0, 0)
-  border: none
-  padding: 0
-  width: 100px
-  .dropdown-item
+    background-color: rgba(0, 0, 0, 0)
+    border: none
+    padding: 0
+    width: 100px
+.dropdown-item
     &:hover
         background-color: transparent
-        color: var(--cus3)
+        color: var(--cus6)
     &:focus
         background-color: transparent
         color: var(--cus3)
 #OffcanvasNav
     height: 100vh
-    color: var(--cus1)
+    color: var(--cus7)
     background-color: var(--cus2)
     border-radius: 0
     &:hover
         color: var(--cus2)
-        background-color: var(--cus1)
+        background-color: var(--cus7)
 .main_screen
     width: 100%
+thead, tbody, tfoot, tr, td, th
+    border-style: none
+    vertical-align: middle
+
+table
+    border-collapse: collapse
+    img
+        width: 165px
+        height: auto
+        max-height: 165px
+th
+    color: var(--cus3)
+    font-weight: normal
+    font-size: 16px
+
+tbody>tr
+    background-color: white
+    border-collapse: separate
+    border-top: 15px var(--cus2) solid
+    border-bottom: 15px var(--cus2) solid
+    &:hover
+        background-color: var(--cus8)
+td
+    color: var(--cus1) white
+    font-size: 16px
+    i
+        color: var(--cus3)
+        &:hover
+            color: var(--cus6)
+    &:not(td:last-child)
+        border-right: 1px solid var(--cus2)
+.order_hover_yes>i
+    color: var(--cus3)
+    &:hover
+        color: var(--cus6)
+.order_hover_no>i
+    color: var(--cus6)
+    &:hover
+        color: var(--cus6)
+thead>tr
+        border-collapse: separate
+    th
+        &:not(th:last-child)
+
+.btn
+    background-color: var(--cus3)
+    border: none
+    &:hover
+        background-color: var(--cus6)
+    &:active
+        background-color: var(--cus6)
+form > button > i
+    color: white
+.card button:first-child
+    margin-right: 5px
+#intro
+    background-color: var(--cus7)

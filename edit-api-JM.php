@@ -36,7 +36,7 @@ $sql = "UPDATE `member` SET
     `gender`=?,
     `location`=?,
     `height`=?,
-    `weight`=?
+    `weight`=?,
     `zodiac`=?,
     `bloodtype`=?,
     `smoke`=?,
@@ -45,7 +45,7 @@ $sql = "UPDATE `member` SET
     `job`=?,
     `profile`=?,
     `mobile`=?
-    WHERE `member_id `=? ";
+    WHERE `member_id`=? ";
 
 $stmt = $pdo->prepare($sql);
 

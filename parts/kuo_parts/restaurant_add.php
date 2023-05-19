@@ -9,15 +9,32 @@ $areaArray = $pdo->query($sql_area)->fetchAll();
 // 取料理類型資料
 $sql_class = "SELECT * FROM restaurant_class WHERE 1";
 $classArray = $pdo->query($sql_class)->fetchAll();
+
+// 每頁要顯示的資料數量
+$perPage = 10;
+#計算總筆數
+$t_sql = "SELECT COUNT(1) FROM restaurant_list";
+$totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
+
+// 計算總頁數
+$totalPage = ceil($totalRows / $perPage);
+
+
 ?>
+
+
 
 <style>
     form .mb-3 .form-text {
-        color: red;
+        color: #57BC90;
+    }
+
+    h5 {
+        color: #57BC90;
     }
 </style>
 
-<div class="container">
+<div class="container my-3">
     <div class="row">
         <div class="col-6">
             <div class="card" style="width: 40rem;">
@@ -129,7 +146,7 @@ $classArray = $pdo->query($sql_class)->fetchAll();
         for (let f of fields) {
             if (!f.value) {
                 ispass = false;
-                f.style.border = '1px solid red';
+                f.style.border = '1px solid #57BC90';
                 f.nextElementSibling.innerHTML = '請輸入資料'
             }
 
@@ -138,7 +155,7 @@ $classArray = $pdo->query($sql_class)->fetchAll();
         for (let s of selects) {
             if (s.value == '--請選擇--') {
                 ispass = false;
-                s.style.border = '1px solid red';
+                s.style.border = '1px solid #57BC90';
                 s.nextElementSibling.innerHTML = '請選擇欄位'
             }
 
@@ -161,6 +178,9 @@ $classArray = $pdo->query($sql_class)->fetchAll();
                         infoBar.classList.add('alert-success')
                         infoBar.innerHTML = '新增成功'
                         infoBar.style.display = 'block';
+                        setTimeout(() => {
+                            goback();
+                        }, 2000);
 
                     } else {
                         infoBar.classList.remove('alert-success')
@@ -186,5 +206,11 @@ $classArray = $pdo->query($sql_class)->fetchAll();
         } else {
             // 沒通過檢查
         }
+    }
+
+    function goback() {
+        // let previousPageUrl = document.referrer;
+        // location.href = previousPageUrl;
+        window.location.href = './kuo_restaurant_list.php?page=<?= $totalPage ?>'
     }
 </script>

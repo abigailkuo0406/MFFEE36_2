@@ -5,7 +5,7 @@
             <div class="w-100 d-flex justify-content-end pe-3 pt-2">
                 <button type="button" class="btn-close d-block" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
-            <a>旅遊交友</a>
+            <a href="account_main.php"><img src="./imgs/logo/logo.png" style="width: 70%"></a>
         </div>
 
         <ul class="navbar-nav d-flex align-items-center flex-grow-1">
@@ -21,23 +21,12 @@
                     <span class="material-symbols-outlined nav-icon">account_circle</span>
                     會員中心<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="false"></a>
                 </a>
-
-                <!-- <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
-            </a> -->
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">興趣資料庫</a></li>
-                    <li><a class="dropdown-item" href="#">性格資料庫</a></li>
-                    <li><a class="dropdown-item" href="#">社群資料庫</a></li>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuClickable">
+                    <li><a class="dropdown-item" href="account.php">列表</a></li>
+                    <li><a class="dropdown-item" href="account_add.php">新增</a></li>
                 </ul>
             </li>
-            <!-- 交友配對 -->
-            <li class="nav-item">
-                <a href="matching.php" class="link_btn">
-                    <span class="material-symbols-outlined nav-icon">person_search</span>
-                    <span class="nav-link">交友配對</span>
-                </a>
-            </li>
+         
 
 
             <!-- 自訂行程 -->
@@ -47,16 +36,29 @@
                     <span class="nav-link">自訂行程</span>
                 </a>
             </li> -->
+
+            <!-- 景點 -->
             <li class="nav-item dropdown">
-                <a class="link_btn" href="custom_itinerary.php" role="button">
+                <a class="link_btn" href="pei_view_custom_itinerary.php" role="button">
+                    <i class="fa-solid fa-mountain"></i>
+                    景點<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="false"></a>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="pei_view_add_custom_itinerary.php">新增景點</a></li>
+                </ul>
+            </li>
+
+            <!-- 自訂行程 -->
+            <li class="nav-item dropdown">
+                <a class="link_btn" href="pei_itin_custom_itinerary.php" role="button">
                     <span class="material-symbols-outlined nav-icon">map</span>
                     自訂行程<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="false"></a>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="./parts/pei_parts/pei_add.php">景點資料庫</a></li>
-                    <li><a class="dropdown-item" href="#">自訂行程資料庫</a></li>
+                    <li><a class="dropdown-item" href="pei_itin_add_custom_itinerary.php">行程增加資料庫</a></li>
                 </ul>
             </li>
+
 
             <!-- 餐廳 & 票券 -->
             <!-- <li class="nav-item">
@@ -67,8 +69,8 @@
             </li> -->
             <li class="nav-item dropdown">
                 <a class="link_btn" href="kuo_restaurant_list.php" role="button">
-                    <span class="material-symbols-outlined nav-icon">local_activity</span>
-                    餐廳與訂位管理<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="false"></a>
+                    <i class="fa-solid fa-utensils"></i>
+                    餐廳管理<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="false"></a>
                 </a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="kuo_restaurant_list.php">餐廳管理
@@ -80,11 +82,24 @@
                         </a>
                     </li>
                     <li><a class="dropdown-item" href="kuo_restaurant_add.php">新增餐廳</a></li>
-                    <!-- <li><a class="dropdown-item" href="#">訂位管理</a></li> -->
+                    <li><a class="dropdown-item" href="kuo_restaurant_class_list.php">餐廳類型管理</a></li>
+                    <li><a class="dropdown-item" href="kuo_restaurant_class_add.php">新增餐廳類型</a></li>
+
 
                 </ul>
             </li>
+            <li class="nav-item dropdown">
+                <a class="link_btn" href="kuo_reserve_list.php" role="button">
+                    <span class="material-symbols-outlined nav-icon">local_activity</span>
+                    訂位管理<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="false"></a>
+                </a>
+                <ul class="dropdown-menu">
 
+                    <li><a class="dropdown-item" href="kuo_reserve_list.php">訂位管理</a></li>
+                    <li><a class="dropdown-item" href="kuo_reserve_add.php">新增訂位</a></li>
+
+                </ul>
+            </li>
 
             <!-- 官方行程 -->
             <li class="nav-item">
@@ -103,16 +118,23 @@
 
             <!-- 商品資料庫 -->
             <li class="nav-item">
-                <a href="product.php" class="link_btn">
+                <a href="yun_product.php" class="link_btn">
                     <span class="material-symbols-outlined nav-icon">local_mall</span>
                     <span class="nav-link">商品資料庫</span>
                 </a>
             </li>
             <!-- 購物資料庫 -->
             <li class="nav-item">
-                <a href="cart.php" class="link_btn">
+                <a href="yun_cart.php" class="link_btn">
                     <span class="material-symbols-outlined nav-icon">shopping_cart</span>
-                    <span class="nav-link">購物資料庫</span>
+                    <span class="nav-link">購物車資料庫</span>
+                </a>
+            </li>
+            <!-- 訂單資料庫 -->
+            <li class="nav-item">
+                <a href="yun_order.php" class="link_btn">
+                    <span class="material-symbols-outlined">description</span>
+                    <span class="nav-link">訂單資料庫</span>
                 </a>
             </li>
         </ul>
